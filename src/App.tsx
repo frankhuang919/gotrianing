@@ -112,6 +112,14 @@ function App() {
             )}
           </div>
 
+          {/* EMERGENCY DEBUGGER */}
+          <div className="absolute top-4 left-4 z-50 bg-black/80 text-green-400 p-4 rounded font-mono text-xs border border-green-500 pointer-events-none">
+            <p>STATUS: {status}</p>
+            <p>STONES: {useGameStore.getState().boardState.length}</p>
+            <p>META: {josekiMeta?.id || 'None'}</p>
+            <p>FEEDBACK: {feedback}</p>
+          </div>
+
           <ErrorBoundary>
             <GoBoard />
           </ErrorBoundary>
