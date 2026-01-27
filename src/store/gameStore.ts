@@ -405,17 +405,8 @@ export const useGameStore = create<GameState>()(
 
                     if (move) {
                         set(state => {
-                            // Avoid duplicates?
-                            const exists = state.boardState.some(s => s.x === move.x && s.y === move.y);
-                            if (exists) return {};
-
                             const newState = [...state.boardState, move];
-                            // Update feedback with current move number
-                            // const currentStep = step + 1;
-                            return {
-                                boardState: newState,
-                                // Optional: Update feedback per move? Maybe too noisy.
-                            };
+                            return { boardState: newState };
                         });
                     }
                     step++;
