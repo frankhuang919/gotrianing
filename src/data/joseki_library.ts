@@ -256,5 +256,47 @@ export const josekiLibrary: JosekiPattern[] = [
 ;W[nf]
 ;B[mf]
 ;W[ng]C[正解：白棋得实地与外势，黑棋外势雄厚。]))`
+    },
+
+    // --- AI-2024 (Chunlan Cup / League Pack) ---
+    {
+        id: 'star-mi-knife-simple',
+        title: '星位·芈氏飞刀 (简明闪躲型)',
+        difficulty: 4,
+        description: '取自第15届春兰杯 (柯洁 vs 芈昱廷)。白棋点三三后，面对黑棋的强硬变化，选择简明取地做活。',
+        usage: '当不希望卷入复杂的“芈氏飞刀”大型变化时，此图为双方最佳妥协。',
+        sgf: `(;GM[1]FF[4]CA[UTF-8]AP[ZenGo]ST[2]RU[Japanese]SZ[19]KM[0.00]PW[White]PB[Black]AW[dp]
+(;B[cq]C[正解：经典的芈氏飞刀起手。]
+;W[cp]
+;B[dq]
+;W[eq]
+;B[fq]
+;W[fp]
+;B[fr]
+;W[cr]
+;B[er]
+;W[bq]
+;B[ep]
+;W[do]
+;B[eo]
+;W[dn]C[正解：白棋弃掉角上两子，换取外围厚势。]))`
+    },
+    {
+        id: 'star-pincer-press-ai',
+        title: '星位一间夹·冲断压迫 (AI 新手)',
+        difficulty: 5,
+        description: '取自第15届春兰杯 (李轩豪 vs 一力辽)。白棋夹击后，黑棋反夹，白棋直接冲断！极具力量感。',
+        usage: '当对自己计算力有自信，且希望在序盘直接击溃对手时使用。此形为李轩豪（只有轩）的名局。',
+        sgf: `(;GM[1]FF[4]CA[UTF-8]AP[ZenGo]ST[2]RU[Japanese]SZ[19]KM[0.00]PW[White]PB[Black]AW[dc]
+(;B[ce]C[正解：黑棋挂角。]
+;W[cg]C[正解：李轩豪选择更紧凑的一间夹。]
+;B[ed]
+;W[dd]C[正解：冲！]
+;B[de]
+;W[ee]C[正解：断！最强硬手段。]
+;B[ef]
+;W[fe]
+;B[dg]
+;W[gd]C[正解：白棋吃住角部，黑棋取外势，气势恢宏的分担。]))`
     }
 ];
