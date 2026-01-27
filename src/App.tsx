@@ -99,7 +99,7 @@ function App() {
         </aside>
 
         {/* Main Board Area */}
-        <section className="flex-1 flex justify-center items-center bg-[url('/wood-pattern.jpg')] bg-cover bg-center relative min-w-0">
+        <section className="flex-1 flex justify-center items-center bg-[#dc933c] md:bg-[url('/wood-pattern.jpg')] bg-cover bg-center relative min-w-0 shadow-inner">
           {/* Mobile-only Overlay (Fallback for small screens) */}
           <div className="md:hidden absolute top-0 left-0 right-0 z-50 p-4 pointer-events-none">
             {status === 'STUDY' && (
