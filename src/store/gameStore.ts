@@ -31,21 +31,23 @@ interface GameState {
     checkAiTurn: () => void;
 }
 
-// Helper: Decode SGF Coordinate (e.g. "pd" -> 15,3 or [15,3] -> 15,3)
+// Helper: Decode SGF Coordinate (e.g. "pd" -> 15,3)
 const decodeCoord = (val: any): { x: number, y: number } | null => {
-    if (!val) return null;
+    if (!val || typeof val !== 'string' || val.length < 2) return null;
 
-    // Custom Parser returns array of strings for properties
-    // If it's Array [x, y] (Legacy WGo parser often does this, keep for safety?)
-    // But our parser returns string "pd" usually.
+    // In SGF, 'a' = 0, 'b' = 1, ... 's' = 18 for 19x19
+    // But sometimes 'tt' is used for pass, which we should maybe handle or ignore.
+    // For now standard coords:
+    const x = val.charCodeAt(0) - 97;
+    const y = val.charCodeAt(1) - 97;
 
-    if (typeof val === 'string' && val.length >= 2) {
-        const x = val.charCodeAt(0) - 97; // 'a' code is 97
-        const y = val.charCodeAt(1) - 97;
-        return { x, y };
+    // Bounds check for 19x19 (Standard)
+    if (x < 0 || x > 18 || y < 0 || y > 18) {
+        // console.warn('OutOfBounds Coord:', val, x, y);
+        return null;
     }
 
-    return null;
+    return { x, y };
 };
 
 const getMoveFromNode = (node: SGFNode) => {
