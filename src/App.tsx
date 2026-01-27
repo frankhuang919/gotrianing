@@ -101,23 +101,30 @@ function App() {
         {/* Main Board Area */}
         <section className="flex-1 flex justify-center items-center bg-[#dc933c] md:bg-[url('/wood-pattern.jpg')] bg-cover bg-center relative min-w-0 shadow-inner">
           {/* Mobile-only Overlay (Fallback for small screens) */}
-          <div className="md:hidden absolute top-0 left-0 right-0 z-50 p-4 pointer-events-none">
-            {status === 'STUDY' && (
-              <div className="bg-stone-900/95 backdrop-blur border border-amber-500/30 p-4 rounded-lg shadow-2xl pointer-events-auto">
-                <h2 className="text-lg font-bold text-amber-100 mb-1">{josekiMeta?.title}</h2>
-                <button onClick={() => startChallenge()} className="w-full mt-2 bg-amber-600 text-white text-sm py-2 rounded">
-                  开始挑战
-                </button>
-              </div>
-            )}
-          </div>
-
           {/* EMERGENCY DEBUGGER */}
-          <div className="absolute top-4 left-4 z-50 bg-black/80 text-green-400 p-4 rounded font-mono text-xs border border-green-500 pointer-events-none">
-            <p>STATUS: {status}</p>
-            <p>STONES: {useGameStore.getState().boardState.length}</p>
+          <div className="absolute top-4 left-4 z-[100] bg-black/90 text-green-400 p-4 rounded font-mono text-xs border border-green-500 shadow-xl pointer-events-auto">
+            <p className="font-bold border-b border-green-800 mb-2 pb-1">DEBUG PANEL</p>
+            <p>STATUS: <span className="text-white">{status}</span></p>
+            <p>STONES: <span className="text-white">{useGameStore.getState().boardState.length}</span></p>
             <p>META: {josekiMeta?.id || 'None'}</p>
-            <p>FEEDBACK: {feedback}</p>
+            <div className="mt-4 flex flex-col gap-2">
+              <button
+                onClick={() => {
+                  useGameStore.setState(s => ({
+                    boardState: [...s.boardState, { x: 9, y: 9, c: 1 }]
+                  }))
+                }}
+                className="bg-green-800 hover:bg-green-700 text-white px-2 py-1 rounded"
+              >
+                [+] Force Test Stone
+              </button>
+              <button
+                onClick={() => loadRandomJoseki()}
+                className="bg-blue-800 hover:bg-blue-700 text-white px-2 py-1 rounded"
+              >
+                [R] Reload Joseki
+              </button>
+            </div>
           </div>
 
           <ErrorBoundary>
