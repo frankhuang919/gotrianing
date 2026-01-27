@@ -1,0 +1,1072 @@
+[
+  {
+    "title": "第3卷",
+    "chapters": [
+      {
+        "title": "第1章 棋子的联络",
+        "problems": [
+          {
+            "id": "3-1-1.sgf",
+            "title": "3-1-1",
+            "sgf": "(;AB[bq][cq][dp][ep][iq][hq]AW[fp][hp][eo][do][co][cp][cj][ej][cl]C[3-1-1 黑先]\r\nAP[MultiGo:4.2.1]SZ[19]MULTIGOGM[1]\r\n;B[fr]\r\n(;W[fq];B[er])\r\n(;W[er];B[fq])\r\n(;W[eq];B[dq];W[fq];B[er]))"
+          },
+          {
+            "id": "3-1-10.sgf",
+            "title": "3-1-10",
+            "sgf": "(;AB[cq][cp][cr][cs][ds][er][eq][hr][hq][jq][bo][bn][cm][cl][cj]AW[br][bq][bp][co]\r\n[cn][dm][en][dp][ep][dq][dr][fq][gp][hp]C[3-1-10 \r\n黑先]AP[MultiGo:4.2.1]SZ[19]\r\nMULTIGOGM[1]\r\n;B[gs];W[fr];B[fs];W[es];B[er])"
+          },
+          {
+            "id": "3-1-11.sgf",
+            "title": "3-1-11",
+            "sgf": "(;AB[bq][cq][dp][eq][fq][hq][jq][fo][em][dm][cm][bm]AW[bp][cp][cn][dn][eo][fp][gp]\r\n[fn][gm][fk][dk][bk]TR[fo]C[3-1-11\r\n黑先\r\n]AP[MultiGo:4.2.1]SZ[19]MULTIGOGM[1]\r\n;B[an]\r\n(;W[bo];B[bn];W[co];B[ap];W[ao];B[en])\r\n(;W[ap];B[do];W[en];B[co];W[bn];B[bo]))"
+          },
+          {
+            "id": "3-1-12.sgf",
+            "title": "3-1-12",
+            "sgf": "(;AB[cq][cp][cn][ck][jq][fq][fp]AW[dq][dp][eo][fo][gp][hq]TR[fp][fq]C[3-1-12\r\n黑先]\r\nAP[MultiGo:4.2.1]SZ[19]MULTIGOGM[1]\r\n;B[fr];W[dr];B[hr];W[ir];B[iq];W[gr];B[gq];W[hs];B[hp];W[go];B[jr];W[fs];B[js];W[es]\r\n;B[is])"
+          },
+          {
+            "id": "3-1-13.sgf",
+            "title": "3-1-13",
+            "sgf": "(;AB[cq][cr][dp][do][dn][dm][cn][bn][dk][hq][ho][gr]AW[br][bq][cp][co][dq][eq][fq]\r\n[fo][en]C[3-1-13\r\n黑先]AP[MultiGo:4.2.1]SZ[19]MULTIGOGM[1]\r\n;B[cs];W[ap];B[bo];W[bp];B[fs];W[bs];B[es];W[ar])"
+          },
+          {
+            "id": "3-1-14.sgf",
+            "title": "3-1-14",
+            "sgf": "(;AB[jr][cq][cp][dq][eq][cn][ck][en][fn][gn][go][fr][hr][hq][hp][iq]AW[ep][dp][fp]\r\n[gp][fq][gr][fm][ho][io][ip][im][jq][kq][kr][ko][js]C[3-1-14\r\n黑先]AP[MultiGo:4.2.1]\r\nSZ[19]MULTIGOGM[1]\r\n;B[hs];W[er];B[fs])"
+          },
+          {
+            "id": "3-1-15.sgf",
+            "title": "3-1-15",
+            "sgf": "(;AB[cq][cp][co][bn][bm][gq][go][gm]AW[eq][eo][do][cn][cm][cl][em][cj][iq][io][im]\r\nC[3-1-15\r\n黑先]AP[MultiGo:4.2.1]SZ[19]MULTIGOGM[1]\r\n;B[er]\r\n(;W[fr];B[fq])\r\n(;W[dr];B[dq];W[fr];B[ep];W[fq];B[fp])\r\n(;W[fp]\r\n(;B[fr];W[gp])\r\n(;B[gp];W[dr])))"
+          },
+          {
+            "id": "3-1-16.sgf",
+            "title": "3-1-16",
+            "sgf": "(;AB[ir][ar][cs][cr][bq][cq][dq][bp][fq][gq][gr][iq]AW[fp][dr][fr][eq][cp][dp][fo]\r\n[eo][bo][cn][dl][cj][hp][jp][jq][jr]TR[fq][gq][gr][iq][ir]C[3-1-16\r\n黑先]AP[MultiGo:4.2.1]\r\nSZ[19]MULTIGOGM[1]\r\n;B[es]\r\n(;W[fs];B[er];W[ds];B[er];W[es];B[gs])\r\n(;W[er];B[fs]))"
+          },
+          {
+            "id": "3-1-17.sgf",
+            "title": "3-1-17",
+            "sgf": "(;AB[cr][cq][bp][bo][co][ip][hq][gq][ho][go][fo]AW[ao][dq][do][eo][cn][bn][fn][gm]\r\n[im][jo][jp][jq][fq][ck]TR[fo][go][ho][ip][hq][gq]C[3-1-17\r\n黑先]AP[MultiGo:4.2.1]\r\nSZ[19]MULTIGOGM[1]\r\n\r\n(;B[er]\r\n(;W[fr];B[ep];W[dp];B[eq])\r\n(;W[dr];B[ep];W[eq];B[dp];W[fp];B[cp];W[fr];B[es]))\r\n(;B[ep];W[dp];B[er]))"
+          },
+          {
+            "id": "3-1-18.sgf",
+            "title": "3-1-18",
+            "sgf": "(;AB[bq][cq][dq][ep][eo][fq][gq][hq][jq]AW[er][eq][dp][cp][dn][en][fn][fp][gp][ck]\r\nC[3-1-18\r\n黑先]AP[MultiGo:4.2.1]SZ[19]MULTIGOGM[1]\r\n;B[es];W[dr];B[cr];W[fr];B[gr];W[do];B[fs];W[fo];B[ds])"
+          },
+          {
+            "id": "3-1-19.sgf",
+            "title": "3-1-19",
+            "sgf": "(;AB[dq][fl][fj][cq][eq][fp][fo][bp][bo][bn][bm][bl][ho][jo][gm]AW[bq][br][cr][dr]\r\n[er][fr][fq][hq][jq][dp][cn][dn][en][dl][ck][bk]LB[cp:A][ep:B]C[3-1-19\r\n黑先]AP[MultiGo:4.2.1]\r\nSZ[19]MULTIGOGM[1]\r\n;B[do];W[eo];B[ep];W[co];B[cp])"
+          },
+          {
+            "id": "3-1-2.sgf",
+            "title": "3-1-2",
+            "sgf": "(;AB[iq][fq][cp][co][bo][bn][cl]AW[dp][do][dn][cn][cm][bm][cj]C[3-1-2 黑先]AP[MultiGo:4.2.1]\r\nSZ[19]MULTIGOGM[1]\r\n;B[dr]\r\n(;W[dq];B[cr])\r\n(;W[cq];B[bq]\r\n(;W[dq];B[cr])\r\n(;W[cr];B[dq])))"
+          },
+          {
+            "id": "3-1-20★.sgf",
+            "title": "3-1-20★",
+            "sgf": "(;AB[gr][gq][jo][gp][hp][jp][jr][kq][jn][im][jl][gl][fm][fo][eo][ep][cp][co][cn]\r\n[bn][ck]AW[ip][fr][bq][bp][bo][dq][fq][fp][ir][iq][io][in][go][gn]TR[gr][gq][gp]\r\n[hp]C[3-1-20\r\n黑先]AP[MultiGo:4.2.1]SZ[19]MULTIGOGM[1]\r\n;B[gs];W[is];B[dr];W[cr];B[es];W[eq];B[cq])"
+          },
+          {
+            "id": "3-1-21.sgf",
+            "title": "3-1-21",
+            "sgf": "(;AB[cq][cp][co][dn][dm][dk][fs][fr][fq]AW[dq][dp][do][er][en][fo][hn][hp][iq]C[3-1-21\r\n黑先]\r\nAP[MultiGo:4.2.1]SZ[19]MULTIGOGM[1]\r\n;B[dr]\r\n(;W[eq];B[es])\r\n(;W[cr];B[ds]))"
+          },
+          {
+            "id": "3-1-22.sgf",
+            "title": "3-1-22",
+            "sgf": "(;AB[dq][eq][eo][cr][iq][ip][io]AW[br][bq][cq][co][cm][em][cj][gn][hm][hp][gq]TR[hp]\r\n[gn][iq][ip][io]C[3-1-22\r\n黑先]AP[MultiGo:4.2.1]SZ[19]MULTIGOGM[1]\r\n;B[gp]\r\n(;W[fp];B[gr])\r\n(;W[go];B[fp])\r\n(;W[hq];B[ho];W[fp];B[go];W[fq];B[fo];W[ep];B[dp];W[do];B[hr]))"
+          },
+          {
+            "id": "3-1-23.sgf",
+            "title": "3-1-23",
+            "sgf": "(;AB[cq][cp][co][cm][cl][cj][hp][gp][go][gn][gq][gr][gs]AW[dp][fr][eq][en][dm][fm]\r\n[fl][hm][hl][ho][in][ip][iq][hq][jr][jl]C[3-1-23\r\n黑先]AP[MultiGo:4.2.1]SZ[19]MULTIGOGM[1]\r\n;B[ep];W[fp]\r\n(;B[eo];W[do];B[dq];W[fo];B[er])\r\n(;B[er];W[fq]))"
+          },
+          {
+            "id": "3-1-24.sgf",
+            "title": "3-1-24",
+            "sgf": "(;AB[dq][cp][jq][hp][gp]AW[eq][eo][dn][bo][go][cj]TR[eq]C[3-1-24\r\n黑先]AP[MultiGo:4.2.1]\r\nSZ[19]MULTIGOGM[1]\r\n;B[fq];W[ep];B[er])"
+          },
+          {
+            "id": "3-1-25.sgf",
+            "title": "3-1-25",
+            "sgf": "(;AB[br][bq][ip][iq][ir][fs][ho][fo]AW[cq][hq][gq][fq][eq][dq][bp][co][cl]C[3-1-25\r\n黑先]\r\nAP[MultiGo:4.2.1]SZ[19]MULTIGOGM[1]\r\n\r\n(;B[es])\r\n(;B[ds];W[gs];B[gr];W[es];B[er];W[fr];B[hs];W[dr]))"
+          },
+          {
+            "id": "3-1-26.sgf",
+            "title": "3-1-26",
+            "sgf": "(;AB[ar][br][iq][fr][fq][dp][co][dn][ck]AW[cr][cq][cp][bs][er][ep]C[3-1-26\r\n黑先]\r\nAP[MultiGo:4.2.1]SZ[19]MULTIGOGM[1]\r\n\r\n(;B[ao];W[bp];B[ap];W[bo];B[bn])\r\n(;B[ap];W[bo]\r\n(;B[bn];W[bq])\r\n(;B[ao];W[bn])))"
+          },
+          {
+            "id": "3-1-27★.sgf",
+            "title": "3-1-27★",
+            "sgf": "(;AB[ar][bq][cp][cq][cr][dr][ds][jq][jo][jm][iq]AW[bp][bo][co][do][dp][dq][fp][hq]\r\n[hp][ho][dm][dj][bs]C[3-1-27\r\n黑先]AP[MultiGo:4.2.1]SZ[19]MULTIGOGM[1]\r\n\r\n(;B[fs]\r\n(;W[gr];B[fr];W[er];B[hr];W[ir];B[hs])\r\n(;W[er];B[hr];W[es];B[eq];W[fr];B[fq];W[gr];B[gq]))\r\n(;B[fr];W[hr]LB[er:A][fs:B]C[之后，白A、B必得之一。]))"
+          },
+          {
+            "id": "3-1-28★.sgf",
+            "title": "3-1-28★",
+            "sgf": "(;AB[br][bq][cp][dp][cn][cj][hr][gq][gp][fr][cm]AW[cr][cq][eq][fq][eo][dn][go][ho]\r\n[ir][iq]C[3-1-28\r\n黑先]AP[MultiGo:4.2.1]SZ[19]MULTIGOGM[1]\r\n\r\n(;B[es]\r\n(;W[dr];B[ep];W[fp];B[dq];W[er];B[cs])\r\n(;W[ds]\r\n(;W[cs];B[dq])\r\n(;B[dr]))\r\n(;W[cs];B[dq];W[er];B[dr]))\r\n(;B[cs];W[ds]\r\n(;B[dr];W[bs])\r\n(;B[dq];W[er])))"
+          },
+          {
+            "id": "3-1-3.sgf",
+            "title": "3-1-3",
+            "sgf": "(;AB[br][bq][cp][dp][bo][ip][ho][gp][gq]AW[dq][ep][fp][go][gn][en][cn][bn][dj]TR[dq]\r\nC[3-1-3 黑先]AP[MultiGo:4.2.1]SZ[19]MULTIGOGM[1]\r\n;B[er]\r\n(;W[eq];B[dr])\r\n(;W[fr];B[fq];W[eq];B[dr]))"
+          },
+          {
+            "id": "3-1-4.sgf",
+            "title": "3-1-4",
+            "sgf": "(;AB[cr][dq][eq][er][fr][ck][cn]AW[cq][dp][ep][fp][fq][gr][hq][jq]C[3-1-4 黑先]\r\nAP[MultiGo:4.2.1]SZ[19]MULTIGOGM[1]\r\n;B[bp];W[cp];B[bq])"
+          },
+          {
+            "id": "3-1-5.sgf",
+            "title": "3-1-5",
+            "sgf": "(;AB[dp][cp][bp][bo][jq][gq][gp]AW[ep][fp][fn][do][co][bn][cm][cj]C[3-1-5 黑先]\r\nAP[MultiGo:4.2.1]SZ[19]MULTIGOGM[1]\r\n;B[er])"
+          },
+          {
+            "id": "3-1-6.sgf",
+            "title": "3-1-6",
+            "sgf": "(;AB[cr][cq][gr][gq][gp][jq]AW[dq][eq][fq][eo][cp][bp][ck][cm]C[3-1-6 黑先]AP[MultiGo:4.2.1]\r\nSZ[19]MULTIGOGM[1]\r\n;B[fs];W[es];B[er];W[dr];B[ds])"
+          },
+          {
+            "id": "3-1-7.sgf",
+            "title": "3-1-7",
+            "sgf": "(;AB[jq][hr][iq][io][go][fn][do][co][bo][cp][cq][dk][cj][eq][er][es][dr]AW[bs][br]\r\n[bq][bp][cr][ds][dq][dp][ep][fp][gq][hq]TR[hr][eq][er][es][dr]C[3-1-7 黑先]AP[MultiGo:4.2.1]\r\nSZ[19]MULTIGOGM[1]\r\n;B[gs]\r\n(;W[gr];B[fs];W[ir];B[hs])\r\n(;W[fs];B[gr]))"
+          },
+          {
+            "id": "3-1-8★.sgf",
+            "title": "3-1-8★",
+            "sgf": "(;AB[dp][cp][ep][dq][cj][cm][hq][hp][ho][hn]AW[eq][fp][gp][eo][gn][fm][hm][im][jo]\r\n[jq][jr]TR[jr]C[3-1-8 黑先 ★]AP[MultiGo:4.2.1]SZ[19]MULTIGOGM[1]\r\n;B[gr];W[fr];B[er];W[fs];B[fq];W[gq])"
+          },
+          {
+            "id": "3-1-9.sgf",
+            "title": "3-1-9",
+            "sgf": "(;AB[bq][cq][cp][do][dn][em][cm][bm][cj][ci][jp][gp]AW[bp][bo][bn][cn][dm][dl][ck]\r\nTR[cm][bm]C[3-1-9 黑先 ★]AP[MultiGo:4.2.1]SZ[19]MULTIGOGM[1]\r\n;B[al]\r\n(;W[bl];B[aj])\r\n(;W[bk];B[bj];W[ak];B[dk]\r\n(;W[cl];B[el])\r\n(;W[el];B[cl])))"
+          }
+        ]
+      },
+      {
+        "title": "第2章 棋子的切断",
+        "problems": [
+          {
+            "id": "3-2-1.sgf",
+            "title": "3-2-1",
+            "sgf": "(;AB[bs][cr][cq][dq][eq][fp][gp][fo][eo][do][cn][bn][bo][ck]AW[br][bq][bp][cp][dp]\r\n[ep][co][er][fq][gq][hp][iq]C[3-2-1\r\n黑先]AP[MultiGo:4.2.1]SZ[19]MULTIGOGM[1]\r\n;B[fr]\r\n(;W[dr];B[cs];W[gr];B[ap])\r\n(;W[gr];B[ap];W[dr];B[cs]))"
+          },
+          {
+            "id": "3-2-10.sgf",
+            "title": "3-2-10",
+            "sgf": "(;AB[bo][co][cp][dp][ep][eq][fp][gp][hq][ho][io][ir][kp]AW[jn][bq][cq][dq][bp][er]\r\n[fq][gq][hr][iq][cn][dn][cl][cj][fn][gm][in]C[3-2-10\r\n黑先]AP[MultiGo:4.2.1]SZ[19]\r\nMULTIGOGM[1]\r\n;B[gr]\r\n(;W[fr];B[hs])\r\n(;W[hp];B[fr];W[hq];B[dr]))"
+          },
+          {
+            "id": "3-2-11★.sgf",
+            "title": "3-2-11★",
+            "sgf": "(;AB[fq][eo]AW[cp][eq][dn][cj][ip][fr]LB[fp:A][gr:B]C[3-2-11\r\n黑先]AP[MultiGo:4.2.1]\r\nSZ[19]MULTIGOGM[1]\r\n;B[er]\r\n(;W[dr];B[ep]\r\n(;W[dq];B[gr];W[es]\r\n(;B[ho])\r\n(;B[gp];W[hq];B[gq]C[黑重，不好。]))\r\n(;W[es];B[dq];W[er];B[gq]LB[cq:A]C[黑退后，有A位进角的余味。]))\r\n(;W[fp];B[dq];W[ep];B[do];W[dp];B[co]C[黑冲进左边白阵，白不好。]))"
+          },
+          {
+            "id": "3-2-12.sgf",
+            "title": "3-2-12",
+            "sgf": "(;AB[cr][er][dr][fq][fp][ep][dp][dq]AW[br][cq][cp][co][cm][cj][ds][fr][gr][gq][gp]\r\n[jp][go][fo][eo]C[3-2-12\r\n黑先]AP[MultiGo:4.2.1]SZ[19]MULTIGOGM[1]\r\n;B[bq]\r\n(;W[bp];B[bs];W[aq];B[es])\r\n(;W[ar];B[es];W[cs];B[bs])\r\n(;W[bs];B[cs];W[bp];B[es]))"
+          },
+          {
+            "id": "3-2-13.sgf",
+            "title": "3-2-13",
+            "sgf": "(;AB[cr][dr][eq][fq][gr][hr][hq][iq][jq]AW[br][bq][cq][dq][ep][do][cm][cj][gp][gq]\r\n[hp][ip][jp][kq][jr][ir]C[3-2-13\r\n黑先]AP[MultiGo:4.2.1]SZ[19]MULTIGOGM[1]\r\n;B[kr];W[lr];B[es];W[fr];B[hs];W[fs];B[cs];W[ks];B[er])"
+          },
+          {
+            "id": "3-2-14.sgf",
+            "title": "3-2-14",
+            "sgf": "(;AB[es][fq][cl][dr][fr][gr][ep][dp][cp][dn][en][fn][gm][em][el][cm]AW[dk][dl][ck]\r\n[bm][cn][co][hm][gq][br][cr][do][er][fp][hr][iq][hp][hn][hl][fk][fj][dj][dm]LB[bp:A]\r\n[eo:B]C[3-2-14\r\n黑先]AP[MultiGo:4.2.1]SZ[19]MULTIGOGM[1]\r\n;B[bn];W[bo];B[bp];W[eo];B[fo])"
+          },
+          {
+            "id": "3-2-15.sgf",
+            "title": "3-2-15",
+            "sgf": "(;AB[fk][cq][dq][bo][cn][cm][cl][ep][fp][gp][go][gn][gm][gl][gk]AW[hp][eq][fq][gq]\r\n[iq][in][hl][hk][gj][fj][ek][dj][ck][fl][fm][fn][eo][dn][dp]LB[dp:A]C[3-2-15\r\n黑先]\r\nAP[MultiGo:4.2.1]SZ[19]MULTIGOGM[1]\r\n;B[do];W[co];B[cp];W[do];B[el];W[dl];B[dm];W[em];B[fo])"
+          },
+          {
+            "id": "3-2-16.sgf",
+            "title": "3-2-16",
+            "sgf": "(;AB[ap][bo][bn][cn][dn][cl][cj][eo][fo][go][ho][hp][iq][jq]AW[aq][bp][co][do][dp]\r\n[ep][fp][gp][hq][gr][ir][en][em][gm][ej]C[3-2-16\r\n黑先]AP[MultiGo:4.2.1]SZ[19]MULTIGOGM[1]\r\n;B[bq];W[ao];B[cq];W[cp];B[ar];W[ap];B[bs];W[cr];B[dr];W[dq];B[br];W[ds];B[er];W[es]\r\n;B[fs])"
+          },
+          {
+            "id": "3-2-17.sgf",
+            "title": "3-2-17",
+            "sgf": "(;AB[eq][dq][fp][fo][gq][hp][jp][en][em][el][cm]AW[cq][cp][ep][eo][cn][fn][gn][ho]\r\n[fl][fk][bm]TR[bm]C[3-2-17\r\n黑先]AP[MultiGo:4.2.1]SZ[19]MULTIGOGM[1]\r\n;B[bn]\r\n(;W[bo];B[bl];W[an];B[dj])\r\n(;W[cl];B[co];W[dm];B[bo]))"
+          },
+          {
+            "id": "3-2-18.sgf",
+            "title": "3-2-18",
+            "sgf": "(;AB[dq][dr][er][fs][cp][cn][eo][en][fn][dj]AW[fr][gr][eq][ep][fo][go][gn][jq][jo]\r\nTR[gr]C[3-2-18\r\n黑先]AP[MultiGo:4.2.1]SZ[19]MULTIGOGM[1]\r\n;B[fq]\r\n(;W[gq];B[gs];W[hs];B[es];W[hr];B[dp];W[fp])\r\n(;W[fp];B[hr];W[gq];B[gs]))"
+          },
+          {
+            "id": "3-2-19.sgf",
+            "title": "3-2-19",
+            "sgf": "(;AB[cq][bp][dq][eq][fq][gq][gp][ho][hn][jo][jn][gm]AW[cp][dp][fp][ep][go][gn][hm]\r\n[im][bo][hp][ip][jp]LB[bq:A][cn:B]C[3-2-19\r\n黑先]AP[MultiGo:4.2.1]SZ[19]MULTIGOGM[1]\r\n;B[fo];W[fn];B[co]\r\n(;W[do];B[en]\r\n(;W[eo];B[fm])\r\n(;W[fm];B[cn];W[bq];B[ap];W[ao];B[dn];W[aq];B[bp];W[ap];B[eo];W[bp];B[bn]))\r\n(;W[cn];B[en]\r\n(;W[fm];B[do])\r\n(;W[eo];B[fm])\r\n(;W[bq];B[do]))\r\n(;W[eo];B[bn]))"
+          },
+          {
+            "id": "3-2-2.sgf",
+            "title": "3-2-2",
+            "sgf": "(;AB[dm][br][aq][cq][dr][dp][ep][eo][fo][gp][gq][em][el]AW[do][bq][bp][bo][cp][dn]\r\n[cm][dl][dk][ek][cj][go][gn][gm][gl][hp]TR[dm][em][el]C[3-2-2\r\n黑先]AP[MultiGo:4.2.1]\r\nSZ[19]MULTIGOGM[1]\r\n;B[cn]\r\n(;W[bn])\r\n(;W[co];B[en]\r\n(;W[bn])\r\n(;W[hq]C[如果白脱先];B[bm];W[bn];B[cl]\r\n(;W[bl];B[cn])\r\n(;W[cn];B[bl]))))"
+          },
+          {
+            "id": "3-2-20.sgf",
+            "title": "3-2-20",
+            "sgf": "(;AB[bq][bp][cp][dp][ep][dn][cj]AW[br][cq][dq][eq][hq]C[3-2-20\r\n黑先]AP[MultiGo:4.2.1]\r\nSZ[19]MULTIGOGM[1]\r\n;B[fq];W[fr];B[er]\r\n(;W[dr];B[gr];W[es];B[gq])\r\n(;W[gq];B[cr];W[fp];B[dr];W[fq];B[bs]))"
+          },
+          {
+            "id": "3-2-21.sgf",
+            "title": "3-2-21",
+            "sgf": "(;AB[ap][bo][co][cp][dp][eo][fn][iq][ck]AW[br][bq][bp][cq][fq][gp][cn]C[3-2-21\r\n黑先]\r\nAP[MultiGo:4.2.1]SZ[19]MULTIGOGM[1]\r\n;B[eq];W[er];B[fr];W[dq];B[fp])"
+          },
+          {
+            "id": "3-2-22.sgf",
+            "title": "3-2-22",
+            "sgf": "(;AB[cp][co][cn][eo][en][em][fm][hp]AW[cq][bq][dp][ep][fo][fn][dm][hn]TR[hn]C[3-2-22\r\n黑先]\r\nAP[MultiGo:4.2.1]SZ[19]MULTIGOGM[1]\r\n;B[fp]\r\n(;W[gp];B[go])\r\n(;W[fq];B[gp]))"
+          },
+          {
+            "id": "3-2-23.sgf",
+            "title": "3-2-23",
+            "sgf": "(;AB[dp][dq][dr][ds][eo][fo]AW[br][cp][co][do][dm][cj][ir][iq][ip][ep][eq][er]TR[ep]\r\n[eq][er]LB[fp:A][gq:B]C[3-2-23\r\n黑先]AP[MultiGo:4.2.1]SZ[19]MULTIGOGM[1]\r\n;B[fr];W[fq];B[gq];W[gr];B[es];W[fs];B[fp])"
+          },
+          {
+            "id": "3-2-24.sgf",
+            "title": "3-2-24",
+            "sgf": "(;AB[bl][bk][cj][dj][ek][fk][gn][go][fp][ep][dp][cp][bq][bo]AW[fl][eo][cm][cl][bm]\r\n[ck][br][cr][cq][er][gq][gp][ho][hn][hm][hl][fm]TR[ck][cl][cm][bm]C[3-2-24\r\n黑先]\r\nAP[MultiGo:4.2.1]SZ[19]MULTIGOGM[1]\r\n;B[dm]\r\n(;W[dl];B[el];W[dn];B[em])\r\n(;W[dn];B[dl];W[cn];B[en])\r\n(;W[el];B[dl];W[dn];B[dk];W[cn];B[en]))"
+          },
+          {
+            "id": "3-2-25.sgf",
+            "title": "3-2-25",
+            "sgf": "(;AB[cm][bl][cl][di][ei][fi][fk][gj][hj][il][hm][gn][go][gp][fq][dq][dr][dn][fm]\r\n[dj]AW[cq][cp][cn][bn][bm][dm][ek][el][ej][fl][gl][gm][gk][fn][fo]C[3-2-25\r\n黑先]\r\nAP[MultiGo:4.2.1]SZ[19]MULTIGOGM[1]\r\n;B[eo];W[do];B[en])"
+          },
+          {
+            "id": "3-2-26.sgf",
+            "title": "3-2-26",
+            "sgf": "(;AB[cq][gq][gr][cs][br][dr][ep][cp][co][cm][cl][ck][hs][hp][hq][ho][hn][gn][in]\r\n[gm][gl][gk][gj]AW[jr][go][gp][dp][dq][eq][er][eo][dn][dm][dk][ek][fk][ei][gi][hi]\r\n[ij][hl][im][jl][jn][jo][io][iq][hr][ir]TR[ep]C[3-2-26\r\n黑先]AP[MultiGo:4.2.1]SZ[19]\r\nMULTIGOGM[1]\r\n;B[em]\r\n(;W[dl];B[do];W[en];B[fp])\r\n(;W[fm];B[el];W[fl];B[fn];W[dl];B[do];W[en];B[fp]))"
+          },
+          {
+            "id": "3-2-27.sgf",
+            "title": "3-2-27",
+            "sgf": "(;AB[dm][dk][dl][cq][dq][eq][fq][gq][hq][iq][jp][jo][jn][jm][jl][hl][hm][gl][fl]\r\n[fj][hp]AW[ip][io][in][hn][gn][gm][gp][em][dn][cm][cl][ck][cj][dj][bp]C[3-2-27\r\n黑先]\r\nAP[MultiGo:4.2.1]SZ[19]MULTIGOGM[1]\r\n;B[fn]\r\n(;W[en];B[fm];W[fo];B[eo];W[ep];B[do];W[dp];B[co];W[cp];B[fp])\r\n(;W[fm];B[en];W[eo];B[do];W[fo];B[cn];W[dp];B[en]))"
+          },
+          {
+            "id": "3-2-28.sgf",
+            "title": "3-2-28",
+            "sgf": "(;AB[do][dn][cn][cl][cj][ej][gk][hm][hn][ho][jo][kp][kq]AW[dq][cp][fq][co][fo][gn]\r\n[fm][el][hq][iq][jq]C[3-2-28\r\n黑先]AP[MultiGo:4.2.1]SZ[19]MULTIGOGM[1]\r\n;B[fp]\r\n(;W[ep];B[gp]LB[eo:A][gq:B])\r\n(;W[gp];B[ep];W[go];B[eq]))"
+          },
+          {
+            "id": "3-2-29.sgf",
+            "title": "3-2-29",
+            "sgf": "(;AB[br][bq][cq][co][cm][hp][hq][hr][ho][hn][hm][gm]AW[cr][dq][eq][eo][em][dl][fl]\r\n[gn]C[3-2-29\r\n黑先]AP[MultiGo:4.2.1]SZ[19]MULTIGOGM[1]\r\n;B[ep]\r\n(;W[dp];B[en];W[dn];B[do];W[fp];B[fn])\r\n(;W[fp];B[dp];W[do];B[cp];W[fq];B[fo];W[go];B[fn]))"
+          },
+          {
+            "id": "3-2-3.sgf",
+            "title": "3-2-3",
+            "sgf": "(;AB[cp][dq][dp][do][dn][dm][bm][cm][cl][al][bk]AW[bj][cr][cq][dr][eq][fr][fp][bp]\r\n[co][cn][bn][en][em][el][dl][ck][cj][jq]LB[am:A][bo:B]C[3-2-3\r\n黑先]AP[MultiGo:4.2.1]\r\nSZ[19]MULTIGOGM[1]\r\n\r\n(;B[bq]\r\n(;W[br];B[bo];W[ao];B[an])\r\n(;W[bo];B[ap];W[br];B[ar]))\r\n(;B[bo];W[an];B[bq];W[ao]))"
+          },
+          {
+            "id": "3-2-30.sgf",
+            "title": "3-2-30",
+            "sgf": "(;AB[dq][dp][cp][bq][dn][dl][er][ip][io][hq]AW[br][cr][dr][cq][eq][fq][fo][fm][ho]\r\nC[3-2-30\r\n黑先]AP[MultiGo:4.2.1]SZ[19]MULTIGOGM[1]\r\n;B[fr];W[gr];B[gq];W[fs];B[fp])"
+          },
+          {
+            "id": "3-2-31★.sgf",
+            "title": "3-2-31★",
+            "sgf": "(;AB[cp][dp][dq][fp][iq][cl]AW[cq][bq][bp][cn][en]C[3-2-31\r\n黑先]AP[MultiGo:4.2.1]\r\nSZ[19]MULTIGOGM[1]\r\n;B[dn];W[dm];B[bn];W[do];B[bo])"
+          },
+          {
+            "id": "3-2-32.sgf",
+            "title": "3-2-32",
+            "sgf": "(;AB[br][aq][dr][cq][cp][co][do][dn][em][hq][dj][cj][ej][bk][bi]AW[bq][bp][bo][cn]\r\n[cm][bl][el][en][gl][gn]C[3-2-32\r\n黑先]AP[MultiGo:4.2.1]SZ[19]MULTIGOGM[1]\r\n;B[fl];W[fm];B[dm]\r\n(;W[fk];B[cl])\r\n(;W[dl];B[fk]))"
+          },
+          {
+            "id": "3-2-33.sgf",
+            "title": "3-2-33",
+            "sgf": "(;AB[fk][gm][bq][cp][dp][ep][fq][iq][ir][jr][dl][cl][bl][el][fl]AW[cn][bj][bp][co]\r\n[cm][en][fn][gn][jq][kq][kr][jo][jm][il][hk][gi][ek][ej][cj]C[3-2-33\r\n黑先]AP[MultiGo:4.2.1]\r\nSZ[19]MULTIGOGM[1]\r\n;B[hn];W[ho];B[io];W[in];B[hm];W[ip];B[go])"
+          },
+          {
+            "id": "3-2-34.sgf",
+            "title": "3-2-34",
+            "sgf": "(;AB[bq][cq][dp][co][ep][fp][gq][cl]AW[cr][dq][eq][gr][hr]C[3-2-34\r\n黑先]AP[MultiGo:4.2.1]\r\nSZ[19]MULTIGOGM[1]\r\n;B[fr]\r\n(;W[er];B[es];W[ds];B[fs])\r\n(;W[es];B[fs];W[fq];B[dr]))"
+          },
+          {
+            "id": "3-2-35.sgf",
+            "title": "3-2-35",
+            "sgf": "(;AB[cq][cr][bq][dp][do][eq][fq][gq][gr][jq]AW[dq][dr][fr][er][aq][bp][cp][co][cn]\r\n[bn][ao][ck]C[3-2-35\r\n黑先]AP[MultiGo:4.2.1]SZ[19]MULTIGOGM[1]\r\n;B[bs];W[ar];B[ds];W[br];B[cs])"
+          },
+          {
+            "id": "3-2-36.sgf",
+            "title": "3-2-36",
+            "sgf": "(;AB[cr][cq][co][ck][eo][fo][fm][hl][im][in][jo][ip][hp][gq][gr]AW[dr][eq][ep][gp]\r\n[go][gn][hr][hq][iq][jq][kp][ko]TR[gq][gr]LB[fp:A][fq:B]C[3-2-36\r\n黑先]AP[MultiGo:4.2.1]\r\nSZ[19]MULTIGOGM[1]\r\n;B[er]\r\n(;W[fr];B[fq]\r\n(;W[es];B[fp])\r\n(;W[fp];B[fs]))\r\n(;W[dq];B[fp];W[fq];B[fr]))"
+          },
+          {
+            "id": "3-2-37.sgf",
+            "title": "3-2-37",
+            "sgf": "(;AB[cq][cp][co][cm][cl][fq][gq][hp][go][gm][hm]AW[dq][eq][eo][fn][fl][dl][dk][fj]\r\nC[3-2-37\r\n黑先]AP[MultiGo:4.2.1]SZ[19]MULTIGOGM[1]\r\n;B[en]\r\n(;W[dn];B[em];W[dm];B[do])\r\n(;W[fo];B[fm];W[dn];B[em])\r\n(;W[fm];B[fo]))"
+          },
+          {
+            "id": "3-2-38.SGF",
+            "title": "3-2-38.SGF",
+            "sgf": "(;GM[1]AB[bp][cp][do][eo][cn][ck][fp][gp][hp][hr][dq]AW[eq][ep][dp][cq][bq][gr]\r\nC[3-2-38\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[ ]EV[李昌镐精讲围棋手筋 3]\r\nHA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[er];W[dr];B[fq];W[dq];B[fr])"
+          },
+          {
+            "id": "3-2-39.SGF",
+            "title": "3-2-39.SGF",
+            "sgf": "(;GM[1]AB[dp][eo][en][gn][gp][fp][gr][ar][br][cr][cq][dq]AW[cj][ep][eq][dr][fr]\r\n[hq][hr][cm][do][co][bp][bq][jq]C[3-2-39\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]\r\nGN[ ]EV[李昌镐精讲围棋手筋 3]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[fs]\r\n(;W[es];B[fq])\r\n(;W[gq];B[er];W[es];B[fq]))"
+          },
+          {
+            "id": "3-2-40.SGF",
+            "title": "3-2-40.SGF",
+            "sgf": "(;GM[1]AB[er][eq][dp][do][eo][cn][dm][ck]AW[jq][dq][dr][ep][fp][gq][gr]C[3-2-40\r\n黑先]\r\nAP[StoneBase:SGFParser.3.0.1]SZ[19]GN[ ]EV[李昌镐精讲围棋手筋 3]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[cq];W[cr];B[br];W[bq];B[cp];W[bs];B[ar];W[aq];B[ds];W[as];B[br];W[ar];B[es])"
+          },
+          {
+            "id": "3-2-41.SGF",
+            "title": "3-2-41.SGF",
+            "sgf": "(;GM[1]AB[cq][bp][dp][ep][fp][gp][hq][aq][br][cr]AW[go][ho][hp][dq][dr][gq][fq]\r\n[jp][ck][fn][dn][bo][co][cp][kq]C[3-2-41\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]\r\nGN[ ]EV[李昌镐精讲围棋手筋 3]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[gr];W[fr];B[fs]\r\n(;W[hr];B[er])\r\n(;W[er];B[hr]))"
+          },
+          {
+            "id": "3-2-42.SGF",
+            "title": "3-2-42.SGF",
+            "sgf": "(;GM[1]AB[fo][gn][gm][ho][hp][hq]AW[cq][fq][gp][go][hn][in]TR[go][gp][fq]C[3-2-42\r\n黑先]\r\nAP[StoneBase:SGFParser.3.0.1]SZ[19]GN[ ]EV[李昌镐精讲围棋手筋 3]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[eq]\r\n(;W[er];B[fr];W[gr];B[gq])\r\n(;W[ep];B[fp];W[gq];B[gr])\r\n(;W[gq];B[er];W[hr];B[ir];W[gr];B[jq];W[ep];B[fp]))"
+          },
+          {
+            "id": "3-2-43.SGF",
+            "title": "3-2-43.SGF",
+            "sgf": "(;GM[1]AB[fq][gp][hp][gn][cp][co][cn][dq][dr][er][fr]AW[iq][dp][ep][fp][eq][do]\r\n[em][hq][gq][cr][cq][bq][fl]TR[fl][gn]C[3-2-43\r\n黑先]AP[StoneBase:SGFParser.3.0.1]\r\nSZ[19]GN[ ]EV[李昌镐精讲围棋手筋 3]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[en];W[dn];B[dm];W[fn];B[fo])"
+          },
+          {
+            "id": "3-2-44.SGF",
+            "title": "3-2-44.SGF",
+            "sgf": "(;GM[1]AB[dq][dp][co][dn][ck][er][fr][gr][hr]AW[iq][hq][gq][fq][eq][cr][dr][ir]\r\nC[3-2-44\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[ ]EV[李昌镐精讲围棋手筋 3]\r\nHA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[br]\r\n(;W[bq];B[cq];W[bs];B[ar];W[aq];B[ds];W[as];B[br];W[ar];B[es])\r\n(;W[cq];B[bq];W[bp];B[cp]))"
+          },
+          {
+            "id": "3-2-45.SGF",
+            "title": "3-2-45.SGF",
+            "sgf": "(;GM[1]AB[dn][en][eo][ep][dq][hn][dr][jq][ho][ip][in][kq][gm][gn][fn][bo][bm][bn]\r\n[cn]AW[co][do][dp][cp][bp][ao][bl][jn][kp][jm][jo][io][go][im][hm][gl][fl][em][dl]\r\n[ck][hp][fq][er][eq][cq]C[3-2-45\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[ ]\r\nEV[李昌镐精讲围棋手筋 3]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[gq]\r\n(;W[gp];B[fp];W[hq];B[gr];W[cr];B[hr])\r\n(;W[hq];B[gr];W[gp];B[fp];W[cr];B[hr]))"
+          },
+          {
+            "id": "3-2-46.SGF",
+            "title": "3-2-46.SGF",
+            "sgf": "(;GM[1]AB[fr][eq][ep][gp][do][dn][em]AW[bo][go][eo][en][er][dr][dq][dp][cm]C[3-2-46\r\n黑先]\r\nAP[StoneBase:SGFParser.3.0.1]SZ[19]GN[ ]EV[李昌镐精讲围棋手筋 3]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[gn]\r\n(;W[fo];B[ho])\r\n(;W[ho];B[fo]))"
+          },
+          {
+            "id": "3-2-47.SGF",
+            "title": "3-2-47.SGF",
+            "sgf": "(;GM[1]AB[dl][cj][fm][fn][go][gp][hq][dq][eq][fq][er][bp][cm]AW[fp][cq][cr][dr]\r\n[gn][hn][ip][fo][dp][co][bo][dm][iq]TR[fo][fp][bp]C[3-2-47\r\n黑先]AP[StoneBase:SGFParser.3.0.1]\r\nSZ[19]GN[ ]EV[李昌镐精讲围棋手筋 3]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[do]\r\n(;W[ep];B[cp])\r\n(;W[dn];B[eo])\r\n(;W[eo];B[dn]))"
+          },
+          {
+            "id": "3-2-48.SGF",
+            "title": "3-2-48.SGF",
+            "sgf": "(;GM[1]AB[cp][bo][cn][dn][em][fm][gn][go][gp]AW[dl][dm][hq][gq][fp][fn][en][bq]\r\n[cq][dp][bm]C[3-2-48\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[ ]EV[李昌镐精讲围棋手筋 3]\r\nHA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[ep]\r\n(;W[eq];B[eo])\r\n(;W[eo];B[eq];W[do];B[dq]))"
+          },
+          {
+            "id": "3-2-49.SGF",
+            "title": "3-2-49.SGF",
+            "sgf": "(;GM[1]AB[dp][do][fo][fp][gp][ho][hq][hr][hs]AW[jq][ip][hp][cl][bo][cr][cq][gr]\r\n[gq][eq][jr]C[3-2-49\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[ ]EV[李昌镐精讲围棋手筋 3]\r\nHA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[er]\r\n(;W[fq];B[dq];W[dr];B[fs])\r\n(;W[dq];B[fq];W[fr];B[fs])\r\n(;W[dr];B[fs]))"
+          },
+          {
+            "id": "3-2-4★.sgf",
+            "title": "3-2-4★",
+            "sgf": "(;AB[cq][dq][eq][dp][fp][eo][en][em][hp][iq]AW[cr][bq][cp][co][do][dm][dl][ck][gq]\r\nLB[dr:A]C[3-2-4\r\n黑先]AP[MultiGo:4.2.1]SZ[19]MULTIGOGM[1]\r\n;B[br]\r\n(;W[bs];B[dr]\r\n(;W[ar])\r\n(;W[jj]C[如果白脱先...];B[ar]C[黑立大。]))\r\n(;W[ar]LB[dr:A]C[黑可脱先。白A位爬是后手。];B[jj];W[dr];B[er]C[如果白脱先。];W[jd]\r\n;B[bs]))"
+          },
+          {
+            "id": "3-2-5.sgf",
+            "title": "3-2-5",
+            "sgf": "(;AB[cp][dp][eq][fp][hq][gq][iq][ir][en][dl][dk]AW[cq][bp][co][cn][cm][cl][ck][er]\r\n[fr][gr][hr]C[3-2-5\r\n黑先]AP[MultiGo:4.2.1]SZ[19]MULTIGOGM[1]\r\n;B[bq];W[br];B[cr]\r\n(;W[aq];B[dr])\r\n(;W[dr];B[dq];W[aq];B[cq];W[cs];B[bo]))"
+          },
+          {
+            "id": "3-2-50★.SGF",
+            "title": "3-2-50★.SGF",
+            "sgf": "(;GM[1]AB[eo][en][dn][el][gq][hp][io][cq][dq][eq][dp]AW[dj][ep][fp][gp][fn][iq]\r\n[cl][cn][cp][co][do][kp]LB[fq:A]C[3-2-50\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]\r\nGN[ ]EV[李昌镐精讲围棋手筋 3]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[gn]\r\n(;W[fo];B[fm])\r\n(;W[fq];B[fr];W[gr];B[hq];W[er];B[fs];W[es];B[fo];W[gs];B[fr];W[fs];B[go];W[fr]\r\n;B[hr];W[bq];B[cr];W[br];B[ds];W[bs];B[hs]))"
+          },
+          {
+            "id": "3-2-51.SGF",
+            "title": "3-2-51.SGF",
+            "sgf": "(;GM[1]AB[gr][hq][cp][co][cn][cm][cl][bq][br][cr][ds][er][fr]AW[dl][ck][bk][bm]\r\n[em][fm][gn][go][gp][bn][bo][bp][do][dr][dq][cq][gq]C[3-2-51\r\n黑先]AP[StoneBase:SGFParser.3.0.1]\r\nSZ[19]GN[ ]EV[李昌镐精讲围棋手筋 3]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[eo]\r\n(;W[dn];B[dp];W[eq];B[fq])\r\n(;W[ep];B[fp];W[fq];B[eq]))"
+          },
+          {
+            "id": "3-2-52.SGF",
+            "title": "3-2-52.SGF",
+            "sgf": "(;GM[1]AB[do][co][bo][bm][cm][dn][ck][cr][dr][dq][ep][fo][eo]AW[em][dm][br][cq]\r\n[fm][gn][hp][gq][eq][dp][cp][bp][ao][an][bn][cn][er]LB[am:A]C[3-2-52\r\n黑先]AP[StoneBase:SGFParser.3.0.1]\r\nSZ[19]GN[ ]EV[李昌镐精讲围棋手筋 3]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[ar]\r\n(;W[ds];B[ap];W[aq];B[am])\r\n(;W[aq]\r\n(;B[bs])\r\n(;B[am])))"
+          },
+          {
+            "id": "3-2-53.SGF",
+            "title": "3-2-53.SGF",
+            "sgf": "(;GM[1]AB[eq][ep][dp][dq][dr][es][gn][co][bo][bn][bm][cl][dn][ds][hn][ho][im][iq]\r\n[jq][jp][kp][hr][gr][gq][gp][fq]AW[fo][er][dl][cm][cn][fp][go][kq][ar][cr][cs][cq]\r\n[cp][bp][do][eo][en][fs][hp][hq][ip][io][in][jn][ir][jr]C[3-2-53\r\n黑先]AP[StoneBase:SGFParser.3.0.1]\r\nSZ[19]GN[ ]EV[李昌镐精讲围棋手筋 3]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[el]\r\n(;W[dm];B[dk];W[ck];B[em];W[bl];B[fn])\r\n(;W[fm];B[em];W[fn];B[fl];W[gm];B[hm];W[gl];B[gk];W[dm];B[hl]))"
+          },
+          {
+            "id": "3-2-54.SGF",
+            "title": "3-2-54.SGF",
+            "sgf": "(;GM[1]AB[bm][cm][dm][eo][ip][do][co][in][jo][cp][hp][ho][fr][fq][fp][cl]AW[bp]\r\n[bq][go][fo][cq][dp][ep][eq][dr][en][fk][el][dl][dj][ck][bk][bl][er]TR[go][fo]C[3-2-54\r\n黑先]\r\nAP[StoneBase:SGFParser.3.0.1]SZ[19]GN[ ]EV[李昌镐精讲围棋手筋 3]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[fm]\r\n(;W[em];B[fn];W[gn];B[gm])\r\n(;W[fn];B[em];W[gm];B[gl];W[hm];B[fl])\r\n(;W[gm];B[em];W[gn];B[gl];W[hm];B[fl]))"
+          },
+          {
+            "id": "3-2-55.SGF",
+            "title": "3-2-55.SGF",
+            "sgf": "(;GM[1]AB[er][cp][co][cn][cm][hp][ip][dq][eq][fq][gq]AW[cs][hq][hr][jq][ho][gp]\r\n[ep][dr][cq][bq][dm][dl][cl][dp]C[3-2-55\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]\r\nGN[ ]EV[李昌镐精讲围棋手筋 3]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[fo]\r\n(;W[fp];B[go])\r\n(;W[go];B[fp]))"
+          },
+          {
+            "id": "3-2-56.SGF",
+            "title": "3-2-56.SGF",
+            "sgf": "(;GM[1]AB[do][dn][cn][bo][hq][bp][cp][fq][gq][fp][hp][jp][jo][jn][im][il][hl][gl]\r\n[fm][em]AW[in][hm][gm][io][ho][go][gn][en][eo][ep][dp][cq][bq][gp]C[3-2-56\r\n黑先]\r\nAP[StoneBase:SGFParser.3.0.1]SZ[19]GN[ ]EV[李昌镐精讲围棋手筋 3]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[br]\r\n(;W[ar];B[dr];W[cr];B[dq])\r\n(;W[cr];B[er]LB[dq:A][aq:B]))"
+          },
+          {
+            "id": "3-2-57.SGF",
+            "title": "3-2-57.SGF",
+            "sgf": "(;GM[1]AB[eq][fq][fp][fo][eo][fr][es][bp][cp][dp][dq]AW[cm][cj][en][fn][gn][go]\r\n[gq][hr][cn][bo][cs][er][dr][cq][bq][jq]LB[ap:A][br:B]C[3-2-57\r\n黑先]AP[StoneBase:SGFParser.3.0.1]\r\nSZ[19]GN[ ]EV[李昌镐精讲围棋手筋 3]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[ar]\r\n(;W[aq];B[br];W[cr];B[ap])\r\n(;W[ap];B[aq];W[ao];B[bs]))"
+          },
+          {
+            "id": "3-2-6.sgf",
+            "title": "3-2-6",
+            "sgf": "(;AB[cq][dp][fq][fp][go][fn][kq][kp]AW[bq][bp][cn][ck][iq][gq][gp][ho]C[3-2-6\r\n黑先]\r\nAP[MultiGo:4.2.1]SZ[19]MULTIGOGM[1]\r\n;B[hp];W[ip];B[hn]\r\n(;W[io];B[gr];W[hq])\r\n(;W[hq];B[jo]))"
+          },
+          {
+            "id": "3-2-7.sgf",
+            "title": "3-2-7",
+            "sgf": "(;AB[cr][cq][bp][bo][co][do][en][ep][fp][gp][gq][io][cj]AW[br][bq][cp][dp][dq][fq]\r\n[eq][gr][hq][iq]C[3-2-7\r\n黑先]AP[MultiGo:4.2.1]SZ[19]MULTIGOGM[1]\r\n\r\n(;B[hr];W[fr];B[jq];W[jr];B[kq]LB[ip:A]C[以后，黑A先手。])\r\n(;B[fr];W[er];B[bs]))"
+          },
+          {
+            "id": "3-2-8.sgf",
+            "title": "3-2-8",
+            "sgf": "(;AB[dp][fp][gp][ho][hq]AW[cq][dq][fq][gq][hr][jq][jo][bo][dm][dj]C[3-2-8\r\n黑先]\r\nAP[MultiGo:4.2.1]SZ[19]MULTIGOGM[1]\r\n;B[gr]\r\n(;W[fr];B[ir];W[gs];B[iq])\r\n(;W[iq];B[eq];W[fr];B[er];W[gs]))"
+          },
+          {
+            "id": "3-2-9.sgf",
+            "title": "3-2-9",
+            "sgf": "(;AB[cp][dp][ep][eq][en][go][dj]AW[cq][dq][bp][cn][er][fq][gq]C[3-2-9\r\n黑先]AP[MultiGo:4.2.1]\r\nSZ[19]MULTIGOGM[1]\r\n;B[fr];W[dr];B[bo];W[bq];B[co]LB[hq:A]C[黑留有A位靠下的便宜。])"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "第6卷",
+    "chapters": [
+      {
+        "title": "1 杀气",
+        "problems": [
+          {
+            "id": "6-1-1.SGF",
+            "title": "6-1-1.SGF",
+            "sgf": "(;GM[1]AB[cq][cp][dp][ep][fq][gq][fr][hr]AW[jp][jr][hq][ir][hp][gp][fp][dr][dq]\r\n[eq][gs]C[6-1-1\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]\r\nHA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[es]\r\n(;W[cr];B[br];W[bs];B[cs])\r\n(;W[gr];B[cr]))"
+          },
+          {
+            "id": "6-1-10★.SGF",
+            "title": "6-1-10★.SGF",
+            "sgf": "(;GM[1]AB[cq][cr][dr][eq][ep][eo][dn][bn][bm]AW[fr][er][dq][dp][cp][bp][hq]C[6-1-10\r\n黑先]\r\nAP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n\r\n(;B[ar];W[bq];B[br];W[ds];B[bo];W[cs];B[co];W[bs];B[ap])\r\n(;B[bq];W[ap]\r\n(;B[aq];W[ds];B[bo];W[ar])\r\n(;B[es];W[fs];B[cs];W[ar];B[aq];W[bs];B[co];W[ds]C[黑只是缓气劫。])))"
+          },
+          {
+            "id": "6-1-11.SGF",
+            "title": "6-1-11.SGF",
+            "sgf": "(;GM[1]AB[cq][bp][bo][cn][dn][en][fo][fp][fq][fr]AW[gr][gq][gp][go][gn][fn][eq]\r\n[dq][eo][do][co][ir]C[6-1-11\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]\r\nHA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[es]\r\n(;W[dr];B[cr];W[ds];B[dp];W[ep];B[cp])\r\n(;W[er];B[cs]))"
+          },
+          {
+            "id": "6-1-12.SGF",
+            "title": "6-1-12.SGF",
+            "sgf": "(;GM[1]AB[ep][dp][fr][gr][co][bo][bp][ar][dr][eq]AW[do][eo][fo][fp][gq][hp][hr]\r\n[cr][cq][cp][bq][aq][ir]C[6-1-12\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]\r\nEV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[es];W[cs];B[ds];W[fq];B[dq];W[gs];B[ap])"
+          },
+          {
+            "id": "6-1-13.SGF",
+            "title": "6-1-13.SGF",
+            "sgf": "(;GM[1]AB[br][cq][dq][ep][fp][gp][gq]AW[er][dp][cp][bp][bq][eq][fq]TR[er]C[6-1-13\r\n黑先]\r\nAP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n\r\n(;B[ds]\r\n(;W[gr];B[fs];W[fr];B[hr])\r\n(;W[es];B[dr];W[bs];B[fr]))\r\n(;B[dr];W[ds];B[cr];W[gr];B[fs];W[gs];B[hr];W[ar]C[黑失败。]))"
+          },
+          {
+            "id": "6-1-14.SGF",
+            "title": "6-1-14.SGF",
+            "sgf": "(;GM[1]AB[aq][bq][cp][dp][bo][an][eq][er][ds][gq]AW[am][cn][do][eo][ep][cr][br]\r\n[dr][dq][cq][bn]C[6-1-14\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]\r\nHA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[bp];W[ao];B[ar])"
+          },
+          {
+            "id": "6-1-15★.SGF",
+            "title": "6-1-15★.SGF",
+            "sgf": "(;GM[1]AB[en][fo][go][gm][hp][gq][hr][cs][cr][cq][cp][do][dn]AW[co][cn][cm][eo]\r\n[dp][fp][bs][br][bq][bp][eq]C[6-1-15\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]\r\nEV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[ds];W[fr]\r\n(;B[er]\r\n(;W[fq];B[dq];W[ep];B[gr])\r\n(;W[dq];B[fq];W[fs];B[gr]))\r\n(;B[dq];W[ep];B[er];W[fq];B[gr]))"
+          },
+          {
+            "id": "6-1-16.SGF",
+            "title": "6-1-16.SGF",
+            "sgf": "(;GM[1]AB[fo][eo][do][co][jo][cp][dq][jr][jq][dr][in][fm][gn][hs][gs][gr][gq][gp]\r\nAW[go][ho][er][eq][hp][hq][hr][ir][fp][ep][dp][bs][bq][cq][is]C[6-1-16\r\n黑先]AP[StoneBase:SGFParser.3.0.1]\r\nSZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[ds];W[es];B[hn])"
+          },
+          {
+            "id": "6-1-17.SGF",
+            "title": "6-1-17.SGF",
+            "sgf": "(;GM[1]AB[do][eo][fo][gp][hp][iq][hr][bp][bq][cq][dq][co]AW[gr][bo][cn][bm][an]\r\n[go][fq][fp][ep][dp][cp][gn]C[6-1-17\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]\r\nEV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[fr]\r\n(;W[er];B[fs]\r\n(;W[es];B[gq];W[gs];B[fr];W[fs];B[eq])\r\n(;W[gs];B[gq];W[eq];B[dr];W[es];B[ds]))\r\n(;W[gq];B[gs];W[er]\r\n(;B[eq];W[fs];B[hs])\r\n(;B[fs];W[eq];B[dr])))"
+          },
+          {
+            "id": "6-1-18.SGF",
+            "title": "6-1-18.SGF",
+            "sgf": "(;GM[1]AB[bo][bn][am][eq][fq][fr][es][cq][cp][dp][bp]AW[er][ep][eo][do][co][dm]\r\n[bm][dq][dr][cr][bq][aq][bl]C[6-1-18\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]\r\nEV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[br];W[bs];B[ar];W[as];B[br];W[ar];B[ds];W[cn];B[fs];W[ap];B[cs])"
+          },
+          {
+            "id": "6-1-19.SGF",
+            "title": "6-1-19.SGF",
+            "sgf": "(;GM[1]AB[fp][ep][co][dp][cq][bq][aq][bs][fs][fr][gr][ir][iq][hq][gp]AW[es][hr]\r\n[ds][gq][hs][hp][ip][jp][fq][eq][dq][cr][br][ar][kr]C[6-1-19\r\n黑先]AP[StoneBase:SGFParser.3.0.1]\r\nSZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[cs];W[as];B[cs];W[bs];B[er])"
+          },
+          {
+            "id": "6-1-2.SGF",
+            "title": "6-1-2.SGF",
+            "sgf": "(;GM[1]AB[hn][hp][ip][iq][eq][fq][er][dr][bq][bp][dp][do][eo][fo][go]AW[hq][gq]\r\n[gp][ir][jr][jq][fp][ep][cr][cq][dq][fs]C[6-1-2\r\n黑先]AP[StoneBase:SGFParser.3.0.1]\r\nSZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[gs];W[gr];B[br];W[ds];B[cp])"
+          },
+          {
+            "id": "6-1-20★.SGF",
+            "title": "6-1-20★.SGF",
+            "sgf": "(;GM[1]AB[br][cr][cq][dp][do][dn][dl][cl][cj]AW[fq][ep][dq][co][cp][bp][bq][er]\r\nC[6-1-20\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]\r\nHA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[ar];W[bn];B[ao];W[bl];B[bk];W[bm];B[aq];W[ap];B[cn];W[bo];B[al])"
+          },
+          {
+            "id": "6-1-21.SGF",
+            "title": "6-1-21.SGF",
+            "sgf": "(;GM[1]AB[es][fp][fo][eo][do][co][cm][bs][cs][cr][dq][eq][er]AW[br][bq][fq][fr]\r\n[fs][cq][cp][dp][ep][hq]C[6-1-21\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]\r\nEV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[ap];W[bo];B[ar];W[ao];B[bn])"
+          },
+          {
+            "id": "6-1-22.SGF",
+            "title": "6-1-22.SGF",
+            "sgf": "(;GM[1]AB[cp][bn][bm][dn][en][eo][hq][iq][bs][br][cr][dr][er][dp]AW[eq][ep][ar]\r\n[fr][es][ds][gp][bq][bp][bo][co][do][hp]C[6-1-22\r\n黑先]AP[StoneBase:SGFParser.3.0.1]\r\nSZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[fq]\r\n(;W[gq];B[ao])\r\n(;W[fp];B[gq]))"
+          },
+          {
+            "id": "6-1-23.SGF",
+            "title": "6-1-23.SGF",
+            "sgf": "(;GM[1]AB[aq][bq][cq][dq][dr][ds][ep][fp][gq][hr][iq]AW[br][gr][fr][er][eq][dp]\r\n[cp][bp][ap][cs]C[6-1-23\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]\r\nHA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[bs];W[as];B[es])"
+          },
+          {
+            "id": "6-1-24.SGF",
+            "title": "6-1-24.SGF",
+            "sgf": "(;GM[1]AB[br][bq][cp][dp][ep][fp][fq][gr][gs][hq]AW[es][fr][dr][eq][dq][cq][bn]\r\n[co][bp][ap][fs]C[6-1-24\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]\r\nHA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[bs]\r\n(;W[cs];B[cr];W[aq];B[ds])\r\n(;W[aq];B[cs];W[ds];B[cr]))"
+          },
+          {
+            "id": "6-1-25.SGF",
+            "title": "6-1-25.SGF",
+            "sgf": "(;GM[1]AB[aq][bq][cq][dq][cr][ds][ep][eo][dn][bn]AW[fp][dr][er][eq][dp][cp][bp]\r\n[ap][gq]C[6-1-25\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]\r\nHA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[ar];W[bs];B[do];W[cs];B[bo])"
+          },
+          {
+            "id": "6-1-26.SGF",
+            "title": "6-1-26.SGF",
+            "sgf": "(;GM[1]AB[bq][cq][dq][dr][fr][fq][gq][fo][eo][dn][cn][bm][cl]AW[cp][dp][ep][eq]\r\n[er][bp][bo][bn][es]C[6-1-26\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]\r\nHA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[ar];W[bs];B[ds];W[ap];B[aq]C[黑快一气。])"
+          },
+          {
+            "id": "6-1-27.SGF",
+            "title": "6-1-27.SGF",
+            "sgf": "(;GM[1]AB[br][cq][dq][eq][fq][er][gp][go][fn][dn][bn][bm]AW[bp][bq][gq][gr][fr]\r\n[cp][dp][ep][fp][iq]C[6-1-27\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]\r\nHA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[ds]\r\n(;W[ar];B[cr];W[bs];B[bo];W[aq];B[do])\r\n(;W[cr];B[ar]))"
+          },
+          {
+            "id": "6-1-28.SGF",
+            "title": "6-1-28.SGF",
+            "sgf": "(;GM[1]AB[ap][bp][cp][dp][cn][eq][er][dr]AW[gq][fp][ep][cr][dq][cq][bq][aq][fr]\r\nC[6-1-28\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]\r\nHA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[cs];W[bs];B[ar];W[ds];B[es])"
+          },
+          {
+            "id": "6-1-29.SGF",
+            "title": "6-1-29.SGF",
+            "sgf": "(;GM[1]AB[bq][bp][cp][dp][eq][er][fr][ds]AW[gq][fp][ep][aq][br][cr][dr][dq][cq]\r\n[gr]C[6-1-29\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]\r\nHA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[bs]\r\n(;W[as];B[ar])\r\n(;W[ar];B[ap]))"
+          },
+          {
+            "id": "6-1-3.SGF",
+            "title": "6-1-3.SGF",
+            "sgf": "(;GM[1]AB[dn][eq][gp][fp][jr][ep][dp][fr][ir][cp][iq][hq][jp][jo][in][gm][en]AW[fq]\r\n[gq][lq][kq][gr][er][bq][cq][jq][ip][hp][ho][go][fo][dq]C[6-1-3\r\n黑先]AP[StoneBase:SGFParser.3.0.1]\r\nSZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[gs];W[fs];B[hs];W[dr];B[hn];W[kr];B[fn];W[fr];B[gn];W[hr];B[eo])"
+          },
+          {
+            "id": "6-1-30.SGF",
+            "title": "6-1-30.SGF",
+            "sgf": "(;GM[1]AB[br][bq][cq][dp][ep][fp][fq][gr][hq]AW[er][cr][fr][eq][dq][dn][co][cp]\r\n[bs]C[6-1-30\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]\r\nHA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[ds]\r\n(;W[cs];B[fs];W[dr];B[gs];W[es];B[as];W[ar];B[aq])\r\n(;W[dr];B[fs];W[cs];B[gs];W[es];B[as];W[ar];B[aq]))"
+          },
+          {
+            "id": "6-1-31.SGF",
+            "title": "6-1-31.SGF",
+            "sgf": "(;GM[1]AB[cr][cq][cp][dp][eq][fr][gr][gq]AW[er][fq][fp][eo][do][co][bp][bq][br]\r\n[dr]C[6-1-31\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]\r\nHA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[ds];W[es];B[cs];W[ep];B[fs])"
+          },
+          {
+            "id": "6-1-32.SGF",
+            "title": "6-1-32.SGF",
+            "sgf": "(;GM[1]AB[bp][cp][co][cn][dn][cr][dq][eq]AW[br][bq][cq][dp][do][fo][fp][fq][fr]\r\nC[6-1-32\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]CA[gb2312]GN[  ]EV[李昌镐精讲围棋手筋 6]\r\nHA[0]MULTIGOGM[1]\r\n;B[bs];W[dr];B[aq];W[cs];B[ar];W[as])"
+          },
+          {
+            "id": "6-1-33.SGF",
+            "title": "6-1-33.SGF",
+            "sgf": "(;GM[1]AB[br][bq][bp][cp][dp][ep][fq][gq][gr]AW[hp][gp][fp][ds][es][fr][cr][cq]\r\n[dq][eq][iq]C[6-1-33\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]\r\nHA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[er]\r\n(;W[dr];B[gs];W[hr];B[fs])\r\n(;W[fs];B[bs];W[hr];B[cs]))"
+          },
+          {
+            "id": "6-1-34.SGF",
+            "title": "6-1-34.SGF",
+            "sgf": "(;GM[1]AB[bo][co][dn][cm][dp][dq][dr]AW[fq][bp][cp][cq][cr][do][eo][fp]C[6-1-34\r\n黑先]\r\nAP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n\r\n(;B[br];W[bs];B[aq];W[ap];B[ds];W[cs];B[ao];W[er];B[as])\r\n(;B[bs];W[br]\r\n(;B[aq];W[cs];B[ap];W[er];B[ds];W[as];B[ao];W[eq]C[黑失败。])\r\n(;B[cs];W[er];B[aq];W[ar];B[ap];W[eq]C[黑失败。])))"
+          },
+          {
+            "id": "6-1-35.SGF",
+            "title": "6-1-35.SGF",
+            "sgf": "(;GM[1]AB[cr][cq][bp][dp][ep][fp][gp][hq]AW[ho][go][en][cn][co][cp][gq][fq][dr]\r\n[dq][hp]C[6-1-35\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]\r\nHA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[gr];W[fr];B[fs]\r\n(;W[hr];B[er])\r\n(;W[es];B[eq];W[gs];B[hr]))"
+          },
+          {
+            "id": "6-1-36.SGF",
+            "title": "6-1-36.SGF",
+            "sgf": "(;GM[1]AB[er][eq][dp][do][en][cn][bo][bp]AW[gq][fp][ep][co][cp][dq][cq][bq][gr]\r\nC[6-1-36\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]\r\nHA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n\r\n(;B[br];W[ap];B[bn];W[cr];B[ar];W[bs];B[ds])\r\n(;B[dr];W[ap];B[bn];W[cr];B[bs];W[cs];B[ao];W[fr];B[aq];W[ar];B[ds];W[ap]C[打劫，黑失败。])\r\n(;B[bs];W[dr];B[ds];W[ap];B[bn];W[br]C[打劫，黑失败。]))"
+          },
+          {
+            "id": "6-1-37.SGF",
+            "title": "6-1-37.SGF",
+            "sgf": "(;GM[1]AB[dr][er][eq][fp][gp][hp][ip][jq][kq]AW[hq][gq][fq][bq][cq][dp][ep][fr]\r\nC[6-1-37\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]\r\nHA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[gs];W[fs];B[hr];W[ir];B[iq])"
+          },
+          {
+            "id": "6-1-38★.SGF",
+            "title": "6-1-38★.SGF",
+            "sgf": "(;GM[1]AB[br][cq][dq][ep][fp][gq][hq]AW[iq][dr][eq][fq][gp][hp][ip]C[6-1-38\r\n黑先]\r\nAP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[gr];W[fs]\r\n(;B[es];W[er];B[ir];W[jr];B[fr];W[ds];B[hs])\r\n(;B[ir];W[hs];B[is];W[jr]C[黑失败。]))"
+          },
+          {
+            "id": "6-1-39.SGF",
+            "title": "6-1-39.SGF",
+            "sgf": "(;GM[1]AB[bq][cp][dp][eq][er][es][gr][hr][ir]AW[jq][hq][gp][bo][eo][ep][ds][dr]\r\n[dq][cq][br][jr]C[6-1-39\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]\r\nHA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[cs];W[cr];B[bs];W[as];B[bp];W[co];B[bs];W[cs];B[ar];W[aq];B[ap];W[do];B[ar])"
+          },
+          {
+            "id": "6-1-4.SGF",
+            "title": "6-1-4.SGF",
+            "sgf": "(;GM[1]AB[bs][br][bq][cp][dp][do][fp][fo][hp][hq][hr]AW[bo][bp][gr][gq][eq][cr]\r\n[cq][cn]C[6-1-4\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]\r\nHA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[er]\r\n(;W[dr]\r\n(;B[ds];W[dq];B[fq])\r\n(;B[es];W[dq];B[fq];W[fr];B[cs]))\r\n(;W[dq];B[fq];W[fr];B[ds]))"
+          },
+          {
+            "id": "6-1-40.SGF",
+            "title": "6-1-40.SGF",
+            "sgf": "(;GM[1]AB[mq][kq][jq][gr][gq][go][fp][ep][dq][cq][cr][pp]AW[dr][er][fr][fq][gp]\r\n[hp][iq]C[6-1-40\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]\r\nHA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[hs];W[ir];B[jr];W[is];B[ip])"
+          },
+          {
+            "id": "6-1-5.SGF",
+            "title": "6-1-5.SGF",
+            "sgf": "(;GM[1]AB[en][eo][fo][go][gp][gq][gr][cr][cq][cp][co][dn]AW[dm][do][dp][ep][fp]\r\n[dr][bm][cn][bo][bp][bq][fr]C[6-1-5\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]\r\nEV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[ds]\r\n(;W[es];B[dq];W[eq];B[fq])\r\n(;W[er];B[fs];W[es];B[dq];W[cs];B[fq]))"
+          },
+          {
+            "id": "6-1-6.SGF",
+            "title": "6-1-6.SGF",
+            "sgf": "(;GM[1]AB[cp][bp][bo][bq][dq][eq][ep][fn][fr][gq][es]AW[dm][dk][cq][cr][br][dr]\r\n[dp][do][co][bn][er]C[6-1-6\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]\r\nHA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[an]\r\n(;W[bm];B[ar]\r\n(;W[ao];B[ds];W[am];B[cs])\r\n(;W[ds];B[bs];W[fs];B[gs];W[am]C[白棋仅是缓气劫。]))\r\n(;W[am];B[cn];W[bm];B[dn]))"
+          },
+          {
+            "id": "6-1-7.SGF",
+            "title": "6-1-7.SGF",
+            "sgf": "(;GM[1]AB[en][fn][go][fp][gp][gq][iq][bq][bo][co][dp][dq][dn]AW[fo][ep][eq][fq]\r\n[dr][gn][eo][do][cm][cn][gm]TR[dr]C[6-1-7\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]\r\nGN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[es];W[gr];B[fs];W[gs];B[hr])"
+          },
+          {
+            "id": "6-1-8.SGF",
+            "title": "6-1-8.SGF",
+            "sgf": "(;GM[1]AB[bq][cq][dp][ep][eo][en][fq][gq][gr]AW[fo][fn][fm][dm][co][cp][fr][eq]\r\n[dq][cr][fp]C[6-1-8\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]\r\nHA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[cs]\r\n(;W[br];B[dr];W[er];B[es])\r\n(;W[ds];B[br];W[bs];B[er];W[dr];B[fs]))"
+          },
+          {
+            "id": "6-1-9.SGF",
+            "title": "6-1-9.SGF",
+            "sgf": "(;GM[1]AB[dm][eo][do][dp][cp][cq][br][fr][fq][fp][go][ho][hm][fl][el]AW[er][fo]\r\n[eq][ep][fn][fm][gp][hq][dq][bs][cr][bo][bp][bq][ir]C[6-1-9\r\n黑先]AP[StoneBase:SGFParser.3.0.1]\r\nSZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[fs]\r\n(;W[dr];B[gm])\r\n(;W[gr];B[dr];W[ds];B[es]))"
+          }
+        ]
+      },
+      {
+        "title": "2 攻击",
+        "problems": [
+          {
+            "id": "6-2-1.SGF",
+            "title": "6-2-1.SGF",
+            "sgf": "(;GM[1]AB[dq][dp][dn][fp][fo][gn][iq]AW[eq][fq][gp][go][hn][kq]C[6-2-1\r\n黑先]AP[StoneBase:SGFParser.3.0.1]\r\nSZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[hp]\r\n(;W[ho];B[gq];W[gr];B[hq];W[jp];B[hr];W[fr];B[ep])\r\n(;W[hq];B[ho];W[gq];B[ip]))"
+          },
+          {
+            "id": "6-2-10.SGF",
+            "title": "6-2-10.SGF",
+            "sgf": "(;GM[1]AB[cr][cq][dp][co][do][eo][fo]AW[ep][cp][bp][bq][br][dq][eq]C[6-2-10\r\n黑先]\r\nAP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[fr];W[dr];B[gp];W[gq];B[hq])"
+          },
+          {
+            "id": "6-2-11.SGF",
+            "title": "6-2-11.SGF",
+            "sgf": "(;GM[1]AB[cp][do][fp][go][gn][hn]AW[fo][ep][eq][gp][gq][ho]C[6-2-11\r\n黑先]AP[StoneBase:SGFParser.3.0.1]\r\nSZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[eo];W[fn];B[fm];W[en];B[dm];W[em];B[el];W[fq];B[dn];W[fp];B[io];W[gm];B[fl];W[jq])"
+          },
+          {
+            "id": "6-2-12.SGF",
+            "title": "6-2-12.SGF",
+            "sgf": "(;GM[1]AB[bq][cp][co][cm][hp][gn]AW[cq][cr][dp][eq][en][kp]C[6-2-12\r\n黑先]AP[StoneBase:SGFParser.3.0.1]\r\nSZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[eo];W[do];B[dn]\r\n(;W[dm];B[cn];W[fo];B[em];W[ep];B[fm])\r\n(;W[em];B[ep];W[dq];B[gp];W[br];B[dk]))"
+          },
+          {
+            "id": "6-2-13.SGF",
+            "title": "6-2-13.SGF",
+            "sgf": "(;GM[1]AB[er][cp][dp][ep][dq][dn][jp]AW[cq][bq][br][dr][cs][eq][fq]C[6-2-13\r\n黑先]\r\nAP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[gq]\r\n(;W[fr];B[fp])\r\n(;W[fp];B[fr];W[gp];B[hq]))"
+          },
+          {
+            "id": "6-2-14.SGF",
+            "title": "6-2-14.SGF",
+            "sgf": "(;GM[1]AB[fq][fo][gn][gm]AW[go][fn][en][do][dq][jq]TR[go]C[6-2-14\r\n黑先]AP[StoneBase:SGFParser.3.0.1]\r\nSZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[ho];W[gp];B[hq]\r\n(;W[fp];B[ep];W[eo];B[hp];W[eq];B[gq];W[dp];B[kp])\r\n(;W[hp];B[ip];W[io];B[gq];W[hn];B[fp];W[ho];B[jp]))"
+          },
+          {
+            "id": "6-2-15.SGF",
+            "title": "6-2-15.SGF",
+            "sgf": "(;GM[1]AB[br][bq][cq][dp][ep][dn][hp][ip][jp][kp][kq][lr]AW[cr][hq][iq][jq][kr]\r\n[dr][fq][go][fo][ks]C[6-2-15\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]\r\nHA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[fr]\r\n(;W[er];B[gp];W[fp];B[gq];W[gr];B[hr];W[fs];B[jr])\r\n(;W[gr];B[fp];W[gp];B[eq];W[gq];B[er]))"
+          },
+          {
+            "id": "6-2-16.SGF",
+            "title": "6-2-16.SGF",
+            "sgf": "(;GM[1]AB[go][hm][im][hp][hq]AW[cp][fq][fo][fm][gp][ho][hn]LB[io:A]C[6-2-16\r\n黑先]\r\nAP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[fr];W[er];B[gq];W[fp];B[io])"
+          },
+          {
+            "id": "6-2-17.SGF",
+            "title": "6-2-17.SGF",
+            "sgf": "(;GM[1]AB[cn][ck]AW[cp][eo][fq][dm]LB[cm:A]C[6-2-17\r\n黑先]AP[StoneBase:SGFParser.3.0.1]\r\nSZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[bp]\r\n(;W[cq];B[cm];W[dl];B[co])\r\n(;W[bq];B[bo];W[cq]LB[cm:A]C[黑先手补去A位弱点。]))"
+          },
+          {
+            "id": "6-2-18★.SGF",
+            "title": "6-2-18★.SGF",
+            "sgf": "(;GM[1]AB[cp][bp][bq][dq][cn][ck][iq][kq]AW[gq][br][cr][cq][dp][ep]C[6-2-18\r\n黑先]\r\nAP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[fr]\r\n(;W[gr];B[dr];W[er];B[eq];W[ds];B[es];W[bs];B[fq];W[fp];B[gs];W[hs];B[ar])\r\n(;W[er];B[fq];W[eq];B[fp]))"
+          },
+          {
+            "id": "6-2-19.SGF",
+            "title": "6-2-19.SGF",
+            "sgf": "(;GM[1]AB[cn][dn][en][fn][fo][ep]AW[eo][do][cp][fp][go][gq][iq]C[6-2-19\r\n黑先]AP[StoneBase:SGFParser.3.0.1]\r\nSZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[bq]\r\n(;W[eq];B[bp])\r\n(;W[bp];B[dp];W[co];B[cq]))"
+          },
+          {
+            "id": "6-2-2.SGF",
+            "title": "6-2-2.SGF",
+            "sgf": "(;GM[1]AB[ep][fp][fq][jq][cn][cm][ck]AW[eq][dq][cp][do][dn]C[6-2-2\r\n黑先]AP[StoneBase:SGFParser.3.0.1]\r\nSZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[bq]\r\n(;W[bp];B[dp];W[br];B[co])\r\n(;W[co]C[白团，最强抵抗。];B[fr]LB[hq:A]C[黑立先手，补去A位毛病。];W[er]))"
+          },
+          {
+            "id": "6-2-20.SGF",
+            "title": "6-2-20.SGF",
+            "sgf": "(;GM[1]AB[cr][er][eq][fp][fo][eo][dn][hq]AW[fr][fq][do][cq][cp][dp][ep][hr]C[6-2-20\r\n黑先]\r\nAP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[es]\r\n(;W[iq];B[br];W[cn];B[dm];W[cm];B[dl])\r\n(;W[br];B[gr];W[gq];B[gp];W[gs];B[fs]))"
+          },
+          {
+            "id": "6-2-21★.SGF",
+            "title": "6-2-21★.SGF",
+            "sgf": "(;GM[1]AB[eq][do][dn][gp][go]AW[cp][co][cm][fq][gq][hp]LB[cn:A][hq:B]C[6-2-21\r\n黑先]\r\nAP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[er]\r\n(;W[jq];B[cn];W[bn];B[bm];W[bl];B[bo];W[am];B[bp];W[cq];B[bq];W[br];B[cr];W[dr]\r\n;B[cs];W[ds];B[dq])\r\n(;W[cr];B[hq];W[iq];B[hr];W[ip];B[gr]))"
+          },
+          {
+            "id": "6-2-22.SGF",
+            "title": "6-2-22.SGF",
+            "sgf": "(;GM[1]AB[en][cp][ep][eq][er][fr][fo]AW[eo][do][cn][fp][fq][gr][gq]C[6-2-22\r\n黑先]\r\nAP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[go]\r\n(;W[jq];B[dl])\r\n(;W[em];B[hq];W[hr];B[iq]))"
+          },
+          {
+            "id": "6-2-23.SGF",
+            "title": "6-2-23.SGF",
+            "sgf": "(;GM[1]AB[cp][ep][eo][dq][dr][gq][hp]AW[eq][er][fp][gp][go][hq]TR[gq]C[6-2-23\r\n黑先]\r\nAP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[iq];W[hr];B[gr];W[ir];B[fs])"
+          },
+          {
+            "id": "6-2-24.SGF",
+            "title": "6-2-24.SGF",
+            "sgf": "(;GM[1]AB[br][cq][cp][cm][eo][go][iq]AW[cr][dr][dq][gq][hp]C[6-2-24\r\n黑先]AP[StoneBase:SGFParser.3.0.1]\r\nSZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[jp]\r\n(;W[ho];B[fr];W[fq];B[gr])\r\n(;W[fp];B[fo];W[ip];B[jq];W[in]C[黑顺势走厚。]))"
+          },
+          {
+            "id": "6-2-25.SGF",
+            "title": "6-2-25.SGF",
+            "sgf": "(;GM[1]AB[dr][eq][ep][fp][cp][kq][ko]AW[er][fr][fq][iq][io]C[6-2-25\r\n黑先]AP[StoneBase:SGFParser.3.0.1]\r\nSZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[hr]\r\n(;W[hq];B[ir])\r\n(;W[ir];B[gq];W[gp];B[gr];W[go]))"
+          },
+          {
+            "id": "6-2-26.SGF",
+            "title": "6-2-26.SGF",
+            "sgf": "(;GM[1]AB[cq][bq][co][do][eo]AW[cr][dq][dp][gq][dl]C[6-2-26\r\n黑先]AP[StoneBase:SGFParser.3.0.1]\r\nSZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[er];W[dr];B[fq];W[fp];B[gr];W[hq];B[hr]\r\n(;W[ep];B[iq])\r\n(;W[iq];B[ep];W[eq];B[fr];W[ir];B[br]))"
+          },
+          {
+            "id": "6-2-27.SGF",
+            "title": "6-2-27.SGF",
+            "sgf": "(;GM[1]AB[dr][cr][cq][cp][dp][eo][fo][go][ho][ip][jp][gq]AW[iq][hp][gp][fp][er]\r\n[eq][dq][jq]C[6-2-27\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]\r\nHA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[hq]\r\n(;W[fq];B[gr];W[fr];B[gs];W[hs];B[ir];W[fs];B[jr];W[hr];B[kq])\r\n(;W[gr];B[fq];W[hr];B[ep]))"
+          },
+          {
+            "id": "6-2-28.SGF",
+            "title": "6-2-28.SGF",
+            "sgf": "(;GM[1]AB[br][bp][bo][co][do][dm][fq][gq][iq]AW[er][ep][dp][cp][bq][aq][fr]C[6-2-28\r\n黑先]\r\nAP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[eq]\r\n(;W[dr];B[cq])\r\n(;W[dq];B[cr];W[cq];B[dr]))"
+          },
+          {
+            "id": "6-2-29.SGF",
+            "title": "6-2-29.SGF",
+            "sgf": "(;GM[1]AB[dp][dn][dk][eq][jp][jq][kr][lq]AW[fp][fq][hp][ir][jr]C[6-2-29\r\n黑先]AP[StoneBase:SGFParser.3.0.1]\r\nSZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[iq]\r\n(;W[hq];B[gr];W[fr];B[hr])\r\n(;W[hr];B[fr];W[gr];B[er]LB[go:A]C[以后黑有A位攻击要点。]))"
+          },
+          {
+            "id": "6-2-3.SGF",
+            "title": "6-2-3.SGF",
+            "sgf": "(;GM[1]AB[dr][dq][dp][cn][gq][gp][hr][iq][hn]AW[er][eq][fq][fp][fo][dn][cm][gr]\r\nTR[cm]C[6-2-3\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]\r\nHA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[en];W[eo];B[dm];W[do];B[co])"
+          },
+          {
+            "id": "6-2-30★.SGF",
+            "title": "6-2-30★.SGF",
+            "sgf": "(;GM[1]AB[dp][cp][gp][gq]AW[fq][fp][go]TR[go]C[6-2-30\r\n黑先]AP[StoneBase:SGFParser.3.0.1]\r\nSZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[fr];W[er];B[gr]\r\n(;W[dq];B[ep];W[eq];B[fo])\r\n(;W[ep];B[ho];W[fn];B[hn];W[dn];B[bn]))"
+          },
+          {
+            "id": "6-2-31.SGF",
+            "title": "6-2-31.SGF",
+            "sgf": "(;GM[1]AB[dp][fp][gq][gr][hr][ir][hp][ho]AW[jr][iq][hq][go][gp][fq][cn][jp]C[6-2-31\r\n黑先]\r\nAP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[gn];W[fo];B[en]\r\n(;W[eo];B[do];W[ep];B[eq])\r\n(;W[ep];B[eo];W[dq];B[fn];W[fp];B[fr];W[eq];B[cq];W[cp];B[do];W[cr];B[bq];W[er]\r\n;B[es];W[dr];B[br]))"
+          },
+          {
+            "id": "6-2-32.SGF",
+            "title": "6-2-32.SGF",
+            "sgf": "(;GM[1]AB[iq][ip][io][lp][hn][hm][go]AW[dq][co][ho][hp][gq]C[6-2-32\r\n黑先]AP[StoneBase:SGFParser.3.0.1]\r\nSZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[fq]\r\n(;W[fr];B[gr];W[hr];B[hq])\r\n(;W[hq];B[fr];W[ir];B[jr];W[hr];B[kq]))"
+          },
+          {
+            "id": "6-2-33★.SGF",
+            "title": "6-2-33★.SGF",
+            "sgf": "(;GM[1]AB[dq][dr][cp][co][cn][er][fr][fq][gp][hp]AW[hq][gq][eq][fp][ep][do][dp]\r\n[cr][cq][bq][iq]C[6-2-33\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]\r\nHA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[gn]\r\n(;W[em];B[en];W[dn];B[dm];W[fn];B[fo])\r\n(;W[fn];B[fm];W[em];B[fo];W[en];B[dn];W[eo];B[el]))"
+          },
+          {
+            "id": "6-2-34.SGF",
+            "title": "6-2-34.SGF",
+            "sgf": "(;GM[1]AB[ep][fq][gq][hp]AW[cp][dq][eq][fp][gp][hq]TR[hq]C[6-2-34\r\n黑先]AP[StoneBase:SGFParser.3.0.1]\r\nSZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[hr];W[iq];B[ip]\r\n(;W[jq];B[fo])\r\n(;W[gr];B[fr];W[eo];B[kq];W[jp];B[jo]))"
+          },
+          {
+            "id": "6-2-35.SGF",
+            "title": "6-2-35.SGF",
+            "sgf": "(;GM[1]AB[jp][eq][dp][do][dq][er][fp][go]AW[gp][fq][cn][cp][cq][cr][dr][fo]TR[fo]\r\nC[6-2-35\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]\r\nHA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[ho];W[ep];B[fn])"
+          },
+          {
+            "id": "6-2-36.SGF",
+            "title": "6-2-36.SGF",
+            "sgf": "(;GM[1]AB[br][cq][cp][bo][do][eo][ep][fq][gq][hq]AW[cn][co][fp][hr][gr][fr][cr]\r\n[eq][dq][dp][cm]C[6-2-36\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]\r\nHA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[cs];W[er];B[iq])"
+          },
+          {
+            "id": "6-2-37.SGF",
+            "title": "6-2-37.SGF",
+            "sgf": "(;GM[1]AB[dq][dr][er][fr][gp][ip][dl][cm]AW[fn][cr][cq][co][do][ep][eq]C[6-2-37\r\n黑先]\r\nAP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[bo]\r\n(;W[bn];B[bp];W[cn];B[cp])\r\n(;W[bp];B[bn];W[em]))"
+          },
+          {
+            "id": "6-2-38★.SGF",
+            "title": "6-2-38★.SGF",
+            "sgf": "(;GM[1]AB[dp][dq][dn][fo][fp][ip]AW[eq][fq][gp][ho]LB[gq:A]C[6-2-38\r\n黑先]AP[StoneBase:SGFParser.3.0.1]\r\nSZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n\r\n(;B[hr];W[gq];B[io];W[hn];B[jm])\r\n(;B[hq];W[gq];B[io];W[hn];B[jm];W[hr];B[ir];W[dr];B[cr];W[fr]C[白可以做劫。])\r\n(;B[iq];W[hr];B[ir];W[fr]))"
+          },
+          {
+            "id": "6-2-39.SGF",
+            "title": "6-2-39.SGF",
+            "sgf": "(;GM[1]AB[dq][cq][cp][co][cn]AW[do][dp][eq][dr][jq]C[6-2-39\r\n黑先]AP[StoneBase:SGFParser.3.0.1]\r\nSZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[fq]\r\n(;W[ep];B[fr];W[er];B[hq])\r\n(;W[er];B[fo];W[ep];B[hq]))"
+          },
+          {
+            "id": "6-2-4.SGF",
+            "title": "6-2-4.SGF",
+            "sgf": "(;GM[1]AB[dp][dq][cp][bq][dn][dl][hq][ho]AW[fm][cq][br][cr][dr][fq][fo]C[6-2-4\r\n黑先]\r\nAP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[er]\r\n(;W[eq];B[fr];W[gr];B[gq];W[fs];B[fp];W[es];B[ep])\r\n(;W[fr];B[eq];W[es];B[bp]C[白棋整体成为浮棋。]))"
+          },
+          {
+            "id": "6-2-40.SGF",
+            "title": "6-2-40.SGF",
+            "sgf": "(;GM[1]AB[dq][cp][co][cm][hp][kp]AW[eq][dr][do][en]TR[dr]C[6-2-40\r\n黑先]AP[StoneBase:SGFParser.3.0.1]\r\nSZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[fq];W[er];B[fo];W[ep];B[cr])"
+          },
+          {
+            "id": "6-2-5.SGF",
+            "title": "6-2-5.SGF",
+            "sgf": "(;GM[1]AB[eq][fq][gp][hp][io][jp][fo][em][cm]AW[go][fn][fp][ep][dr][dq][do][ho]\r\nC[6-2-5\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]\r\nHA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[hn]\r\n(;W[gn];B[en];W[eo];B[hm])\r\n(;W[eo];B[gl]))"
+          },
+          {
+            "id": "6-2-6.SGF",
+            "title": "6-2-6.SGF",
+            "sgf": "(;GM[1]AB[co][fo][go][hp][jp]AW[dq][dl][gq][gp][ho][ip]TR[ip]C[6-2-6\r\n黑先]AP[StoneBase:SGFParser.3.0.1]\r\nSZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[io];W[hq];B[hn];W[hp];B[in];W[gn];B[em])"
+          },
+          {
+            "id": "6-2-7★.SGF",
+            "title": "6-2-7★.SGF",
+            "sgf": "(;GM[1]AB[dp][do][dn][dm][en][cm][bl][bq][cq][eq][er][fr]AW[eo][ep][fq][gq][dq]\r\n[dr][cr][cp][co][cn][an][bm][br]C[6-2-7\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]\r\nGN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[fp];W[fo];B[go];W[gp];B[fn];W[fp];B[ho];W[gr];B[hr];W[hq];B[iq];W[ir];B[jq])"
+          },
+          {
+            "id": "6-2-8.SGF",
+            "title": "6-2-8.SGF",
+            "sgf": "(;GM[1]AB[ep][do][co][dn][cm][bn]AW[bo][cp][bq][ap][er]C[6-2-8\r\n黑先]AP[StoneBase:SGFParser.3.0.1]\r\nSZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[cr]\r\n(;W[dq];B[fr];W[fq];B[eq];W[gr];B[dr];W[fs];B[cq])\r\n(;W[dr];B[cq];W[dq];B[dp];W[bp];B[br];W[ar];B[bs];W[ds];B[fr];W[cs]LB[eq:A]C[黑有A位绝对先手，外势很厚。]))"
+          },
+          {
+            "id": "6-2-9.SGF",
+            "title": "6-2-9.SGF",
+            "sgf": "(;GM[1]AB[bn][cm][dn][en][eo][gq]AW[dq][dp][do][cp][bo][cn][fp]TR[fp]C[6-2-9\r\n黑先]\r\nAP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[go];W[gp];B[hp];W[ho];B[ep];W[hq];B[ip];W[fq];B[eq];W[er];B[co];W[bp];B[in];W[gr]\r\n;B[gn])"
+          }
+        ]
+      },
+      {
+        "title": "3 官子",
+        "problems": [
+          {
+            "id": "6-3-1.SGF",
+            "title": "6-3-1.SGF",
+            "sgf": "(;GM[1]AB[fp][ep][dp][cp][bp][bq][ar][jq][ip][ho][er][fq][jr][jp][gp]AW[hq][gq]\r\n[gr][fr][hp][iq][cr][br][eq][dq][cq][ir]TR[er]C[6-3-1\r\n黑先]AP[StoneBase:SGFParser.3.0.1]\r\nSZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[is]\r\n(;W[es]\r\n(;B[hs];W[gs])\r\n(;B[gs];W[fs];B[hs];W[dr]))\r\n(;W[hs];B[ds];W[dr];B[fs]))"
+          },
+          {
+            "id": "6-3-10.SGF",
+            "title": "6-3-10.SGF",
+            "sgf": "(;GM[1]AB[br][bq][cp][dp][ep][fp][gq][hq][iq][jp][jr][js]AW[eq][fq][gr][hr][ir]\r\n[dq][cq][cr][is]C[6-3-10\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]\r\nHA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[cs]\r\n(;W[es];B[ds];W[fs])\r\n(;W[ds];B[fr];W[er];B[fs]))"
+          },
+          {
+            "id": "6-3-11.SGF",
+            "title": "6-3-11.SGF",
+            "sgf": "(;GM[1]AB[dr][dq][ep][fp][do][co][bn][cm][em]AW[eq][fq][hq][go][fn][eo][cq][dp]\r\n[cp][bo][er]C[6-3-11\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]\r\nHA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[bq]\r\n(;W[cr];B[bp])\r\n(;W[bp];B[cr];W[br];B[ar];W[aq];B[bs]))"
+          },
+          {
+            "id": "6-3-12.SGF",
+            "title": "6-3-12.SGF",
+            "sgf": "(;GM[1]AB[bp][cp][dp][eo][dn][gn][eq][er][br]AW[gq][fp][ep][dr][dq][cq][bq][ar]\r\nC[6-3-12\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]\r\nHA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[cs]\r\n(;W[cr];B[bs];W[ds];B[ap];W[fr];B[aq];W[as];B[bs];W[es];B[br])\r\n(;W[ds];B[as]))"
+          },
+          {
+            "id": "6-3-13.SGF",
+            "title": "6-3-13.SGF",
+            "sgf": "(;GM[1]AB[ap][ao][bo][co][cm][em][dp][dq][dr]AW[gq][eq][ep][eo][do][aq][bq][bp]\r\n[cp][cr]C[6-3-13\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]\r\nHA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[bs]\r\n(;W[br];B[cs];W[er];B[ar])\r\n(;W[cs];B[br];W[ar];B[cq]))"
+          },
+          {
+            "id": "6-3-14.SGF",
+            "title": "6-3-14.SGF",
+            "sgf": "(;GM[1]AB[hp][br][bq][cp][bo][do][eo][fo][eq]AW[hq][gq][gp][go][cr][dq][dp][ep]\r\nC[6-3-14\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]\r\nHA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[er];W[dr];B[cs]\r\n(;W[ds];B[fp])\r\n(;W[fr];B[ds];W[fq];B[es];W[fs];B[bs];W[fp]))"
+          },
+          {
+            "id": "6-3-15.SGF",
+            "title": "6-3-15.SGF",
+            "sgf": "(;GM[1]AB[dn][dp][cp][bq][br][bs][ir][js][jr][jq][jp][hp][io][hn][gn][fn][eo]AW[is]\r\n[hs][hr][ep][eq][dq][cr][hq][iq][ip][ho][go][fo][cs]C[6-3-15\r\n黑先]AP[StoneBase:SGFParser.3.0.1]\r\nSZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[gq];W[gp];B[gr];W[fp];B[gs];W[hp];B[es]\r\n(;W[cq])\r\n(;W[jj]C[白脱先……];B[cq];W[dr];B[er]))"
+          },
+          {
+            "id": "6-3-16.SGF",
+            "title": "6-3-16.SGF",
+            "sgf": "(;GM[1]AB[ap][bp][cp][cn][do][eo][fn][gn][ho][hp][hq][gr]AW[ep][fo][go][gp][gq]\r\n[dp][cq][bq][aq][fq]C[6-3-16\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]\r\nHA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[er];W[fr];B[eq];W[dq];B[fs];W[fp];B[hr];W[dr];B[es];W[ds];B[gs];W[bs])"
+          },
+          {
+            "id": "6-3-17.SGF",
+            "title": "6-3-17.SGF",
+            "sgf": "(;GM[1]AB[ho][io][jp][jq][jr][js][gq][er][br][bq][cq][dq][ep][fp][go]AW[gp][gr]\r\n[fr][hp][ip][iq][fq][eq][dr][cr][ir]C[6-3-17\r\n黑先]AP[StoneBase:SGFParser.3.0.1]\r\nSZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[hr]\r\n(;W[hs];B[es])\r\n(;W[es];B[is]))"
+          },
+          {
+            "id": "6-3-18★.SGF",
+            "title": "6-3-18★.SGF",
+            "sgf": "(;GM[1]AB[cp][dp][eq][fq][gq][gr][hp][ip][jp][kp][lq][lr]AW[fr][gs][hr][hq][jq]\r\n[er][dq][cq][jr]C[6-3-18\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]\r\nHA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[dr];W[cr];B[ds]\r\n(;W[fs];B[br];W[bq];B[cs])\r\n(;W[cs];B[bq])\r\n(;W[bp];B[fs];W[bo]C[双方最佳进行。]))"
+          },
+          {
+            "id": "6-3-19.SGF",
+            "title": "6-3-19.SGF",
+            "sgf": "(;GM[1]AB[aq][ap][bp][cp][dp][ep][fq][gq][hq][hr][hs]AW[fr][eq][dq][bq][br][ar]\r\n[gr]C[6-3-19\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]\r\nHA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[cq];W[cr];B[es];W[ds];B[gs];W[bs];B[fs];W[dr])"
+          },
+          {
+            "id": "6-3-2.SGF",
+            "title": "6-3-2.SGF",
+            "sgf": "(;GM[1]AB[br][bq][cp][co][cm][dn][fn][eo][fp][gp][fr]AW[cr][er][bs][gr][hq][ir]\r\n[cq][ep][dp][do][io]C[6-3-2\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]\r\nHA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[es]\r\n(;W[fq];B[dr];W[eq];B[cs])\r\n(;W[ds];B[eq];W[dq];B[dr]))"
+          },
+          {
+            "id": "6-3-20.SGF",
+            "title": "6-3-20.SGF",
+            "sgf": "(;GM[1]AB[ep][dp][cp][bq][br][bs][ks][kr][kq][jp][io][ho][fq][gp][fp]AW[js][cs]\r\n[cr][cq][dq][eq][jr][jq][hp][hq][er][fr][gq]C[6-3-20\r\n黑先]AP[StoneBase:SGFParser.3.0.1]\r\nSZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[hr]\r\n(;W[gr];B[iq];W[hs];B[ir];W[gs];B[is])\r\n(;W[iq];B[gr];W[hs];B[gs];W[ir];B[is]))"
+          },
+          {
+            "id": "6-3-21.SGF",
+            "title": "6-3-21.SGF",
+            "sgf": "(;GM[1]AB[eo][fo][fp][fq][er][gr][gs][as][bs][br][bq][cp][dp]AW[go][fn][en][do]\r\n[gp][gq][hr][hs][co][bn][bp][ap][aq][ar][cq]C[6-3-21\r\n黑先]AP[StoneBase:SGFParser.3.0.1]\r\nSZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[ds];W[dq];B[ep];W[dr];B[cs])"
+          },
+          {
+            "id": "6-3-22.SGF",
+            "title": "6-3-22.SGF",
+            "sgf": "(;GM[1]AB[hq][cr][js][jr][jp][iq][fp][bq][bp][cp][dp][ep][gq]AW[ir][fq][hr][gr]\r\n[eq][dq][cq][bs][br][is]C[6-3-22\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]\r\nEV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[fr];W[er];B[cs]\r\n(;W[fs];B[ar])\r\n(;W[ds];B[fs]))"
+          },
+          {
+            "id": "6-3-23.SGF",
+            "title": "6-3-23.SGF",
+            "sgf": "(;GM[1]AB[hp][hq][hr][jp][br][jq][jr][fq][bs][js][bp][cq][dp][do][en][fn][go][io]\r\nAW[cr][cs][dq][eo][ep][eq][er][hs][is][ir][iq][gp][gq][gr]C[6-3-23\r\n黑先]AP[StoneBase:SGFParser.3.0.1]\r\nSZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[es]\r\n(;W[fs];B[ip];W[gs];B[fp];W[ds];B[fo];W[fr])\r\n(;W[dr];B[gs];W[fs];B[ip];W[fp];B[gs]))"
+          },
+          {
+            "id": "6-3-24.SGF",
+            "title": "6-3-24.SGF",
+            "sgf": "(;GM[1]AB[fo][fp][eq][gq][hq][iq][jr][kq][br][bq][bp][co][cn][dn][eo]AW[fr][fq]\r\n[ep][er][gr][hr][do][cp][cq][cr][ir]C[6-3-24\r\n黑先]AP[StoneBase:SGFParser.3.0.1]\r\nSZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[cs]\r\n(;W[dq];B[ds];W[es];B[dp])\r\n(;W[ds];B[dp];W[bs];B[dq]))"
+          },
+          {
+            "id": "6-3-25.SGF",
+            "title": "6-3-25.SGF",
+            "sgf": "(;GM[1]AB[ar][bq][bp][cp][dp][eq][fq][gq][hq][go][hr]AW[er][fr][gr][hp][io][iq]\r\n[dq][cq][cr][br][ir]C[6-3-25\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]\r\nHA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[ds]\r\n(;W[hs];B[dr];W[gs];B[es])\r\n(;W[gs];B[es];W[hs];B[dr]))"
+          },
+          {
+            "id": "6-3-26.SGF",
+            "title": "6-3-26.SGF",
+            "sgf": "(;GM[1]AB[do][co][cp][bq][br][bs][er][eq][is][ir][iq][hp][io][go][fn][eo]AW[gp]\r\n[fp][ep][fq][fr][hq][dp][cs][cr][cq][hr]C[6-3-26\r\n黑先]AP[StoneBase:SGFParser.3.0.1]\r\nSZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[fs]\r\n(;W[gs];B[es];W[dq];B[gr];W[gq];B[hs])\r\n(;W[es];B[ds];W[dq];B[hs];W[dr];B[gr]))"
+          },
+          {
+            "id": "6-3-27★.SGF",
+            "title": "6-3-27★.SGF",
+            "sgf": "(;GM[1]AB[cq][cp][co][dn][eo][fo][gp][hp][ip][iq][hr]AW[jr][ir][hq][gq][fq][dq]\r\n[dp][do][jq]C[6-3-27\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]\r\nHA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[eq]\r\n(;W[er];B[gr];W[fr];B[dr])\r\n(;W[ep];B[er];W[fp];B[gr])\r\n(;W[dr];B[er];W[es];B[fs]))"
+          },
+          {
+            "id": "6-3-28.SGF",
+            "title": "6-3-28.SGF",
+            "sgf": "(;GM[1]AB[fn][gn][ho][ip][iq][ir][hr][br][cq][bp][dp][ep][en]AW[fp][fo][hp][hq]\r\n[gr][cs][cr][eq][dq][gq]C[6-3-28\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]\r\nEV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[es]\r\n(;W[er];B[gs];W[fr];B[fs];W[go])\r\n(;W[fs];B[fr];W[gs];B[dr]))"
+          },
+          {
+            "id": "6-3-29.SGF",
+            "title": "6-3-29.SGF",
+            "sgf": "(;GM[1]AB[ap][bp][bn][co][do][ep][fo][fq][fr]AW[eq][dp][cp][cq][bq][aq][er]C[6-3-29\r\n黑先]\r\nAP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[ds]\r\n(;W[dr];B[es];W[cs];B[fs];W[br])\r\n(;W[es];B[cr]\r\n(;W[br];B[fs];W[dq];B[bs])\r\n(;W[bs];B[fs];W[dq];B[br];W[ar])))"
+          },
+          {
+            "id": "6-3-3.SGF",
+            "title": "6-3-3.SGF",
+            "sgf": "(;GM[1]AB[dm][em][jo][jq][kr][js][dp][cr][cq][bp][bo][bn][cm]AW[dn][eo][fo][ho]\r\n[gm][hq][co][cp][dr][dq][gq]LB[br:A]C[6-3-3\r\n黑先]AP[StoneBase:SGFParser.3.0.1]\r\nSZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[eq]\r\n(;W[er];B[fr];W[ep];B[ds];W[fq];B[es];W[do];B[gr];W[hr];B[hs])\r\n(;W[ds];B[ep]))"
+          },
+          {
+            "id": "6-3-30.SGF",
+            "title": "6-3-30.SGF",
+            "sgf": "(;GM[1]AB[cs][cr][cq][dq][eq][fq][gr][ir][iq]AW[hr][gq][gp][fp][ep][dp][co][bp]\r\n[bq][br][bs][ip]TR[hr]C[6-3-30\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]\r\nHA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[hq];W[fr];B[gs];W[er];B[es])"
+          },
+          {
+            "id": "6-3-31.SGF",
+            "title": "6-3-31.SGF",
+            "sgf": "(;GM[1]AB[an][bn][cn][co][dp][ep][fn][fq][fr][fs]AW[er][eq][dq][bq][cp][bo][ao]\r\n[es]C[6-3-31\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]\r\nHA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[cr];W[cq];B[ar]\r\n(;W[br];B[aq];W[bp];B[bs]C[黑后手双活。])\r\n(;W[aq];B[br];W[cs];B[bp];W[ap];B[bs];W[ds]C[黑先手双活。]))"
+          },
+          {
+            "id": "6-3-32.SGF",
+            "title": "6-3-32.SGF",
+            "sgf": "(;GM[1]AB[ap][ao][bo][co][do][ep][fp][go][gq][gr][gs][fs]AW[dp][eq][fq][dq][es]\r\n[cp][bp][br][aq][fr]C[6-3-32\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]\r\nHA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[ds]\r\n(;W[er];B[bq];W[cq];B[bs]\r\n(;W[ar];B[cr])\r\n(;W[cr];B[ar]))\r\n(;W[cs];B[er];W[dr];B[es]))"
+          },
+          {
+            "id": "6-3-33.SGF",
+            "title": "6-3-33.SGF",
+            "sgf": "(;GM[1]AB[ap][ao][bo][co][do][ep][fp][gp][hq][hr][hs][dq]AW[br][eq][er][fq][gr]\r\n[aq][bp][cp][dp][fs]C[6-3-33\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]\r\nHA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[cr];W[dr];B[bs];W[cq];B[ar];W[cs];B[bq];W[as];B[aq])"
+          },
+          {
+            "id": "6-3-34★.SGF",
+            "title": "6-3-34★.SGF",
+            "sgf": "(;GM[1]AB[bo][co][eo][dp][bm][eq][fq][fr][fs]AW[cr][bp][cp][dq][er][es]C[6-3-34\r\n黑先]\r\nAP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[br];W[bs];B[ds]\r\n(;W[ar];B[dr];W[cq])\r\n(;W[dr];B[bq]))"
+          },
+          {
+            "id": "6-3-35.SGF",
+            "title": "6-3-35.SGF",
+            "sgf": "(;GM[1]AB[bp][bo][co][do][eo][fp][fq][gr][hq]AW[fr][bq][cp][dp][eq][er]C[6-3-35\r\n黑先]\r\nAP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[br];W[aq];B[cr];W[cq];B[ar];W[cs];B[ep];W[bs];B[ap];W[dq];B[fs];W[ds])"
+          },
+          {
+            "id": "6-3-36.SGF",
+            "title": "6-3-36.SGF",
+            "sgf": "(;GM[1]AB[ao][bo][cp][dp][ep][fp][dq][gq][hp][hr]AW[fq][fr][dr][br][cq][bp][ap]\r\n[gr]C[6-3-36\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]\r\nHA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[er]\r\n(;W[es];B[eq];W[ar];B[gs])\r\n(;W[eq];B[es];W[ds];B[bq]\r\n(;W[aq];B[bs])\r\n(;W[cr];B[ar];W[bs])))"
+          },
+          {
+            "id": "6-3-37.SGF",
+            "title": "6-3-37.SGF",
+            "sgf": "(;GM[1]AB[cp][co][bo][do][eo][fn][go][gp][gq][hr]AW[fo][fp][ep][dp][cr][cq][bq]\r\n[bp][fr]C[6-3-37\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]\r\nHA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[er];W[fq];B[fs];W[gs];B[es]\r\n(;W[dq];B[gr];W[bs])\r\n(;W[gr];B[dq]))"
+          },
+          {
+            "id": "6-3-38★.SGF",
+            "title": "6-3-38★.SGF",
+            "sgf": "(;GM[1]AB[en][fn][go][hn][hp][hq][hr][hs][bs][br][bq][bp][co][bn][dn]AW[fo][eo]\r\n[do][gp][gq][gr][cp][cq][cr][cs][gs]C[6-3-38\r\n黑先]AP[StoneBase:SGFParser.3.0.1]\r\nSZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[eq];W[er];B[es];W[ds];B[dp];W[fp];B[dr];W[fs];B[dq];W[es];B[fq])"
+          },
+          {
+            "id": "6-3-39.SGF",
+            "title": "6-3-39.SGF",
+            "sgf": "(;GM[1]AB[fp][gp][hq][hr][dn][cm][bm][ar][br][cq][dq][dp][ep]AW[cr][dr][eq][fq]\r\n[gq][bn][co][bp][bq][gr]C[6-3-39\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]\r\nEV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[er];W[es];B[cs];W[fr];B[bs];W[ds];B[gs];W[aq];B[hs];W[as];B[fs])"
+          },
+          {
+            "id": "6-3-4.SGF",
+            "title": "6-3-4.SGF",
+            "sgf": "(;GM[1]AB[br][bq][cp][co][do][en][fn][gn][go]AW[ho][hq][gp][fo][eo][eq][dp][cr]\r\n[cq][hn]C[6-3-4\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]\r\nHA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n\r\n(;B[fp];W[ep];B[er];W[fr];B[dr];W[dq];B[cs];W[fq];B[bs];W[fs];B[ds])\r\n(;B[er];W[fr];B[fp];W[ep];B[dr]))"
+          },
+          {
+            "id": "6-3-40.SGF",
+            "title": "6-3-40.SGF",
+            "sgf": "(;GM[1]AB[bq][cq][dq][ep][fp][gp][hq][iq][jq][jr]AW[ir][dp][cp][bp][cn][dr][eq]\r\n[fq][gq][hr]C[6-3-40\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]\r\nHA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[er]\r\n(;W[fr];B[ds]\r\n(;W[cr];B[fs])\r\n(;W[es];B[cr];W[cs];B[bs];W[ds];B[ar]))\r\n(;W[es];B[ds];W[cr];B[fs];W[br];B[gr];W[aq]))"
+          },
+          {
+            "id": "6-3-41.SGF",
+            "title": "6-3-41.SGF",
+            "sgf": "(;GM[1]AB[cr][cq][cp][ds][do][eo][fp][gp][ho][hq]AW[ep][dp][dq][dr][es][fq][gq]\r\n[hr][ir][jq][jo]C[6-3-41\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]CA[gb2312]GN[  ]\r\nEV[李昌镐精讲围棋手筋 6]HA[0]MULTIGOGM[1]\r\n;B[er];W[cs];B[fs]\r\n(;W[eq];B[ds])\r\n(;W[ds];B[bs];W[eq];B[gr]))"
+          },
+          {
+            "id": "6-3-42.SGF",
+            "title": "6-3-42.SGF",
+            "sgf": "(;CA[gb2312]AB[cr][cq][dp][ep][eq][fp][gp][hp][ip][kp][jq][kr][ks]AW[dq][dr][er]\r\n[fq][gq][hq][iq][hr][jr][js]C[6-3-42\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GM[1]\r\nGN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]MULTIGOGM[1]\r\n;B[fs]\r\n(;W[fr];B[hs];W[gs];B[gr];W[es];B[ir])\r\n(;W[gs];B[fr];W[is];B[ds]))"
+          },
+          {
+            "id": "6-3-5.SGF",
+            "title": "6-3-5.SGF",
+            "sgf": "(;GM[1]AB[cs][br][bq][cp][co][do][eo][fo]AW[go][gp][fq][ep][dp][cq][cr][dr][iq]\r\nC[6-3-5\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]\r\nHA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[er]\r\n(;W[fr];B[ds];W[dq];B[fs];W[hr])\r\n(;W[ds];B[eq]))"
+          },
+          {
+            "id": "6-3-6★.SGF",
+            "title": "6-3-6★.SGF",
+            "sgf": "(;GM[1]AB[ap][bp][bn][co][do][eo][fo][fp][eq]AW[gp][gq][fq][cr][bq][ep][dp][cp]\r\n[go]C[6-3-6\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]\r\nHA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[ar]\r\n(;W[br];B[er];W[dr];B[dq];W[cq];B[bs];W[fr];B[aq])\r\n(;W[aq];B[dr];W[cq];B[cs];W[bs];B[es]))"
+          },
+          {
+            "id": "6-3-7.SGF",
+            "title": "6-3-7.SGF",
+            "sgf": "(;GM[1]AB[cp][dp][ep][fp][bq][br][cs]AW[iq][cq][cr][dr][eq][fq][gp][hp]C[6-3-7\r\n黑先]\r\nAP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]HA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]\r\nMULTIGOGM[1]\r\n;B[es]\r\n(;W[er];B[ds];W[fs];B[bs];W[gr])\r\n(;W[ds];B[dq];W[er];B[gq];W[bs];B[fr];W[fs];B[gr];W[hr];B[gs]))"
+          },
+          {
+            "id": "6-3-8.SGF",
+            "title": "6-3-8.SGF",
+            "sgf": "(;GM[1]AB[br][bq][bp][co][dp][eo][fo][gp]AW[hq][ho][go][fp][ep][cr][cq][dq][ir]\r\nC[6-3-8\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]GN[  ]EV[李昌镐精讲围棋手筋 6]\r\nHA[0]US[阿浩]SO[《李昌镐围棋基础训练》初级篇、提高篇]MULTIGOGM[1]\r\n;B[ds]\r\n(;W[er];B[cs];W[es])\r\n(;W[cs];B[eq];W[fq];B[er];W[fr];B[bs]))"
+          },
+          {
+            "id": "6-3-9.SGF",
+            "title": "6-3-9.SGF",
+            "sgf": "(;GM[1]AB[bs][br][cq][cp][dp][eo][fo][go][ho][hp]AW[cr][dr][dq][ep][fp][gp][hq]\r\n[ip][io][jq]C[6-3-9\r\n黑先]AP[StoneBase:SGFParser.3.0.1]SZ[19]CA[gb2312]GN[  ]EV[李昌镐精讲围棋手筋 6]\r\nHA[0]MULTIGOGM[1]\r\n;B[fr]\r\n(;W[eq];B[ds]\r\n(;W[gr];B[cs])\r\n(;W[cs];B[gq]))\r\n(;W[er];B[es];W[gq];B[ds]))"
+          }
+        ]
+      }
+    ]
+  }
+]

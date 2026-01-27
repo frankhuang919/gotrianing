@@ -205,8 +205,9 @@ function App() {
                 </button>
               </div>
             </aside>
+          </>
         )}
-          </main>
+      </main>
     </div>
   );
 }

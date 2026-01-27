@@ -37,8 +37,8 @@ const categories = [
     {
         id: 'tesuji',
         title: '手筋 (Tesuji)',
-        desc: '接触战中的关键一击',
-        active: false,
+        desc: '接触战中的关键一击 (已上线)',
+        active: true,
         color: 'from-blue-600 to-cyan-600'
     }
 ];
