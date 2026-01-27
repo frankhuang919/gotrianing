@@ -137,8 +137,9 @@ const GoBoard: React.FC<GoBoardProps> = ({ size = 19 }) => {
                                     dy=".35em"
                                     textAnchor="middle"
                                     fill={stone.c === 1 ? '#fff' : '#000'}
-                                    fontSize={gridSize * 0.5}
+                                    fontSize={gridSize * 0.6}
                                     fontFamily="sans-serif"
+                                    fontWeight="bold"
                                     pointerEvents="none"
                                 >
                                     {i - initialStones.length + 1}

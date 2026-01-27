@@ -380,12 +380,15 @@ export const useGameStore = create<GameState>()(
                     sequence.push(current);
                     limit--;
                 }
-                // console.log('Demo Sequence extracted:', sequence.length, 'moves');
+
+                if (sequence.length === 0) {
+                    set({ feedback: '错误：未能解析到定式变化手数 (No moves found)' });
+                    return;
+                }
+
+                set({ feedback: `正在演示：${get().josekiMeta?.title} (共 ${sequence.length} 手)...` });
 
                 let step = 0;
-                // Clear any existing interval if we re-run? 
-                // Ideally store interval ID in state to clear it, but for now relying on closure capture might be racy if called multiple times.
-                // Assuming single instance behavior for prototype.
 
                 const interval = setInterval(() => {
                     if (get().status !== 'STUDY') {
@@ -395,12 +398,10 @@ export const useGameStore = create<GameState>()(
                     if (step >= sequence.length) {
                         clearInterval(interval);
                         set({ feedback: '演示完毕。点击“开始挑战”进行测试。' });
-                        // console.log('Demo finished');
                         return;
                     }
                     const node = sequence[step];
                     const move = getMoveFromNode(node);
-                    // console.log('Demo Step', step, 'Move:', move);
 
                     if (move) {
                         set(state => {
@@ -409,7 +410,12 @@ export const useGameStore = create<GameState>()(
                             if (exists) return {};
 
                             const newState = [...state.boardState, move];
-                            return { boardState: newState };
+                            // Update feedback with current move number
+                            // const currentStep = step + 1;
+                            return {
+                                boardState: newState,
+                                // Optional: Update feedback per move? Maybe too noisy.
+                            };
                         });
                     }
                     step++;
