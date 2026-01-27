@@ -9,8 +9,9 @@ function App() {
   const { status, feedback, josekiMeta, reset, loadRandomJoseki, startChallenge } = useGameStore();
 
   const handleRetry = () => {
-    // Retry refutation or restart
-    useGameStore.getState().startChallenge();
+    // Retry with current color
+    const { userColor } = useGameStore.getState();
+    useGameStore.getState().startChallenge(userColor);
   };
 
 
@@ -74,7 +75,7 @@ function App() {
               </div>
 
               <button
-                onClick={startChallenge}
+                onClick={() => startChallenge()}
                 className="w-full bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 text-white font-bold py-4 px-6 rounded-lg shadow-lg transform transition-all hover:scale-105 active:scale-95 border border-amber-400/50 flex items-center justify-center gap-2"
               >
                 <span>我记住了，开始挑战</span>
@@ -104,7 +105,7 @@ function App() {
             {status === 'STUDY' && (
               <div className="bg-stone-900/95 backdrop-blur border border-amber-500/30 p-4 rounded-lg shadow-2xl pointer-events-auto">
                 <h2 className="text-lg font-bold text-amber-100 mb-1">{josekiMeta?.title}</h2>
-                <button onClick={startChallenge} className="w-full mt-2 bg-amber-600 text-white text-sm py-2 rounded">
+                <button onClick={() => startChallenge()} className="w-full mt-2 bg-amber-600 text-white text-sm py-2 rounded">
                   开始挑战
                 </button>
               </div>
@@ -146,13 +147,25 @@ function App() {
           )}
 
           {status === 'WIN' && (
+            <div className="flex flex-col gap-3 mt-4">
+              <button
+                onClick={() => loadRandomJoseki()}
+                className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded uppercase tracking-wider font-bold transition-colors shadow-lg animate-bounce"
+              >
+                下一题 (Next Problem) →
+              </button>
+            </div>
+          )}
+
+          {/* Debug / Skip Button (Always Visible during Debug Phase) */}
+          <div className="mt-8 pt-4 border-t border-stone-700">
             <button
               onClick={() => loadRandomJoseki()}
-              className="mt-4 bg-green-600 hover:bg-green-700 text-white py-3 rounded uppercase tracking-wider font-bold transition-colors shadow-lg animate-bounce"
+              className="w-full bg-stone-800 hover:bg-stone-700 text-stone-400 text-sm py-2 rounded border border-stone-600 flex items-center justify-center gap-2"
             >
-              下一题 (Next Problem) →
+              <span>🛠 调试：换一题 (Skip)</span>
             </button>
-          )}
+          </div>
         </aside>
       </main>
     </div>

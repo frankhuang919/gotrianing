@@ -12,13 +12,14 @@ interface GameState {
     sgfNode: SGFNode | null;
     boardState: { x: number; y: number; c: number }[];
     initialStones: { x: number; y: number; c: number }[];
+    userColor: number; // 1 = Black (Default), -1 = White
     wrongMoveFlash: { x: number; y: number } | null;
 
     // Actions
     loadRandomJoseki: () => void;
     loadSGF: (sgfContent: string, title: string) => void;
     playMove: (x: number, y: number) => void;
-    startChallenge: () => void;
+    startChallenge: (color?: number) => void; // Optional color override
     reset: () => void;
     setFeedback: (msg: string) => void;
     deductChips: (amount: number) => void;
@@ -27,6 +28,7 @@ interface GameState {
     // Internal
     _triggerRefutation: (variationNode: SGFNode) => void;
     _runDemo: () => void;
+    checkAiTurn: () => void;
 }
 
 // Helper: Decode SGF Coordinate (e.g. "pd" -> 15,3 or [15,3] -> 15,3)
@@ -102,6 +104,7 @@ export const useGameStore = create<GameState>()(
             sgfNode: null, // SGFNode | null
             boardState: [],
             initialStones: [],
+            userColor: 1,
             wrongMoveFlash: null,
 
             loadRandomJoseki: () => {
@@ -177,17 +180,97 @@ export const useGameStore = create<GameState>()(
                 }
             },
 
-            startChallenge: () => {
-                const { initialStones } = get();
+            startChallenge: (color = 1) => {
+                const { josekiMeta, initialStones } = get();
+                if (!josekiMeta) return;
+
+                // CRITICAL FIX: Re-parse SGF to reset traversal to root
+                // Otherwise sgfNode is stuck at the end of the previous game
+                const root = parseSGF(josekiMeta.sgf);
+
                 set({
-                    status: 'PLAYING', // Skip LOCKED, go straight to playing
-                    boardState: [...initialStones], // Restore initial setup
-                    feedback: '请在棋盘上落子 (点击棋盘)'
+                    status: 'PLAYING',
+                    userColor: color,
+                    sgfNode: root, // Reset SGF position
+                    boardState: [...initialStones],
+                    feedback: color === 1 ? '请执黑落子' : '角色互换：请执白后手 (AI 执黑)'
                 });
+
+                // If user is White, and first move in SGF is Black, AI triggers immediately
+                if (color === -1) {
+                    setTimeout(() => get().checkAiTurn(), 1000); // Give user a moment to see the change
+                }
+            },
+
+            checkAiTurn: () => {
+                const { sgfNode, userColor } = get();
+                if (!sgfNode || !sgfNode.children || sgfNode.children.length === 0) {
+                    if (userColor === 1) {
+                        set({ feedback: '黑棋通关！即将换手练习...' });
+                        setTimeout(() => {
+                            get().startChallenge(-1);
+                        }, 1500);
+                    } else {
+                        set({ status: 'WIN', feedback: '双色通关！奖励 20 筹码' });
+                        set(state => ({ chips: state.chips + 20 }));
+                    }
+                    return;
+                }
+
+                // AI moves are MAIN LINE (index 0) usually
+                // Heuristic: Pick the first child that matches OPPONENT color
+                const nextNode = sgfNode.children[0];
+                const move = getMoveFromNode(nextNode);
+
+                if (move && move.c === -userColor) { // AI's turn
+                    set((state) => ({
+                        boardState: [...state.boardState, move],
+                        sgfNode: nextNode,
+                        feedback: (nextNode.props.C && nextNode.props.C[0]) || 'AI 应答'
+                    }));
+
+                    // Check if next is also AI (rare) or End
+                    if (!nextNode.children || nextNode.children.length === 0) {
+                        // End of Variation
+                        if (userColor === 1) {
+                            set({ feedback: '黑棋通关！即将换手练习...' });
+                            setTimeout(() => {
+                                get().startChallenge(-1);
+                            }, 1500);
+                        } else {
+                            set({ status: 'WIN', feedback: '双色通关！奖励 20 筹码' });
+                            set(state => ({ chips: state.chips + 20 }));
+                        }
+                    } else {
+                        // Check if next is User
+                        const nextNext = nextNode.children[0];
+                        const nextMove = getMoveFromNode(nextNext);
+                        if (nextMove && nextMove.c === -userColor) {
+                            // AI moves again? Recurse
+                            setTimeout(() => get().checkAiTurn(), 500);
+                        } else {
+                            // User turn
+                            // Feedback update?
+                        }
+                    }
+                } else if (move && move.c === userColor) {
+                    // It's User's turn (e.g. SGF starts with user move, or double move)
+                    // Do nothing, wait for user
+                } else {
+                    // End of SGF (e.g. current node has children but they don't match opponent color? Should not happen if strictly alternating)
+                    if (userColor === 1) {
+                        set({ feedback: '黑棋通关！即将换手练习...' });
+                        setTimeout(() => {
+                            get().startChallenge(-1);
+                        }, 1500);
+                    } else {
+                        set({ status: 'WIN', feedback: '双色通关！' });
+                    }
+                }
             },
 
             playMove: (x, y) => {
-                const { status, sgfNode, deductChips, _triggerRefutation } = get();
+                const { status, sgfNode, deductChips, _triggerRefutation, userColor } = get();
                 if (status !== 'PLAYING') return;
                 if (!sgfNode || !sgfNode.children) return;
 
@@ -196,55 +279,30 @@ export const useGameStore = create<GameState>()(
                 let isMain = false;
 
                 // Debug info
-                console.log('Player Move:', x, y);
-                // console.log('Current Node Children:', children);
+                console.log('Player Move:', x, y, 'Color:', userColor);
 
                 for (let i = 0; i < children.length; i++) {
                     const child = children[i];
                     const move = getMoveFromNode(child);
                     console.log('Checking child', i, 'Expected:', move);
 
-                    if (move && move.x === x && move.y === y && move.c === 1) {
+                    if (move && move.x === x && move.y === y && move.c === userColor) {
                         match = child;
-                        if (i === 0) isMain = true; // Heuristic: first variation is main
+                        if (i === 0) isMain = true;
                         break;
                     }
                 }
 
                 if (match) {
                     set((state) => ({
-                        boardState: [...state.boardState, { x, y, c: 1 }],
+                        boardState: [...state.boardState, { x, y, c: userColor }],
                         sgfNode: match,
                         wrongMoveFlash: null
                     }));
 
                     if (isMain) {
-                        set({ feedback: '太棒了！请继续思考下一手...' });
-
-                        if (match.children && match.children.length > 0) {
-                            const nextNode = match.children[0];
-                            const aiMove = getMoveFromNode(nextNode);
-
-                            if (aiMove && aiMove.c === -1) {
-                                setTimeout(() => {
-                                    set((state) => ({
-                                        boardState: [...state.boardState, { x: aiMove.x, y: aiMove.y, c: -1 }],
-                                        sgfNode: nextNode,
-                                        feedback: (nextNode.props.C && nextNode.props.C[0]) || 'AI 应答'
-                                    }));
-                                    if (!nextNode.children || nextNode.children.length === 0) {
-                                        set({ status: 'WIN', feedback: '定式完成！奖励 10 筹码' });
-                                        set(state => ({ chips: state.chips + 10 }));
-                                    }
-                                }, 500);
-                            } else {
-                                set({ status: 'WIN', feedback: '定式完成！奖励 10 筹码' });
-                                set(state => ({ chips: state.chips + 10 }));
-                            }
-                        } else {
-                            set({ status: 'WIN', feedback: '定式完成！奖励 10 筹码' });
-                            set(state => ({ chips: state.chips + 10 }));
-                        }
+                        set({ feedback: '太棒了！' });
+                        setTimeout(() => get().checkAiTurn(), 500);
 
                     } else {
                         set({ wrongMoveFlash: { x, y } });
