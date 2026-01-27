@@ -139,5 +139,27 @@ export const josekiLibrary: JosekiPattern[] = [
 ;W[rc]
 ;B[pc]
 ;W[re]C[正解：角部转换。]))`
+    },
+
+    // --- User Improved Variation ---
+    {
+        id: 'komoku-pincer-sacrifice-ai',
+        title: '小目一间低夹·AI改良型 (弃子取角) 🔥',
+        difficulty: 3,
+        description: '【用户推荐】白棋被一间低夹后，选择弃掉挂角一子，转身取角。黑棋第11手粘是AI改良后的厚实下法（老定式多为虎）。',
+        usage: '当白棋希望快速安定，且黑棋外势较强时。双方五五开。',
+        sgf: `(;GM[1]FF[4]CA[UTF-8]AP[ZenGo]ST[2]RU[Japanese]SZ[19]KM[0.00]PW[White]PB[Black]AW[qd]
+(;B[mc]C[正解：一间低夹 (Black 3)。]
+;W[pe]C[正解：白棋 (White 4) 舍弃挂角的一子，转身靠压。]
+;B[pd]C[正解：黑棋冲。]
+;W[od]C[正解：白棋断（反夹）。]
+;B[oc]C[正解：黑棋打吃。]
+;W[qe]C[正解：白棋长。]
+;B[nd]C[正解：黑棋提。]
+;W[of]C[正解：白棋虎补。]
+;B[qc]
+;W[rc]
+;B[rb]
+;W[rd]C[正解：白棋取角，黑棋提子厚实。AI 推荐黑11(O16)粘住。]))`
     }
 ];
