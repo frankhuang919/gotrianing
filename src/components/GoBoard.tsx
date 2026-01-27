@@ -78,7 +78,7 @@ const GoBoard: React.FC<GoBoardProps> = ({ size = 19 }) => {
                 style={{ width: boardSizePx, height: boardSizePx, cursor: 'pointer' }}
                 onClick={handleClick}
             >
-                <svg width={boardSizePx} height={boardSizePx}>
+                <svg width={boardSizePx} height={boardSizePx} style={{ overflow: 'visible', display: 'block' }}>
                     {/* Grid Lines */}
                     {lines}
 
