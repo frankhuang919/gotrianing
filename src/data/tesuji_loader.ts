@@ -3,6 +3,7 @@ export interface TesujiProblem {
     id: string;
     title: string;
     sgf: string;
+    label?: string; // Sequential label e.g., "第 1 题"
 }
 
 export interface TesujiChapter {

@@ -40,6 +40,13 @@ const categories = [
         desc: '接触战中的关键一击 (已上线)',
         active: true,
         color: 'from-blue-600 to-cyan-600'
+    },
+    {
+        id: 'mistakes',
+        title: '错题本 (Mistake Book)',
+        desc: '攻克你的薄弱环节',
+        active: true,
+        color: 'from-red-600 to-rose-600'
     }
 ];
 

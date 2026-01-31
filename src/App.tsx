@@ -1,6 +1,6 @@
 
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import GoBoard from './components/GoBoard';
 import WelcomeScreen from './components/WelcomeScreen';
 import ErrorBoundary from './components/ErrorBoundary';
@@ -12,7 +12,14 @@ import { useTesujiStore } from './store/tesujiStore';
 function App() {
   const { status, feedback, josekiMeta, reset, loadRandomJoseki, startChallenge } = useGameStore();
   const { loadProblem } = useTesujiStore();
-  const [module, setModule] = useState<'HOME' | 'JOSEKI' | 'TESUJI'>('HOME');
+  const [module, setModule] = useState<'HOME' | 'JOSEKI' | 'TESUJI' | 'MISTAKE_BOOK'>('HOME');
+
+  // Safety: If somehow status is NOT Welcome but we are at HOME, reset to Welcome to avoid blank screen
+  useEffect(() => {
+    if (module === 'HOME' && status !== 'WELCOME') {
+      reset();
+    }
+  }, [module, status, reset]);
 
   const handleRetry = () => {
     const { userColor } = useGameStore.getState();
@@ -32,6 +39,8 @@ function App() {
       setModule('JOSEKI');
       // Standard Joseki flow
       loadRandomJoseki();
+    } else if (cat === 'mistakes') {
+      setModule('MISTAKE_BOOK');
     }
   };
 
@@ -62,6 +71,7 @@ function App() {
 
         <div className="flex items-center gap-4">
           {module === 'TESUJI' && <span className="text-blue-400 font-bold text-sm bg-blue-900/30 px-2 py-0.5 rounded">手筋特训</span>}
+          {module === 'MISTAKE_BOOK' && <span className="text-red-400 font-bold text-sm bg-red-900/30 px-2 py-0.5 rounded">错题本</span>}
           {module === 'JOSEKI' && <span className="text-amber-400 font-bold text-sm bg-amber-900/30 px-2 py-0.5 rounded">定式特训</span>}
 
           {/* Chips Display */}
@@ -74,21 +84,22 @@ function App() {
 
       <main className="flex-1 relative overflow-hidden flex">
 
-        {/* ================= TESUJI MODE ================= */}
-        {module === 'TESUJI' && (
-          <>
+        {/* ================= TESUJI & MISTAKE BOOK MODE ================= */}
+        {(module === 'TESUJI' || module === 'MISTAKE_BOOK') && (
+          <ErrorBoundary>
             {/* Left Panel: Problem List */}
             <aside className="w-64 bg-stone-900 border-r border-stone-700 z-20 shadow-xl overflow-y-auto">
-              <TesujiList onSelectProblem={(prob) => loadProblem(prob.sgf, prob.id)} />
+              <TesujiList
+                onSelectProblem={(prob) => loadProblem(prob.sgf, prob.id)}
+                filterMode={module === 'MISTAKE_BOOK' ? 'MISTAKES' : 'ALL'}
+              />
             </aside>
 
             {/* Main Area: Tesuji Board */}
             <section className="flex-1 flex justify-center items-center bg-[#dc933c] md:bg-[url('/wood-pattern.jpg')] bg-cover bg-center relative min-w-0 shadow-inner">
-              <ErrorBoundary>
-                <TesujiBoard />
-              </ErrorBoundary>
+              <TesujiBoard />
             </section>
-          </>
+          </ErrorBoundary>
         )}
 
         {/* ================= JOSEKI MODE ================= */}
