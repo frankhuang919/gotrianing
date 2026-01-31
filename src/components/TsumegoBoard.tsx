@@ -1,8 +1,8 @@
 
 import React, { useEffect, useState } from 'react';
-import { useTesujiStore } from '../store/tesujiStore';
+import { useTsumegoStore } from '../store/tsumegoStore';
 
-export const TesujiBoard: React.FC = () => {
+export const TsumegoBoard: React.FC = () => {
     const {
         boardStones,
         playMove,
@@ -11,8 +11,9 @@ export const TesujiBoard: React.FC = () => {
         retry,
         currentProblemId,
         lockEndTime,
-        loadNextProblem
-    } = useTesujiStore();
+        loadNextProblem,
+        setupStones
+    } = useTsumegoStore();
 
     // Local timer state for smooth countdown
     const [timeLeft, setTimeLeft] = useState(0);
@@ -33,7 +34,7 @@ export const TesujiBoard: React.FC = () => {
 
     const isLocked = timeLeft > 0;
 
-    // Board constants
+    // Board constants (Same as TesujiBoard)
     const gridSize = 40;
     const padding = 40;
     const size = 19;
@@ -59,7 +60,7 @@ export const TesujiBoard: React.FC = () => {
     };
 
     if (!currentProblemId) {
-        return <div className="flex items-center justify-center h-full text-gray-500">Please select a problem</div>;
+        return <div className="flex items-center justify-center h-full text-gray-500">Please select a Tsumego problem</div>;
     }
 
     // Coordinate Labels
@@ -68,9 +69,8 @@ export const TesujiBoard: React.FC = () => {
 
     return (
         <div className="flex flex-col h-full w-full p-4 gap-4 overflow-hidden">
-
-            {/* Top Feedback Bar */}
-            <div className={`w-full h-48 shrink-0 p-2 rounded text-center font-bold text-lg flex flex-col items-center justify-center transition-colors shadow-lg overflow-y-auto
+            {/* Top Feedback Bar - Increased Height & Fixed Alignment for Overflow */}
+            <div className={`w-full h-56 shrink-0 p-4 rounded text-center font-bold text-lg flex flex-col items-center justify-start transition-colors shadow-lg overflow-y-auto
                 ${status === 'playing' ? (isLocked ? 'bg-stone-700 text-amber-500' : 'bg-stone-800 text-white') : ''}
                 ${status === 'correct' ? 'bg-green-800 text-green-100' : ''}
                 ${status === 'wrong' ? 'bg-red-900 text-red-100' : ''}
@@ -131,31 +131,57 @@ export const TesujiBoard: React.FC = () => {
                         )))}
 
                         {/* Stones */}
-                        {boardStones.map((stone, i) => (
-                            <g key={i}>
-                                <circle
-                                    cx={padding + stone.x * gridSize}
-                                    cy={padding + stone.y * gridSize}
-                                    r={gridSize * 0.45}
-                                    fill={stone.c === 1 ? '#000' : '#fff'}
-                                    stroke={stone.c === -1 ? '#000' : 'none'}
-                                    strokeWidth="1"
-                                    filter="drop-shadow(2px 2px 2px rgba(0,0,0,0.5))"
-                                />
-                                {/* Marker for last move */}
-                                {i === boardStones.length - 1 && (
+                        {boardStones.map((stone, i) => {
+                            const isSetup = i < setupStones.length;
+                            const moveNum = i - setupStones.length + 1;
+                            const isBlack = stone.c === 1;
+
+                            return (
+                                <g key={i}>
                                     <circle
                                         cx={padding + stone.x * gridSize}
                                         cy={padding + stone.y * gridSize}
-                                        r={gridSize * 0.15}
-                                        fill={stone.c === 1 ? '#fff' : '#000'}
+                                        r={gridSize * 0.45}
+                                        fill={isBlack ? '#000' : '#fff'}
+                                        stroke={!isBlack ? '#000' : 'none'}
+                                        strokeWidth="1"
+                                        filter="drop-shadow(2px 2px 2px rgba(0,0,0,0.5))"
                                     />
-                                )}
-                            </g>
-                        ))}
+                                    {/* Move Number */}
+                                    {!isSetup && (
+                                        <text
+                                            x={padding + stone.x * gridSize}
+                                            y={padding + stone.y * gridSize}
+                                            textAnchor="middle"
+                                            dominantBaseline="central"
+                                            fontSize={gridSize * 0.5}
+                                            fontWeight="bold"
+                                            fill={isBlack ? '#FFF' : '#000'}
+                                            style={{ pointerEvents: 'none' }}
+                                        >
+                                            {moveNum}
+                                        </text>
+                                    )}
+
+                                    {/* Marker for last move (Only if it's setup? Or just Red dot?) 
+                                        If we have numbers, we don't strictly need the marker, but a red highlight on the border might be nice.
+                                        Let's keep the marker logic simple: Remove distinct dot, Number is enough.
+                                        Or keep it if it is setup stone? Setup stones rarely have order.
+                                    */}
+                                    {i === boardStones.length - 1 && isSetup && (
+                                        <circle
+                                            cx={padding + stone.x * gridSize}
+                                            cy={padding + stone.y * gridSize}
+                                            r={gridSize * 0.15}
+                                            fill={isBlack ? '#fff' : '#000'}
+                                        />
+                                    )}
+                                </g>
+                            );
+                        })}
                     </svg>
 
-                    {/* Status Icons Overlay (Center) - SVG to force colors */}
+                    {/* Status Icons Overlay */}
                     {status !== 'playing' && status !== 'solution' && (
                         <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none bg-black/10 rounded">
                             {status === 'correct' && (
@@ -175,18 +201,18 @@ export const TesujiBoard: React.FC = () => {
 
                 {/* Right Control Panel */}
                 <div className="w-48 flex flex-col gap-4 py-8 shrink-0">
-                    {/* Manual Next Button (Strict: Only when Correct/Solved) */}
+                    {/* Next Button */}
                     {status === 'correct' && (
                         <button
                             onClick={loadNextProblem}
                             className="px-4 py-3 bg-green-600 hover:bg-green-500 text-white rounded font-bold shadow-lg flex items-center justify-center gap-2 transform hover:scale-105 transition-all"
                         >
-                            <span>下一题</span>
+                            <span>下一题 (Next)</span>
                             <span>▶</span>
                         </button>
                     )}
 
-                    {/* Retry Button */}
+                    {/* Retry */}
                     {(status !== 'playing' || isLocked) && (
                         <button
                             onClick={retry}
@@ -203,11 +229,10 @@ export const TesujiBoard: React.FC = () => {
                         </button>
                     )}
 
-                    {/* Help / Debug Info */}
                     <div className="mt-auto p-4 bg-stone-800 rounded text-xs text-stone-500">
-                        <h4 className="font-bold text-stone-400 mb-1">调试信息 (Debug)</h4>
-                        <div>锁定状态: {isLocked ? '是 (Locked)' : '否 (Unlocked)'}</div>
-                        <div>当前阶段: {status}</div>
+                        <h4 className="font-bold text-stone-400 mb-1">训练信息</h4>
+                        <div>死活题模块</div>
+                        <div>状态: {status}</div>
                     </div>
                 </div>
 

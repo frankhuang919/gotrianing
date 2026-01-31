@@ -62,6 +62,27 @@ export const TesujiList: React.FC<TesujiListProps> = ({ onSelectProblem, filterM
         return Object.entries(categories).filter(([_, probs]) => probs.length > 0);
     }, [volumes]);
 
+    // Auto-Expand & Scroll to Current Problem
+    useEffect(() => {
+        if (currentProblemId && categorizedData.length > 0) {
+            const foundEntry = categorizedData.find(([_, probs]) => probs.some(p => p.id === currentProblemId));
+            if (foundEntry) {
+                const catName = foundEntry[0];
+                if (expandedCat !== catName) {
+                    setExpandedCat(catName);
+                }
+
+                // Scroll with slight delay
+                setTimeout(() => {
+                    const el = document.getElementById(`tesuji-btn-${currentProblemId}`);
+                    if (el) {
+                        el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }
+                }, 100);
+            }
+        }
+    }, [currentProblemId, categorizedData]);
+
     // Mistake Book Data
     const mistakeProblems = useMemo(() => {
         const found: TesujiProblem[] = [];
@@ -106,6 +127,7 @@ export const TesujiList: React.FC<TesujiListProps> = ({ onSelectProblem, filterM
         return (
             <button
                 key={prob.id}
+                id={`tesuji-btn-${prob.id}`}
                 onClick={() => onSelectProblem(prob)}
                 disabled={isLocked}
                 className={`text-left text-xs p-2 rounded flex items-center gap-2 transition-colors w-full ${isCurrent

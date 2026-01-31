@@ -9,8 +9,8 @@ const categories = [
     {
         id: 'joseki',
         title: '定式特训 (Joseki)',
-        desc: '惩罚俗手，掌握 AI 时代定式',
-        active: true,
+        desc: '惩罚俗手，掌握 AI 时代定式 (Developing)',
+        active: false,
         color: 'from-amber-600 to-yellow-600'
     },
     {
@@ -28,10 +28,10 @@ const categories = [
         color: 'from-purple-600 to-indigo-600'
     },
     {
-        id: 'life_death',
+        id: 'tsumego',
         title: '基本死活 (Life & Death)',
         desc: '一念之差，生死立判',
-        active: false,
+        active: true,
         color: 'from-red-600 to-rose-600'
     },
     {
