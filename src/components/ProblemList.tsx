@@ -17,6 +17,7 @@ interface ProblemListProps {
 
     currentProblemId: string | null;
     mistakeIds: string[];
+    completedIds: string[]; // NEW: For Progression Locking & Highlight
     problemStats: Record<string, { attempts: number; solved: number }>;
 
     onSelectProblem: (problem: GenericProblem) => void;
@@ -37,6 +38,7 @@ export const ProblemList: React.FC<ProblemListProps> = ({
     isLoading,
     currentProblemId,
     mistakeIds,
+    completedIds,
     problemStats,
     onSelectProblem,
     filterMode = 'ALL'
@@ -152,28 +154,43 @@ export const ProblemList: React.FC<ProblemListProps> = ({
 
     const renderProblemButton = (prob: GenericProblem) => {
         const stats = problemStats?.[prob.id];
-        const isSolved = (stats?.solved || 0) > 0;
+        const isSolved = completedIds.includes(prob.id);
         const isAttempted = (stats?.attempts || 0) > 0;
         const isCurrent = currentProblemId === prob.id;
 
+        // Progression Lock Logic (Solved problems are always unlocked)
+        const globalIndex = problems.findIndex(p => p.id === prob.id);
+        const isLocked = !isSolved && filterMode === 'ALL' && globalIndex > 0 && !completedIds.includes(problems[globalIndex - 1].id);
+
         let statusIcon = null;
-        if (isSolved) {
-            statusIcon = <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="3" className="ml-auto"><circle cx="12" cy="12" r="10" /></svg>;
+        if (isLocked) {
+            statusIcon = <span className="text-xs">🔒</span>;
+        } else if (isSolved) {
+            statusIcon = <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="3" className="ml-auto"><circle cx="12" cy="12" r="10" /><path d="M8 12l3 3 7-7" /></svg>;
         } else if (isAttempted) {
             statusIcon = <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ef4444" strokeWidth="3" className="ml-auto"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>;
         }
+
+        const buttonClass = `text-left text-xs p-2 rounded flex items-center gap-2 transition-colors w-full pl-6
+            ${isCurrent
+                ? 'bg-amber-900/50 text-amber-200 border border-amber-800 font-bold'
+                : (isLocked
+                    ? 'text-stone-600 cursor-not-allowed opacity-70'
+                    : (isSolved ? 'text-green-400 hover:bg-stone-800' : 'text-stone-400 hover:text-amber-400 hover:bg-stone-800')
+                )
+            }
+        `;
 
         return (
             <button
                 key={prob.id}
                 id={`prob-btn-${prob.id}`}
-                onClick={() => onSelectProblem(prob)}
-                className={`text-left text-xs p-2 rounded flex items-center gap-2 transition-colors w-full pl-6
-                    ${isCurrent ? 'bg-amber-900/50 text-amber-200 border border-amber-800 font-bold' : 'text-stone-400 hover:text-amber-400 hover:bg-stone-800'}
-                `}
+                onClick={() => !isLocked && onSelectProblem(prob)}
+                disabled={isLocked}
+                className={buttonClass}
                 title={prob.title}
             >
-                <span className="opacity-50 w-4 text-center">{
+                <span className={`opacity-50 w-4 text-center ${isSolved ? 'text-green-600' : ''}`}>{
                     prob.label?.match(/\d+/)?.[0] || '•'
                 }</span>
                 <span className="truncate flex-1">{prob.label || prob.title}</span>

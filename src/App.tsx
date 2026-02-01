@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useMemo } from 'react';
 import WelcomeScreen from './components/WelcomeScreen';
 import ErrorBoundary from './components/ErrorBoundary';
@@ -9,13 +8,14 @@ import { TsumegoBoard } from './components/TsumegoBoard';
 import { useTesujiStore } from './store/tesujiStore';
 import { useTsumegoStore } from './store/tsumegoStore';
 import { JosekiMode } from './components/JosekiMode';
+import AIMode from './components/AIMode';
 
 function App() {
   const { status, reset } = useGameStore();
   const tesujiStore = useTesujiStore(); // Get whole store object
   const tsumegoStore = useTsumegoStore();
 
-  const [module, setModule] = useState<'HOME' | 'JOSEKI' | 'TESUJI' | 'LIFE_DEATH' | 'MISTAKE_BOOK'>('HOME');
+  const [module, setModule] = useState<'HOME' | 'JOSEKI' | 'TESUJI' | 'LIFE_DEATH' | 'MISTAKE_BOOK' | 'AI_SPARRING'>('HOME');
 
   // Pre-load libraries when App mounts (or when switching modules)
   useEffect(() => {
@@ -41,6 +41,7 @@ function App() {
     else if (cat === 'joseki') setModule('JOSEKI'); // Archived but kept if user wants
     else if (cat === 'mistakes') setModule('MISTAKE_BOOK');
     else if (cat === 'tsumego') setModule('LIFE_DEATH'); // Need to add this to WelcomeScreen?
+    else if (cat === 'ai_sparring') setModule('AI_SPARRING');
   };
 
   // UNIFIED MISTAKE BOOK DATA
@@ -112,6 +113,21 @@ function App() {
     );
   }
 
+  // Early return for AI Sparring Mode
+  if (module === 'AI_SPARRING') {
+    return (
+      <div className="h-screen w-screen relative">
+        <button
+          onClick={handleGoHome}
+          className="absolute top-4 left-4 z-50 px-4 py-2 bg-stone-800 text-stone-400 rounded hover:bg-stone-700 border border-stone-600 shadow-xl"
+        >
+          ← 返回主页
+        </button>
+        <AIMode />
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col h-screen bg-stone-950 font-sans text-stone-200 selection:bg-amber-500/30">
 
@@ -128,6 +144,7 @@ function App() {
           <button onClick={() => setModule('TESUJI')} className={`px-3 py-1 rounded text-sm font-bold transition-all ${module === 'TESUJI' ? 'bg-blue-900/50 text-blue-400 border border-blue-800' : 'text-stone-400 hover:text-stone-200'}`}>手筋</button>
           <button onClick={() => setModule('LIFE_DEATH')} className={`px-3 py-1 rounded text-sm font-bold transition-all ${module === 'LIFE_DEATH' ? 'bg-emerald-900/50 text-emerald-400 border border-emerald-800' : 'text-stone-400 hover:text-stone-200'}`}>死活</button>
           <button onClick={() => setModule('MISTAKE_BOOK')} className={`px-3 py-1 rounded text-sm font-bold transition-all ${module === 'MISTAKE_BOOK' ? 'bg-red-900/50 text-red-400 border border-red-800' : 'text-stone-400 hover:text-stone-200'}`}>错题本</button>
+          <button onClick={() => setModule('AI_SPARRING')} className={`px-3 py-1 rounded text-sm font-bold transition-all ${module === 'AI_SPARRING' ? 'bg-purple-900/50 text-purple-400 border border-purple-800' : 'text-stone-400 hover:text-stone-200'}`}>AI 对弈</button>
         </div>
 
         <div className="bg-stone-800 px-3 py-1 rounded flex items-center gap-2 border border-stone-700 shadow-inner">
@@ -151,6 +168,7 @@ function App() {
                   isLoading={tesujiStore.isLoadingLibrary}
                   currentProblemId={tesujiStore.currentProblemId}
                   mistakeIds={tesujiStore.mistakeBookIds}
+                  completedIds={tesujiStore.completedProblemIds}
                   problemStats={tesujiStore.problemStats}
                   onSelectProblem={onSelect}
                 />
@@ -162,6 +180,7 @@ function App() {
                   isLoading={tsumegoStore.isLoadingLibrary}
                   currentProblemId={tsumegoStore.currentProblemId}
                   mistakeIds={tsumegoStore.mistakeBookIds}
+                  completedIds={tsumegoStore.completedProblemIds}
                   problemStats={tsumegoStore.problemStats}
                   onSelectProblem={onSelect}
                 />
@@ -174,6 +193,7 @@ function App() {
                   isLoading={false}
                   currentProblemId={activeBoard === 'TESUJI' ? tesujiStore.currentProblemId : tsumegoStore.currentProblemId}
                   mistakeIds={mistakeData.ids}
+                  completedIds={[]}
                   problemStats={mistakeData.stats}
                   onSelectProblem={onSelect}
                 />

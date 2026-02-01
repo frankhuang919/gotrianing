@@ -18,6 +18,7 @@ interface TesujiState {
 
     // Persistence
     mistakeBookIds: string[]; // List of problem IDs
+    completedProblemIds: string[]; // NEW: Completed IDs
     problemStats: Record<string, { attempts: number; solved: number }>;
 
     // Current Problem Data
@@ -83,6 +84,7 @@ export const useTesujiStore = create<TesujiState>()(
             flatProblems: [],
             isLoadingLibrary: false,
             mistakeBookIds: [],
+            completedProblemIds: [],
             problemStats: {},
 
             currentProblemId: null,
@@ -236,10 +238,17 @@ export const useTesujiStore = create<TesujiState>()(
                         } else {
                             // CORRECT
                             // Mark Solved if < 3 mistakes
-                            const { problemStats, currentProblemId, sessionMistakes } = get();
+                            const { problemStats, currentProblemId, sessionMistakes, completedProblemIds } = get();
                             if (currentProblemId && sessionMistakes < 3) {
                                 const stats = problemStats[currentProblemId] || { attempts: 0, solved: 0 };
-                                set({ problemStats: { ...problemStats, [currentProblemId]: { ...stats, solved: stats.solved + 1 } } });
+                                const newCompleted = completedProblemIds.includes(currentProblemId)
+                                    ? completedProblemIds
+                                    : [...completedProblemIds, currentProblemId];
+
+                                set({
+                                    problemStats: { ...problemStats, [currentProblemId]: { ...stats, solved: stats.solved + 1 } },
+                                    completedProblemIds: newCompleted
+                                });
                             }
 
                             set({ status: 'correct', feedback: comment || '正解!' });
@@ -283,10 +292,17 @@ export const useTesujiStore = create<TesujiState>()(
                                             handleWrong();
                                         } else {
                                             // Implicit Correct (Main line ended)
-                                            const { problemStats, currentProblemId, sessionMistakes } = get();
+                                            const { problemStats, currentProblemId, sessionMistakes, completedProblemIds } = get();
                                             if (currentProblemId && sessionMistakes < 3) {
                                                 const stats = problemStats[currentProblemId] || { attempts: 0, solved: 0 };
-                                                set({ problemStats: { ...problemStats, [currentProblemId]: { ...stats, solved: stats.solved + 1 } } });
+                                                const newCompleted = completedProblemIds.includes(currentProblemId)
+                                                    ? completedProblemIds
+                                                    : [...completedProblemIds, currentProblemId];
+
+                                                set({
+                                                    problemStats: { ...problemStats, [currentProblemId]: { ...stats, solved: stats.solved + 1 } },
+                                                    completedProblemIds: newCompleted
+                                                });
                                             }
 
                                             set({ status: 'correct', feedback: oppMsg || '正解!' });
@@ -444,7 +460,7 @@ export const useTesujiStore = create<TesujiState>()(
 
                         set({
                             currentNode: nextNode,
-                            boardStones: [...boardStones, stone],
+                            boardStones: resolveBoardState(boardStones, stone), // FIX for Tesuji
                             isBlackTurn: !isBlackTurn,
                             feedback: comment ? `💡 ${comment}` : '💡 演示中...'
                         });
@@ -463,6 +479,7 @@ export const useTesujiStore = create<TesujiState>()(
                 mistakeBookIds: state.mistakeBookIds,
                 problemStats: state.problemStats,
                 currentProblemId: state.currentProblemId,
+                completedProblemIds: state.completedProblemIds,
             }),
         }
     )

@@ -7,6 +7,13 @@ interface WelcomeScreenProps {
 
 const categories = [
     {
+        id: 'ai_sparring',
+        title: 'AI 对弈 (Sparring)',
+        desc: '与本地 KataGo 实时对弈 (Beta)',
+        active: true,
+        color: 'from-purple-600 to-fuchsia-600'
+    },
+    {
         id: 'joseki',
         title: '定式特训 (Joseki)',
         desc: '惩罚俗手，掌握 AI 时代定式 (Developing)',

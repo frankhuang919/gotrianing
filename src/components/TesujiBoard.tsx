@@ -67,24 +67,12 @@ export const TesujiBoard: React.FC = () => {
     const COORDS_Y = Array.from({ length: 19 }, (_, i) => 19 - i);
 
     return (
-        <div className="flex flex-col h-full w-full p-4 gap-4 overflow-hidden">
+        <div className="flex flex-row h-full w-full overflow-hidden bg-stone-900">
+            {/* LEFT: Main Board Area - Maximized */}
+            <div className="flex-1 flex items-center justify-center p-4 relative bg-stone-800/30">
 
-            {/* Top Feedback Bar */}
-            <div className={`w-full h-48 shrink-0 p-2 rounded text-center font-bold text-lg flex flex-col items-center justify-center transition-colors shadow-lg overflow-y-auto
-                ${status === 'playing' ? (isLocked ? 'bg-stone-700 text-amber-500' : 'bg-stone-800 text-white') : ''}
-                ${status === 'correct' ? 'bg-green-800 text-green-100' : ''}
-                ${status === 'wrong' ? 'bg-red-900 text-red-100' : ''}
-                ${status === 'solution' ? 'bg-blue-900 text-blue-100' : ''}
-            `}>
-                <span className="whitespace-pre-wrap leading-relaxed px-2 text-base">{feedback}</span>
-                {isLocked && <span className="mt-1 text-xs font-mono animate-pulse opacity-80">⏳ 锁定 {timeLeft}s</span>}
-            </div>
-
-            {/* Main Content Area: Board + Sidebar */}
-            <div className="flex-1 flex flex-row items-start justify-center gap-6 min-h-0">
-
-                {/* Board Container */}
-                <div className={`relative h-full aspect-square bg-[#DEB887] shadow-2xl rounded transition-opacity duration-500 flex-shrink-0
+                {/* Board Container - Constrained by Aspect Ratio */}
+                <div className={`relative h-[95%] aspect-square bg-[#DEB887] shadow-2xl rounded transition-opacity duration-500 
                     ${isLocked ? 'grayscale-[50%] cursor-not-allowed' : ''}
                 `}>
                     <svg
@@ -95,14 +83,9 @@ export const TesujiBoard: React.FC = () => {
                         {/* Coordinate Labels */}
                         {Array.from({ length: size }).map((_, i) => (
                             <React.Fragment key={`coord-${i}`}>
-                                {/* Top X */}
                                 <text x={padding + i * gridSize} y={padding - 20} textAnchor="middle" fontSize="14" fontWeight="bold" fill="#3f2e18">{COORDS_X[i]}</text>
-                                {/* Bottom X */}
                                 <text x={padding + i * gridSize} y={boardPixelSize - padding + 25} textAnchor="middle" fontSize="14" fontWeight="bold" fill="#3f2e18">{COORDS_X[i]}</text>
-
-                                {/* Left Y */}
                                 <text x={padding - 20} y={padding + i * gridSize + 5} textAnchor="middle" fontSize="14" fontWeight="bold" fill="#3f2e18">{COORDS_Y[i]}</text>
-                                {/* Right Y */}
                                 <text x={boardPixelSize - padding + 20} y={padding + i * gridSize + 5} textAnchor="middle" fontSize="14" fontWeight="bold" fill="#3f2e18">{COORDS_Y[i]}</text>
                             </React.Fragment>
                         ))}
@@ -110,18 +93,8 @@ export const TesujiBoard: React.FC = () => {
                         {/* Grid */}
                         {Array.from({ length: size }).map((_, i) => (
                             <React.Fragment key={i}>
-                                <line
-                                    x1={padding + i * gridSize} y1={padding}
-                                    x2={padding + i * gridSize} y2={boardPixelSize - padding}
-                                    stroke="#000" strokeWidth="1"
-                                    vectorEffect="non-scaling-stroke"
-                                />
-                                <line
-                                    x1={padding} y1={padding + i * gridSize}
-                                    x2={boardPixelSize - padding} y2={padding + i * gridSize}
-                                    stroke="#000" strokeWidth="1"
-                                    vectorEffect="non-scaling-stroke"
-                                />
+                                <line x1={padding + i * gridSize} y1={padding} x2={padding + i * gridSize} y2={boardPixelSize - padding} stroke="#000" strokeWidth="1" vectorEffect="non-scaling-stroke" />
+                                <line x1={padding} y1={padding + i * gridSize} x2={boardPixelSize - padding} y2={padding + i * gridSize} stroke="#000" strokeWidth="1" vectorEffect="non-scaling-stroke" />
                             </React.Fragment>
                         ))}
 
@@ -142,7 +115,6 @@ export const TesujiBoard: React.FC = () => {
                                     strokeWidth="1"
                                     filter="drop-shadow(2px 2px 2px rgba(0,0,0,0.5))"
                                 />
-                                {/* Marker for last move */}
                                 {i === boardStones.length - 1 && (
                                     <circle
                                         cx={padding + stone.x * gridSize}
@@ -155,7 +127,7 @@ export const TesujiBoard: React.FC = () => {
                         ))}
                     </svg>
 
-                    {/* Status Icons Overlay (Center) - SVG to force colors */}
+                    {/* Status icons overlay */}
                     {status !== 'playing' && status !== 'solution' && (
                         <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none bg-black/10 rounded">
                             {status === 'correct' && (
@@ -172,45 +144,66 @@ export const TesujiBoard: React.FC = () => {
                         </div>
                     )}
                 </div>
+            </div>
 
-                {/* Right Control Panel */}
-                <div className="w-48 flex flex-col gap-4 py-8 shrink-0">
-                    {/* Manual Next Button (Strict: Only when Correct/Solved) */}
+            {/* RIGHT Panel: Sidebar info */}
+            <div className="w-96 flex flex-col bg-stone-900 border-l border-stone-700 shadow-2xl z-20 shrink-0">
+                {/* Header / Status Banner */}
+                <div className={`p-6 text-center shadow-md transition-colors duration-300
+                     ${status === 'correct' ? 'bg-green-900/30 border-b border-green-800' : ''}
+                     ${status === 'wrong' ? 'bg-red-900/30 border-b border-red-800' : ''}
+                     ${status === 'solution' ? 'bg-blue-900/30 border-b border-blue-800' : ''}
+                     ${status === 'playing' ? 'bg-stone-800 border-b border-stone-700' : ''}
+                `}>
+                    <div className={`text-2xl font-bold mb-1
+                         ${status === 'correct' ? 'text-green-400' : ''}
+                         ${status === 'wrong' ? 'text-red-400' : ''}
+                         ${status === 'solution' ? 'text-blue-400' : ''}
+                         ${status === 'playing' ? 'text-stone-200' : ''}
+                     `}>
+                        {status === 'playing' && (isLocked ? '⏳ 思考中' : '请落子')}
+                        {status === 'correct' && '✅ 正解!'}
+                        {status === 'wrong' && '❌ 失败'}
+                        {status === 'solution' && '💡 正解演示'}
+                    </div>
+                    {isLocked && <div className="text-sm text-stone-400 font-mono">锁定时间: {timeLeft}s</div>}
+                </div>
+
+                {/* Main Content: Explanation / Feedback */}
+                <div className="flex-1 overflow-y-auto p-6 scrollbar-thin scrollbar-thumb-stone-700">
+                    <div className="text-lg leading-relaxed text-gray-300 whitespace-pre-wrap font-serif">
+                        {feedback}
+                    </div>
+                </div>
+
+                {/* Bottom Actions Area */}
+                <div className="p-6 bg-stone-800/50 border-t border-stone-700 flex flex-col gap-4">
+                    {/* Next Button (Primary) */}
                     {status === 'correct' && (
                         <button
                             onClick={loadNextProblem}
-                            className="px-4 py-3 bg-green-600 hover:bg-green-500 text-white rounded font-bold shadow-lg flex items-center justify-center gap-2 transform hover:scale-105 transition-all"
+                            className="w-full py-4 bg-green-600 hover:bg-green-500 text-white rounded-lg font-bold shadow-lg flex items-center justify-center gap-2 transform active:scale-95 transition-all text-xl"
                         >
                             <span>下一题</span>
                             <span>▶</span>
                         </button>
                     )}
 
-                    {/* Retry Button */}
-                    {(status !== 'playing' || isLocked) && (
-                        <button
-                            onClick={retry}
-                            disabled={isLocked && status !== 'solution'}
-                            className={`px-4 py-3 rounded font-bold shadow-lg flex items-center justify-center gap-2 transition-all
-                                ${isLocked
-                                    ? 'bg-gray-700 text-gray-500 cursor-not-allowed'
-                                    : 'bg-blue-600 hover:bg-blue-500 text-white'
-                                }
-                            `}
-                        >
-                            <span>🔄</span>
-                            {isLocked ? `锁定 (${timeLeft}s)` : '重试 (Retry)'}
-                        </button>
-                    )}
-
-                    {/* Help / Debug Info */}
-                    <div className="mt-auto p-4 bg-stone-800 rounded text-xs text-stone-500">
-                        <h4 className="font-bold text-stone-400 mb-1">调试信息 (Debug)</h4>
-                        <div>锁定状态: {isLocked ? '是 (Locked)' : '否 (Unlocked)'}</div>
-                        <div>当前阶段: {status}</div>
-                    </div>
+                    {/* Retry / Generic Action */}
+                    <button
+                        onClick={retry}
+                        disabled={isLocked && status !== 'solution'}
+                        className={`w-full py-3 rounded-lg font-bold shadow flex items-center justify-center gap-2 transition-all
+                            ${isLocked
+                                ? 'bg-stone-700 text-stone-500 cursor-not-allowed'
+                                : 'bg-stone-700 hover:bg-stone-600 text-stone-200 hover:text-white border border-stone-600'
+                            }
+                        `}
+                    >
+                        <span>🔄</span>
+                        {status === 'solution' ? '重试 (Retry)' : (isLocked ? '锁定中...' : '重试本题')}
+                    </button>
                 </div>
-
             </div>
         </div>
     );
