@@ -3,11 +3,8 @@ import GoBoard from './GoBoard';
 import GameResultModal from './GameResultModal';
 
 // --- CONFIG ---
-const PLAYER_MAX_HP = 100;
-const BOSS_MAX_HP = 3000; // Big boss
-const DAMAGE_SCALE = 5; // 1% winrate drop = 5 damage
-const BASE_BOSS_DAMAGE = 150; // Every non-blunder move hurts boss
-const BLUNDER_THRESHOLD = 0.05; // 5% drop is a blunder
+// --- CONFIG ---
+const BLUNDER_THRESHOLD = 0.07; // 7% drop is a blunder (Relaxed from 5% for calibration stability)
 
 // GTP Coordinate Mapping
 const COL_LETTERS = "ABCDEFGHJKLMNOPQRST";
@@ -27,19 +24,22 @@ const fromGTP = (gtp: string): { x: number, y: number } | null => {
     return { x, y };
 };
 
-// Parse 'info move ... winrate X ...'
-const parseWinrate = (response: string): number | null => {
+// Parse 'info move ... winrate X ... scoreMean Y ... pv ...'
+const parseAIInfo = (response: string) => {
     try {
-        // Look for "winrate <FLOAT>"
-        // response might be multi-line, take the first "info" line with highest visits or just first line
-        const match = response.match(/winrate\s+([\d.]+)/);
-        if (match && match[1]) {
-            return parseFloat(match[1]);
-        }
+        const winrateMatch = response.match(/winrate\s+([\d.]+)/);
+        const scoreMatch = response.match(/scoreMean\s+([-\d.]+)/);
+        const pvMatch = response.match(/pv\s+(.+)$/);
+
+        return {
+            winrate: winrateMatch ? parseFloat(winrateMatch[1]) : null,
+            scoreLead: scoreMatch ? parseFloat(scoreMatch[1]) : null,
+            pv: pvMatch ? pvMatch[1] : null
+        };
     } catch (e) {
-        console.error("Failed to parse winrate", e);
+        console.error("Failed to parse AI info", e);
+        return { winrate: null, scoreLead: null, pv: null };
     }
-    return null;
 };
 
 import { resolveBoardState, type Point } from '../utils/goLogic';
@@ -52,60 +52,113 @@ const AIMode: React.FC = () => {
     const [lastMove, setLastMove] = useState<{ x: number, y: number } | null>(null);
     const [isThinking, setIsThinking] = useState(false);
 
-    // ... (rest of component state)
-
-    // ... (skip down to playStone) ...
-    // Note: I need to target playStone as well to fix the return type
-
-
-    // Boss Logic
-    const [playerHP, setPlayerHP] = useState(PLAYER_MAX_HP);
-    const [bossHP, setBossHP] = useState(BOSS_MAX_HP);
+    // AI & Rules
     const [lastPlayerWinrate, setLastPlayerWinrate] = useState(0.5); // Start at 50%
+    const [lastScoreLead, setLastScoreLead] = useState<number | null>(null); // Track score
     const [difficulty, setDifficulty] = useState(50); // Default to Amateur (50 visits)
     const [feedback, setFeedback] = useState<{ msg: string, type: 'good' | 'bad' | 'neutral' } | null>(null);
-    const [shake, setShake] = useState(false);
+
+    // --- STATE REFS (Fix Closure Staleness) ---
+    const gameHistoryRef = useRef<{ moveNumber: number, whiteWinrate: number }[]>([]);
+    const lastScoreLeadRef = useRef<number | null>(null);
 
     // History & Results
     const [gameHistory, setGameHistory] = useState<{ moveNumber: number, whiteWinrate: number }[]>([]);
     const [showResult, setShowResult] = useState(false);
     const [gameResult, setGameResult] = useState<{ winner: 'Black' | 'White', reason: string }>({ winner: 'White', reason: 'Resignation' });
 
-    const ws = useRef<WebSocket | null>(null);
-    const thinkingTimeout = useRef<number | null>(null); // Safety timeout
+    // Review & Coaching
+    const [bestSequence, setBestSequence] = useState<{ x: number, y: number, c: 1 | -1, order: number }[]>([]);
+    const [reviewStep, setReviewStep] = useState<'NONE' | 'ALERT' | 'HINT' | 'SOLUTION'>('NONE');
 
-    useEffect(() => {
+    // Sync refs with state
+    useEffect(() => { gameHistoryRef.current = gameHistory; }, [gameHistory]);
+    useEffect(() => { lastScoreLeadRef.current = lastScoreLead; }, [lastScoreLead]);
+
+    const ws = useRef<WebSocket | null>(null);
+    const thinkingTimeout = useRef<number | null>(null);
+
+    const undoLastMove = () => {
+        setStones(prev => {
+            if (prev.length === 0) return prev;
+            const newStones = [...prev];
+            const last = newStones[newStones.length - 1];
+            if (last.c === -1) {
+                newStones.pop();
+                if (newStones.length > 0) newStones.pop();
+            } else {
+                newStones.pop();
+            }
+            return newStones;
+        });
+
+        setGameHistory(prev => {
+            const newHist = [...prev];
+            if (newHist.length > 0) newHist.pop();
+            return newHist;
+        });
+
+        setFeedback({ msg: "已悔棋，AI 正在分析正解...", type: 'neutral' });
+        setReviewStep('NONE');
+        setIsThinking(true);
+
+        sendCommand("undo");
+        sendCommand("undo"); // Undo AI move and User move from engine
+        sendCommand("kata-analyze", ["B", 50]); // Ask for hint for Black
+    };
+
+    const reconnectInterval = useRef<number | null>(null);
+
+    const connectToAI = () => {
+        if (ws.current?.readyState === WebSocket.OPEN) return;
+
         // Cloud-Ready Config: Use Env Variable or default to Local
         const wsUrl = import.meta.env.VITE_AI_ENDPOINT || 'ws://127.0.0.1:3001';
         const socket = new WebSocket(wsUrl);
         ws.current = socket;
 
         socket.onopen = () => {
+            console.log("AI Connected");
             setConnected(true);
             setFeedback({ msg: "BOSS ENCOUNTER STARTED", type: 'neutral' });
+            // Clear reconnect interval if connected
+            if (reconnectInterval.current) {
+                clearInterval(reconnectInterval.current);
+                reconnectInterval.current = null;
+            }
+
             // Initial Reset
             sendCommand("clear_board");
             sendCommand("komi 7.5"); // Chinese rules usually
             // Set initial difficulty
-            sendCommand("time_settings", ["0", "1", "1"]); // Speed up simple moves
-            // We use maxVisits to control strength
-            // sendCommand("kata-set-param", ["maxVisits", difficulty]); // Try to set initial
+            sendCommand("time_settings", ["0", "1", "1"]);
         };
 
         socket.onclose = () => {
+            console.log("AI Disconnected");
             setConnected(false);
-            setFeedback({ msg: "CONNECTION LOST", type: 'bad' });
+            setFeedback({ msg: "CONNECTION LOST - RECONNECTING...", type: 'bad' });
             setIsThinking(false);
+
+            // Try to reconnect every 3s
+            if (!reconnectInterval.current) {
+                reconnectInterval.current = window.setInterval(connectToAI, 3000);
+            }
         };
 
         socket.onmessage = (event) => {
             const data = JSON.parse(event.data);
             handleBackendResponse(data);
         };
+    };
+
+    useEffect(() => {
+        connectToAI();
 
         return () => {
             if (thinkingTimeout.current) clearTimeout(thinkingTimeout.current);
-            socket.close();
+            if (reconnectInterval.current) clearInterval(reconnectInterval.current);
+            ws.current?.close();
         };
     }, []);
 
@@ -145,7 +198,8 @@ const AIMode: React.FC = () => {
     };
 
     const handleUserClick = (x: number, y: number) => {
-        if (isThinking || !connected || playerHP <= 0 || bossHP <= 0) return;
+        // Block clicks during AI thinking, disconnected, or while reviewing hints/solutions
+        if (isThinking || !connected || reviewStep !== 'NONE') return;
 
         // 1. User Plays (Optimistic)
         playStone(x, y, 1); // Black
@@ -165,135 +219,161 @@ const AIMode: React.FC = () => {
             setFeedback({ msg: "AI TIMEOUT - RETRY", type: 'neutral' });
         }, 15000);
 
-        // setFeedback({ msg: "Analyzing move...", type: 'neutral' }); // Removed noisy feedback
-        // Use FAST analysis (15 visits) just for blunder check
-        // TEMPORARILY DISABLED: Blocking analyze command causing freezes
-        // sendCommand("analyze", ["W", 15]); 
-
         // Combined Genmove + Analyze (Efficient)
         // This returns the move AND the winrate evaluation
         sendCommand("kata-genmove_analyze", ["W", difficulty]);
     };
 
     const handleBackendResponse = (data: any) => {
-        // Handle AI Move & Analysis together
+        // Handle AI Move (Standard)
         if (data.command === 'kata-genmove_analyze' || data.command === 'genmove') {
             setIsThinking(false);
             if (thinkingTimeout.current) clearTimeout(thinkingTimeout.current);
 
             if (data.success) {
                 const responseText = data.response || "";
-
-                // Parse Move (First token usually)
-                // kata-genmove_analyze output format:
-                // play <move>
-                // info ...
                 let moveStr = "";
                 let whiteWinrate = null;
+                let currentScoreLead = null;
 
                 const lines = responseText.split('\n');
                 for (const line of lines) {
                     if (line.startsWith('play ')) {
                         moveStr = line.split(' ')[1];
                     } else if (line.startsWith('info') && line.includes('winrate')) {
-                        // Extract winrate from the info line with highest visits (usually first info line is best)
-                        const w = parseWinrate(line);
-                        if (w !== null && whiteWinrate === null) whiteWinrate = w;
+                        const info = parseAIInfo(line);
+                        // Prioritize info line with winrate
+                        if (info.winrate !== null && whiteWinrate === null) {
+                            whiteWinrate = info.winrate;
+                            currentScoreLead = info.scoreLead;
+
+                            // Parse PV if available
+                            if (info.pv) {
+                                const moves = info.pv.split(' ').map(m => fromGTP(m)).filter(p => p !== null) as { x: number, y: number }[];
+                                // We are analyzing White's turn, so PV starts with White (-1)
+                                const sequence = moves.map((m, i) => ({
+                                    ...m,
+                                    c: (i % 2 === 0 ? -1 : 1) as 1 | -1,
+                                    order: i + 1
+                                }));
+                                setBestSequence(sequence);
+                            }
+                        }
                     }
-                    // Fallback for standard genmove
                     else if (!moveStr && fromGTP(line)) {
                         moveStr = line;
                     }
                 }
 
-                // Handle Move
                 if (moveStr) {
                     if (moveStr.toLowerCase() === 'resign') {
-                        setBossHP(0);
-                        setFeedback({ msg: "BOSS RESIGNED!", type: 'good' });
-                        setGameResult({ winner: 'Black', reason: 'Boss Resigned' });
+                        setFeedback({ msg: "AI 认输!", type: 'good' });
+                        setGameResult({ winner: 'Black', reason: 'AI 认输' });
                         setShowResult(true);
                         return;
                     }
                     if (moveStr.toLowerCase() === 'pass') {
-                        setFeedback({ msg: "AI Passed", type: 'neutral' });
+                        setFeedback({ msg: "AI 停一手", type: 'neutral' });
                         return;
                     }
 
                     const coords = fromGTP(moveStr);
                     if (coords) {
+                        // CRITICAL: Verify position is empty before placing
+                        const isOccupied = stones.some(s => s.x === coords.x && s.y === coords.y);
+                        if (isOccupied) {
+                            console.error("AI tried to play on occupied position:", moveStr, coords);
+                            setFeedback({ msg: "AI走棋错误，请重试", type: 'bad' });
+                            return;
+                        }
                         playStone(coords.x, coords.y, -1);
                     }
                 }
 
-                // Handle Winrate / HP Logic
                 if (whiteWinrate !== null) {
                     const blackWinrate = 1.0 - whiteWinrate;
-
-                    // Record History
                     setGameHistory(prev => [...prev, { moveNumber: prev.length + 1, whiteWinrate: whiteWinrate! }]);
 
-                    // SPECIAL: First move calibration (Fix for "Star Point Blunder" bug)
-                    if (gameHistory.length === 0) {
+                    // USE REFS TO AVOID STALENESS
+                    const historyLen = gameHistoryRef.current.length;
+
+                    if (historyLen === 0) {
                         setLastPlayerWinrate(blackWinrate);
-                        setFeedback({ msg: "AI 校准完成 (Calibration)", type: 'neutral' });
-                        takeBossDamage(10); // Encouragement
+                        setFeedback({ msg: "AI 预热完成", type: 'neutral' });
                         return;
                     }
 
-                    // Calculate Damage
-                    const delta = lastPlayerWinrate - blackWinrate;
+                    const prevEntry = gameHistoryRef.current[gameHistoryRef.current.length - 1];
+                    const prevBlackWinrate = 1.0 - prevEntry.whiteWinrate;
 
-                    if (delta > 0.07) {
-                        // Player made a bad move (Winrate dropped significantly)
-                        const dmg = Math.floor(delta * 100 * DAMAGE_SCALE);
-                        takePlayerDamage(dmg);
-                        setFeedback({ msg: `大恶手! 胜率跌了 ${(delta * 100).toFixed(1)}%`, type: 'bad' });
+                    const delta = prevBlackWinrate - blackWinrate; // Positive means we lost winrate
+
+                    // Score Calculation
+                    let scoreDiff = 0;
+                    if (currentScoreLead !== null && lastScoreLeadRef.current !== null) {
+                        scoreDiff = lastScoreLeadRef.current - currentScoreLead;
+                    }
+                    if (currentScoreLead !== null) setLastScoreLead(currentScoreLead);
+
+                    if (delta > BLUNDER_THRESHOLD) {
+                        // Show generic blunder message first, but enable "Review"
+                        const scoreMsg = scoreDiff > 1 ? ` (亏 ${scoreDiff.toFixed(1)} 目)` : "";
+                        setFeedback({ msg: `大恶手! 胜率跌了 ${(delta * 100).toFixed(1)}%${scoreMsg}`, type: 'bad' });
+                        // Active Learning: Trigger Alert
+                        setReviewStep('ALERT');
                     } else {
-                        // Player played well or AI improved slightly
-                        const dmg = BASE_BOSS_DAMAGE + (delta < 0 ? 50 : 0);
-                        takeBossDamage(dmg);
-                        if (delta < -0.02) setFeedback({ msg: "妙手! (EXCELLENT)", type: 'good' });
+                        if (delta < -0.02) setFeedback({ msg: "妙手!", type: 'good' });
+                        else setFeedback({ msg: "进行中...", type: 'neutral' });
+                        // Clear Review Step if good move
+                        setReviewStep('NONE');
                     }
                     setLastPlayerWinrate(blackWinrate);
-                } else {
-                    // Fallback if no winrate returned (e.g. plain genmove)
-                    takeBossDamage(50);
+                }
+            }
+        }
+        // Handle Hint/Analysis (No Move Played)
+        else if (data.command === 'kata-analyze') {
+            setIsThinking(false);
+            if (data.success) {
+                const responseText = data.response || "";
+                const lines = responseText.split('\n');
+                for (const line of lines) {
+                    if (line.startsWith('info') && line.includes('pv')) {
+                        const info = parseAIInfo(line);
+                        // We take the first info line with PV
+                        if (info.pv) {
+                            const moves = info.pv.split(' ').map(m => fromGTP(m)).filter(p => p !== null) as { x: number, y: number }[];
+                            // Analyzing BLACK's turn (after undo)
+                            // So PV starts with Black (1)
+                            const sequence = moves.map((m, i) => ({
+                                ...m,
+                                c: (i % 2 === 0 ? 1 : -1) as 1 | -1, // 0=Black, 1=White
+                                order: i + 1
+                            }));
+                            setBestSequence(sequence);
+                            setFeedback({ msg: "正解已生成 (点击'提示'或'查看正解')", type: 'neutral' });
+                            setReviewStep('HINT'); // Enable buttons
+                            break;
+                        }
+                    }
                 }
             }
         }
     };
 
-    // --- EFFECTS ---
-    const takePlayerDamage = (amount: number) => {
-        setPlayerHP(prev => Math.max(0, prev - amount));
-        setShake(true);
-        setTimeout(() => setShake(false), 500);
-    };
-
-    const takeBossDamage = (amount: number) => {
-        setBossHP(prev => {
-            const next = Math.max(0, prev - amount);
-            if (next === 0 && prev > 0) {
-                // Boss Defeated
-                setGameResult({ winner: 'Black', reason: 'Boss HP Depleted' });
-                setShowResult(true);
-            }
-            return next;
-        });
-    };
-
     const resetGame = () => {
         setStones([]);
         setLastMove(null);
-        setPlayerHP(PLAYER_MAX_HP);
-        setBossHP(BOSS_MAX_HP);
         setLastPlayerWinrate(0.5);
         setGameHistory([]);
         setShowResult(false);
-        setFeedback({ msg: "NEW ROUND STARTED", type: 'neutral' });
+        setFeedback({ msg: "新对局开始", type: 'neutral' });
         setIsThinking(false);
         if (thinkingTimeout.current) clearTimeout(thinkingTimeout.current);
+
+        // Clear Refs manually to be safe (Effect will sync, but latency matters)
+        gameHistoryRef.current = [];
+        lastScoreLeadRef.current = null;
 
         sendCommand("clear_board");
         // Re-apply difficulty just in case
@@ -302,7 +382,7 @@ const AIMode: React.FC = () => {
 
     // --- RENDER ---
     return (
-        <div className={`flex h-screen bg-stone-950 text-stone-200 overflow-hidden ${shake ? 'animate-shake' : ''}`}>
+        <div className="flex h-screen bg-stone-950 text-stone-200 overflow-hidden">
             {/* Modal */}
             {showResult && (
                 <GameResultModal
@@ -331,62 +411,39 @@ const AIMode: React.FC = () => {
                     to { opacity: 1; }
                 }
                 .animate-fade-in { animation: fade-in 0.5s ease-out forwards; }
+                
+                @keyframes draw-line {
+                    from { 
+                        opacity: 0;
+                        stroke-dasharray: 200;
+                        stroke-dashoffset: 200;
+                    }
+                    to { 
+                        opacity: 1;
+                        stroke-dasharray: 200;
+                        stroke-dashoffset: 0;
+                    }
+                }
+                .animate-draw-line { animation: draw-line 0.3s ease-out forwards; }
             `}</style>
 
             {/* Main Board Area */}
             <div className="flex-1 flex flex-col items-center justify-center relative bg-gradient-to-b from-stone-900 to-stone-950">
-                {/* HUD: Health Bars */}
-                <div className="w-full max-w-5xl flex items-center justify-between p-6 z-10 gap-8">
-
-                    {/* Player Health */}
-                    <div className="flex flex-col w-1/3 relative group">
-                        <div className="flex justify-between text-cyan-400 font-bold mb-1 items-end">
-                            <span className="text-xl">你的心态 (Stability)</span>
-                            <span className="font-mono text-lg">{Math.ceil(playerHP)}/{PLAYER_MAX_HP}</span>
-                        </div>
-                        <div className="h-6 bg-stone-800/80 rounded border border-stone-600 shadow-[0_0_15px_rgba(34,211,238,0.15)] relative overflow-hidden backdrop-blur-sm">
-                            <div
-                                className="h-full bg-gradient-to-r from-cyan-700 via-cyan-500 to-blue-500 transition-all duration-500 relative"
-                                style={{ width: `${(playerHP / PLAYER_MAX_HP) * 100}%` }}
-                            >
-                                <div className="absolute inset-0 bg-white/20 animate-pulse-slow"></div>
-                            </div>
-                        </div>
-                        <p className="text-xs text-stone-500 mt-1 opacity-0 group-hover:opacity-100 transition-opacity absolute -bottom-5">
-                            出现恶手会大幅扣血
-                        </p>
+                {/* Header */}
+                <div className="w-full max-w-5xl flex items-center justify-between p-6 z-10">
+                    <div className="text-xl font-black text-cyan-400">
+                        AI 对弈练习
                     </div>
-
-                    {/* VS Badge / Round Info */}
-                    <div className="flex flex-col items-center justify-center -mt-2">
-                        <div className="text-stone-700 font-black text-4xl italic opacity-30 select-none">VS</div>
-                        <div className={`text-xs font-mono font-bold ${connected ? 'text-green-500' : 'text-stone-600'}`}>
-                            {connected ? "LINKED" : "OFFLINE"}
-                        </div>
+                    <div className={`text-xs font-mono font-bold ${connected ? 'text-green-500' : 'text-stone-600'}`}>
+                        {connected ? "已连接" : "连接中..."}
                     </div>
-
-                    {/* Boss Health */}
-                    <div className="flex flex-col w-1/3 items-end relative group">
-                        <div className="flex justify-between w-full text-red-500 font-bold mb-1 items-end">
-                            <span className="font-mono text-lg">{Math.ceil(bossHP)}/{BOSS_MAX_HP}</span>
-                            <span className="text-xl">Boss 血量</span>
-                        </div>
-                        <div className="h-6 bg-stone-800/80 rounded border border-stone-600 shadow-[0_0_15px_rgba(239,68,68,0.15)] relative overflow-hidden backdrop-blur-sm w-full">
-                            <div
-                                className="h-full bg-gradient-to-l from-red-700 via-red-600 to-rose-500 transition-all duration-500 absolute right-0"
-                                style={{ width: `${(bossHP / BOSS_MAX_HP) * 100}%` }}
-                            >
-                                <div className="absolute inset-0 bg-black/10"></div>
-                            </div>
-                        </div>
-                        <p className="text-xs text-stone-500 mt-1 opacity-0 group-hover:opacity-100 transition-opacity absolute -bottom-5 right-0">
-                            每一步有效棋都在造成伤害
-                        </p>
+                    <div className={`text-lg font-bold ${(lastPlayerWinrate * 100) > 40 ? 'text-cyan-400' : 'text-red-500'}`}>
+                        胜率: {(lastPlayerWinrate * 100).toFixed(1)}%
                     </div>
                 </div>
 
-                {/* Feedback Area - Integrated to prevent blocking */}
-                <div className="h-12 flex items-center justify-center w-full my-4">
+                {/* Feedback Area - Active Learning UI */}
+                <div className="min-h-[4rem] flex flex-col items-center justify-center w-full my-4 gap-2 transition-all">
                     {feedback && (
                         <div className={`
                             text-lg font-black tracking-widest px-8 py-2 rounded-lg backdrop-blur-md border-2 shadow-xl transform transition-all
@@ -398,6 +455,50 @@ const AIMode: React.FC = () => {
                             {feedback.type === 'good' && <span>⚔️</span>}
                             {feedback.type === 'bad' && <span>💔</span>}
                             {feedback.msg}
+
+                            {/* Alert Logic: Show Undo Button */}
+                            {reviewStep === 'ALERT' && (
+                                <button
+                                    onClick={undoLastMove}
+                                    className="ml-4 px-3 py-1 bg-stone-700 hover:bg-stone-600 text-stone-200 text-xs rounded border border-stone-500 transition-all font-bold"
+                                >
+                                    🔙 悔棋重试
+                                </button>
+                            )}
+                        </div>
+                    )}
+
+                    {/* Active Learning Controls */}
+                    {reviewStep !== 'NONE' && (
+                        <div className="flex gap-2">
+                            {/* Step 2: Hint (Simple toggle for now) */}
+                            {reviewStep === 'ALERT' && (
+                                <button
+                                    onClick={() => setReviewStep('HINT')}
+                                    className="px-4 py-1 rounded-full text-xs font-bold border transition-all bg-amber-900/50 text-amber-500 border-amber-800 hover:text-amber-300"
+                                >
+                                    💡 提示 (Hint)
+                                </button>
+                            )}
+
+                            {/* Step 3: Solution */}
+                            {(reviewStep === 'ALERT' || reviewStep === 'HINT') && (
+                                <button
+                                    onClick={() => setReviewStep('SOLUTION')}
+                                    className="px-4 py-1 rounded-full text-xs font-bold border transition-all bg-stone-800 text-stone-500 border-stone-700 hover:text-stone-300"
+                                >
+                                    👀 查看正解
+                                </button>
+                            )}
+
+                            {reviewStep === 'SOLUTION' && (
+                                <button
+                                    onClick={() => setReviewStep('NONE')}
+                                    className="px-4 py-1 rounded-full text-xs font-bold border transition-all bg-stone-800 text-stone-500 border-stone-700 hover:text-stone-300"
+                                >
+                                    ❌ 收起
+                                </button>
+                            )}
                         </div>
                     )}
                 </div>
@@ -409,54 +510,61 @@ const AIMode: React.FC = () => {
                     <GoBoard
                         size={19}
                         stones={stones}
+                        // Only show ghost stones in SOLUTION step
+                        // Filter out move 0 (overlap fix) and limit to 5 moves.
+                        // Also re-index orders to start from 1.
+                        ghostStones={
+                            (() => {
+                                if (reviewStep === 'SOLUTION') {
+                                    // Filter out stones that overlap with existing board stones
+                                    const filtered = bestSequence.filter(
+                                        s => !stones.some(st => st.x === s.x && st.y === s.y)
+                                    );
+                                    // Take first 10 and re-number from 1
+                                    return filtered.slice(0, 10).map((s, idx) => ({
+                                        x: s.x,
+                                        y: s.y,
+                                        c: s.c,
+                                        order: idx + 1  // Re-number from 1
+                                    }));
+                                }
+                                if (reviewStep === 'HINT') {
+                                    // Just show the first valid move
+                                    const first = bestSequence.find(
+                                        s => !stones.some(st => st.x === s.x && st.y === s.y)
+                                    );
+                                    return first ? [{ x: first.x, y: first.y, c: first.c, order: 1 }] : [];
+                                }
+                                return [];
+                            })()
+                        }
                         lastMove={lastMove}
                         onIntersectionClick={handleUserClick}
-                        interactive={connected && !isThinking && playerHP > 0 && bossHP > 0}
+                        interactive={connected && !isThinking}
                     />
-
-                    {/* Game Over Overlays */}
-                    {playerHP <= 0 && (
-                        <div className="absolute inset-0 bg-stone-950/90 backdrop-blur-sm flex flex-col items-center justify-center z-50 animate-fade-in text-center p-8">
-                            <h1 className="text-7xl font-black text-red-600 mb-2 drop-shadow-[0_5px_5px_rgba(0,0,0,1)]">挑战失败</h1>
-                            <p className="text-stone-400 text-xl mb-8">你的心态崩了 (恶手过多)</p>
-                            <button onClick={resetGame} className="px-10 py-4 bg-gradient-to-r from-red-700 to-red-600 text-white font-bold rounded hover:scale-105 transition-transform shadow-lg border border-red-500">
-                                再次挑战
-                            </button>
-                        </div>
-                    )}
-                    {bossHP <= 0 && (
-                        <div className="absolute inset-0 bg-gradient-to-br from-amber-600/90 to-yellow-600/90 backdrop-blur-sm flex flex-col items-center justify-center z-50 animate-fade-in text-center p-8">
-                            <h1 className="text-7xl font-black text-white mb-2 drop-shadow-lg">挑战成功!</h1>
-                            <p className="text-amber-100 text-xl mb-8">你击败了 KataGo (Lv.1)</p>
-                            <button onClick={resetGame} className="px-10 py-4 bg-white text-amber-700 font-bold rounded hover:scale-105 transition-transform shadow-xl">
-                                下一关
-                            </button>
-                        </div>
-                    )}
                 </div>
             </div>
 
-            {/* Right Panel: Boss Info */}
+            {/* Right Panel: AI Info */}
             <div className="w-80 bg-[#1c1917] border-l border-stone-800 flex flex-col shadow-2xl z-20">
                 <div className="p-8 border-b border-stone-800 bg-gradient-to-b from-stone-800 to-[#1c1917] relative overflow-hidden">
                     <div className="absolute inset-0 bg-[url('/noise.png')] opacity-5"></div>
-                    <div className="w-24 h-24 mx-auto bg-stone-950 rounded-full border-4 border-red-900/50 flex items-center justify-center mb-4 relative overflow-hidden shadow-[0_0_20px_rgba(220,38,38,0.3)] group cursor-help">
-                        {/* Abstract Boss Eye */}
-                        <div className={`w-16 h-16 bg-red-600 rounded-full blur-xl absolute opacity-60 transition-all duration-200 ${isThinking ? 'animate-pulse scale-110' : 'group-hover:opacity-80'}`}></div>
-                        <span className="text-4xl relative z-10 filter drop-shadow-lg">👹</span>
+                    <div className="w-24 h-24 mx-auto bg-stone-950 rounded-full border-4 border-cyan-900/50 flex items-center justify-center mb-4 relative overflow-hidden shadow-[0_0_20px_rgba(34,211,238,0.3)] group cursor-help">
+                        <div className={`w-16 h-16 bg-cyan-600 rounded-full blur-xl absolute opacity-60 transition-all duration-200 ${isThinking ? 'animate-pulse scale-110' : 'group-hover:opacity-80'}`}></div>
+                        <span className="text-4xl relative z-10 filter drop-shadow-lg">🤖</span>
                     </div>
-                    <h2 className="text-center text-2xl font-black text-stone-200 tracking-wide">KataGo <span className="text-red-500 text-sm align-top">魔王</span></h2>
+                    <h2 className="text-center text-2xl font-black text-stone-200 tracking-wide">KataGo <span className="text-cyan-500 text-sm align-top">AI</span></h2>
 
                     {/* Status Badge */}
                     <div className="flex flex-col items-center justify-center mt-3 gap-2">
                         {isThinking ? (
                             <span className="px-3 py-1 bg-amber-500/20 text-amber-400 text-xs font-bold rounded-full animate-pulse border border-amber-500/30 flex items-center gap-2">
                                 <span className="w-2 h-2 bg-amber-500 rounded-full animate-ping"></span>
-                                AI 正在思考/分析...
+                                AI 思考中...
                             </span>
                         ) : (
                             <span className="px-3 py-1 bg-stone-800 text-stone-500 text-xs font-bold rounded-full border border-stone-700">
-                                等待黑棋落子
+                                等待落子
                             </span>
                         )}
 
@@ -465,70 +573,118 @@ const AIMode: React.FC = () => {
                             className="bg-stone-900 text-stone-400 text-xs border border-stone-700 rounded px-2 py-1 outline-none focus:border-cyan-500 mt-2"
                             value={difficulty}
                             onChange={(e) => setDifficulty(Number(e.target.value))}
-                        // Always enabled to allow difficulty switch during hangs
                         >
                             <option value="10">难度: 入门 (10 Visits)</option>
                             <option value="50">难度: 业余 (50 Visits)</option>
                             <option value="500">难度: 职业 (500 Visits)</option>
-                            <option value="3000">难度: 魔王 (3000 Visits)</option>
+                            <option value="3000">难度: 职业+ (3000 Visits)</option>
                         </select>
                     </div>
                 </div>
 
                 <div className="p-6 flex-1 overflow-y-auto space-y-6">
                     {/* Live Winrate Graph */}
-                    <div className="bg-stone-900 border border-stone-800 rounded p-3 shadow-inner">
-                        <div className="flex justify-between items-end mb-2">
+                    <div className="bg-stone-900 border border-stone-800 rounded p-3 shadow-inner relative group">
+                        {/* Axis Label */}
+                        <div className="absolute top-0 right-0 p-1 text-[10px] text-stone-600 font-mono">100%</div>
+                        <div className="absolute bottom-0 right-0 p-1 text-[10px] text-stone-600 font-mono">0%</div>
+
+                        <div className="flex justify-between items-end mb-2 relative z-10">
                             <h4 className="text-xs font-bold text-stone-500 uppercase tracking-wider">形势走势</h4>
                             <span className={`text-xs font-mono font-bold ${(lastPlayerWinrate * 100) > 40 ? 'text-green-500' : 'text-red-500'}`}>
                                 {(lastPlayerWinrate * 100).toFixed(1)}%
                             </span>
                         </div>
                         <div className="h-16 relative w-full overflow-hidden">
-                            {/* Sparkline */}
-                            <svg width="100%" height="100%" preserveAspectRatio="none" className="overflow-visible">
-                                <line x1="0" y1="50%" x2="100%" y2="50%" stroke="#333" strokeDasharray="2" vectorEffect="non-scaling-stroke" />
-                                {gameHistory.length > 1 && (
-                                    <path
-                                        d={`M 0 ${64 * (1 - (gameHistory[0]?.whiteWinrate || 0.5))} ` +
-                                            gameHistory.map((h, i) =>
-                                                `L ${(i / (Math.max(1, gameHistory.length - 1))) * 100}% ${64 * (1 - h.whiteWinrate)}`
-                                            ).join(' ')
-                                        }
-                                        fill="none"
-                                        stroke={lastPlayerWinrate > 0.4 ? "#22d3ee" : "#ef4444"}
-                                        strokeWidth="2"
-                                        vectorEffect="non-scaling-stroke"
-                                    />
-                                )}
+                            {/* Sparkline - Use viewBox for consistent coordinate system */}
+                            <svg viewBox="0 0 200 64" preserveAspectRatio="none" width="100%" height="100%" className="overflow-visible">
+                                {/* 50% Winrate Line (Equality) */}
+                                <line x1="0" y1="32" x2="200" y2="32" stroke="#444" strokeWidth="1" strokeDasharray="4 2" vectorEffect="non-scaling-stroke" />
+
+                                {/* 90% Winrate Line (Winning) */}
+                                <line x1="0" y1="6.4" x2="200" y2="6.4" stroke="#1da1f2" strokeWidth="0.5" strokeOpacity="0.3" vectorEffect="non-scaling-stroke" />
+
+                                {gameHistory.length > 0 && (() => {
+                                    // Add Start Point (Move 0, 50%)
+                                    const allPoints = [{ moveNumber: 0, whiteWinrate: 0.5 }, ...gameHistory];
+                                    const maxMove = Math.max(1, allPoints[allPoints.length - 1].moveNumber);
+
+                                    // Use viewBox coordinates (0-200 for X, 0-64 for Y)
+                                    // Y-axis: whiteWinrate high = black low = bottom of chart
+                                    // Y=0 is top (black 100%), Y=64 is bottom (black 0%)
+                                    const getX = (moveNum: number) => (moveNum / maxMove) * 200;
+                                    const getY = (whiteWr: number) => 64 * whiteWr; // whiteWr high = Y high = bottom
+
+                                    return (
+                                        <>
+                                            {/* Main Line - only newest segment animates */}
+                                            {allPoints.slice(1).map((p, i) => {
+                                                const prevP = allPoints[i];
+                                                const isNewest = i === allPoints.length - 2; // Last segment
+                                                return (
+                                                    <line
+                                                        key={`seg-${p.moveNumber}`}
+                                                        x1={getX(prevP.moveNumber).toFixed(1)}
+                                                        y1={getY(prevP.whiteWinrate).toFixed(1)}
+                                                        x2={getX(p.moveNumber).toFixed(1)}
+                                                        y2={getY(p.whiteWinrate).toFixed(1)}
+                                                        stroke={lastPlayerWinrate > 0.4 ? "#22d3ee" : "#ef4444"}
+                                                        strokeWidth="2"
+                                                        vectorEffect="non-scaling-stroke"
+                                                        className={isNewest ? "animate-draw-line" : ""}
+                                                    />
+                                                );
+                                            })}
+                                        </>
+                                    );
+                                })()}
                             </svg>
                         </div>
                     </div>
 
                     <div>
-                        <h3 className="text-stone-400 font-bold text-xs uppercase tracking-wider mb-3 border-b border-stone-800 pb-2">游戏规则</h3>
+                        <h3 className="text-stone-400 font-bold text-xs uppercase tracking-wider mb-3 border-b border-stone-800 pb-2">使用说明</h3>
                         <ul className="space-y-3 text-sm text-stone-400">
                             <li className="flex gap-3">
-                                <span className="text-red-500 font-bold">⚔️</span>
-                                <span><strong className="text-stone-300">削弱 Boss：</strong>每走一步稳健的棋，Boss 都会掉血。</span>
+                                <span className="text-cyan-500 font-bold">📖</span>
+                                <span><strong className="text-stone-300">主动学习：</strong>走出恶手时，可悔棋并查看AI正解。</span>
                             </li>
                             <li className="flex gap-3">
-                                <span className="text-amber-500 font-bold">✨</span>
-                                <span><strong className="text-stone-300">暴击伤害：</strong>走出 AI 认可的绝妙手段，造成巨额伤害。</span>
+                                <span className="text-amber-500 font-bold">💡</span>
+                                <span><strong className="text-stone-300">提示功能：</strong>点击"提示"可显示最佳落点。</span>
                             </li>
                         </ul>
                     </div>
                 </div>
 
-                <div className="p-4 border-t border-stone-800 bg-stone-900/50">
+                {/* Score Lead Display */}
+                <div className="px-4 py-3 border-t border-stone-800 bg-stone-900/30">
+                    <div className="flex items-center justify-between">
+                        <span className="text-xs text-stone-500 uppercase tracking-wider">目数估计</span>
+                        <span className={`text-lg font-bold font-mono ${lastScoreLead === null ? 'text-stone-500' :
+                                lastScoreLead < 0 ? 'text-cyan-400' :
+                                    lastScoreLead > 0 ? 'text-red-400' : 'text-stone-400'
+                            }`}>
+                            {lastScoreLead === null ? '--' :
+                                lastScoreLead < 0 ? `黑+${Math.abs(lastScoreLead).toFixed(1)}` :
+                                    lastScoreLead > 0 ? `白+${lastScoreLead.toFixed(1)}` : '均势'}
+                        </span>
+                    </div>
+                </div>
+
+                <div className="p-4 border-t border-stone-800 bg-stone-900/50 space-y-2">
                     <button onClick={resetGame} className="w-full py-3 bg-stone-800 hover:bg-stone-700 hover:text-white text-stone-400 rounded transition-all font-bold text-sm border border-stone-700 hover:border-stone-500">
                         🔄 重新开始
                     </button>
-                    <div className="mt-2 text-center">
-                        <button className="text-[10px] text-stone-600 hover:text-stone-400 underline">
-                            切换回传统模式
-                        </button>
-                    </div>
+                    <button
+                        onClick={() => {
+                            setGameResult({ winner: 'White', reason: '黑棋认输' });
+                            setShowResult(true);
+                        }}
+                        className="w-full py-2 bg-red-900/30 hover:bg-red-900/50 text-red-400 hover:text-red-300 rounded transition-all font-bold text-sm border border-red-900/50 hover:border-red-700"
+                    >
+                        🏳️ 认输
+                    </button>
                 </div>
             </div>
         </div>

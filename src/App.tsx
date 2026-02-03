@@ -10,12 +10,14 @@ import { useTsumegoStore } from './store/tsumegoStore';
 import { JosekiMode } from './components/JosekiMode';
 import AIMode from './components/AIMode';
 
+type AppModule = 'HOME' | 'JOSEKI' | 'TESUJI' | 'LIFE_DEATH' | 'MISTAKE_BOOK' | 'AI_SPARRING';
+
 function App() {
   const { status, reset } = useGameStore();
   const tesujiStore = useTesujiStore(); // Get whole store object
   const tsumegoStore = useTsumegoStore();
 
-  const [module, setModule] = useState<'HOME' | 'JOSEKI' | 'TESUJI' | 'LIFE_DEATH' | 'MISTAKE_BOOK' | 'AI_SPARRING'>('HOME');
+  const [module, setModule] = useState<AppModule>('HOME');
 
   // Pre-load libraries when App mounts (or when switching modules)
   useEffect(() => {
@@ -144,7 +146,7 @@ function App() {
           <button onClick={() => setModule('TESUJI')} className={`px-3 py-1 rounded text-sm font-bold transition-all ${module === 'TESUJI' ? 'bg-blue-900/50 text-blue-400 border border-blue-800' : 'text-stone-400 hover:text-stone-200'}`}>手筋</button>
           <button onClick={() => setModule('LIFE_DEATH')} className={`px-3 py-1 rounded text-sm font-bold transition-all ${module === 'LIFE_DEATH' ? 'bg-emerald-900/50 text-emerald-400 border border-emerald-800' : 'text-stone-400 hover:text-stone-200'}`}>死活</button>
           <button onClick={() => setModule('MISTAKE_BOOK')} className={`px-3 py-1 rounded text-sm font-bold transition-all ${module === 'MISTAKE_BOOK' ? 'bg-red-900/50 text-red-400 border border-red-800' : 'text-stone-400 hover:text-stone-200'}`}>错题本</button>
-          <button onClick={() => setModule('AI_SPARRING')} className={`px-3 py-1 rounded text-sm font-bold transition-all ${module === 'AI_SPARRING' ? 'bg-purple-900/50 text-purple-400 border border-purple-800' : 'text-stone-400 hover:text-stone-200'}`}>AI 对弈</button>
+          <button onClick={() => setModule('AI_SPARRING')} className={`px-3 py-1 rounded text-sm font-bold transition-all text-stone-400 hover:text-stone-200`}>AI 对弈</button>
         </div>
 
         <div className="bg-stone-800 px-3 py-1 rounded flex items-center gap-2 border border-stone-700 shadow-inner">

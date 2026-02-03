@@ -4,6 +4,7 @@ import { useGameStore } from '../store/gameStore';
 interface GoBoardProps {
     size?: number;
     stones?: { x: number, y: number, c: 1 | -1 }[];
+    ghostStones?: { x: number, y: number, c: 1 | -1, order?: number }[];
     lastMove?: { x: number, y: number } | null;
     onIntersectionClick?: (x: number, y: number) => void;
     interactive?: boolean;
@@ -13,6 +14,7 @@ interface GoBoardProps {
 const GoBoard: React.FC<GoBoardProps> = ({
     size = 19,
     stones,
+    ghostStones,
     lastMove,
     onIntersectionClick,
     interactive = true,
@@ -47,8 +49,9 @@ const GoBoard: React.FC<GoBoardProps> = ({
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    const gridSize = boardSizePx / (size + 1);
-    const padding = gridSize;
+    // Add more padding so edge stones (at x=0 or x=18) aren't clipped
+    const gridSize = boardSizePx / (size + 1.5);
+    const padding = gridSize * 1.25;
 
     // Helper to get coords from click
     const handleClick = (e: React.MouseEvent) => {
@@ -115,7 +118,7 @@ const GoBoard: React.FC<GoBoardProps> = ({
     }
 
     return (
-        <div className="flex justify-center items-center h-full bg-stone-800 p-4">
+        <div className="flex justify-center items-center h-full bg-stone-800 p-8">
             <div
                 ref={boardRef}
                 className="relative bg-[#DBB06C] shadow-2xl rounded"
@@ -173,6 +176,35 @@ const GoBoard: React.FC<GoBoardProps> = ({
                                     pointerEvents="none"
                                 >
                                     {i - initialStones.length + 1}
+                                </text>
+                            )}
+                        </g>
+                    ))}
+
+                    {/* Ghost Stones (Variations) */}
+                    {ghostStones?.map((stone, i) => (
+                        <g key={`ghost-${i}`} style={{ opacity: 0.6, pointerEvents: 'none' }}>
+                            <circle
+                                cx={padding + stone.x * gridSize}
+                                cy={padding + stone.y * gridSize}
+                                r={gridSize * 0.4}
+                                fill={stone.c === 1 ? '#000' : '#fff'}
+                                stroke="#888"
+                                strokeWidth={1}
+                                strokeDasharray="4 2"
+                            />
+                            {stone.order && (
+                                <text
+                                    x={padding + stone.x * gridSize}
+                                    y={padding + stone.y * gridSize}
+                                    dy=".35em"
+                                    textAnchor="middle"
+                                    fill={stone.c === 1 ? '#fff' : '#000'}
+                                    fontSize={gridSize * 0.5}
+                                    fontFamily="sans-serif"
+                                    fontWeight="bold"
+                                >
+                                    {stone.order}
                                 </text>
                             )}
                         </g>
