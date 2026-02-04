@@ -152,15 +152,23 @@ export const ProblemList: React.FC<ProblemListProps> = ({
         return problems.filter(p => idSet.has(p.id));
     }, [problems, mistakeIds, filterMode]);
 
-    const renderProblemButton = (prob: GenericProblem) => {
+    const renderProblemButton = (prob: GenericProblem, categoryList?: GenericProblem[]) => {
         const stats = problemStats?.[prob.id];
         const isSolved = completedIds.includes(prob.id);
         const isAttempted = (stats?.attempts || 0) > 0;
         const isCurrent = currentProblemId === prob.id;
 
-        // Progression Lock Logic (Solved problems are always unlocked)
-        const globalIndex = problems.findIndex(p => p.id === prob.id);
-        const isLocked = !isSolved && filterMode === 'ALL' && globalIndex > 0 && !completedIds.includes(problems[globalIndex - 1].id);
+        // Progression Lock Logic (Within category, not global)
+        // First problem in category is always unlocked
+        // Subsequent problems unlock after previous in same category is completed
+        let isLocked = false;
+        if (!isSolved && filterMode === 'ALL' && categoryList) {
+            const indexInCategory = categoryList.findIndex(p => p.id === prob.id);
+            if (indexInCategory > 0) {
+                const prevProbId = categoryList[indexInCategory - 1].id;
+                isLocked = !completedIds.includes(prevProbId);
+            }
+        }
 
         let statusIcon = null;
         if (isLocked) {
@@ -210,7 +218,7 @@ export const ProblemList: React.FC<ProblemListProps> = ({
                 </div>
                 <div className="flex-1 overflow-y-auto p-2">
                     <div className="grid grid-cols-1 gap-0.5">
-                        {mistakeProblems.map(renderProblemButton)}
+                        {mistakeProblems.map(p => renderProblemButton(p, mistakeProblems))}
                     </div>
                 </div>
             </div>
@@ -239,7 +247,7 @@ export const ProblemList: React.FC<ProblemListProps> = ({
                             </div>
                             {expandedCat === cat.name && (
                                 <div className="pl-1 grid grid-cols-1 gap-1 animate-fade-in-down">
-                                    {cat.list.map(renderProblemButton)}
+                                    {cat.list.map(p => renderProblemButton(p, cat.list))}
                                 </div>
                             )}
                         </div>
@@ -287,7 +295,7 @@ export const ProblemList: React.FC<ProblemListProps> = ({
                                         {/* Problems */}
                                         {expandedCat === cat.name && (
                                             <div className="pl-4 pr-1 pb-2 grid grid-cols-1 gap-0.5 animate-fade-in-down">
-                                                {cat.list.map(renderProblemButton)}
+                                                {cat.list.map(p => renderProblemButton(p, cat.list))}
                                             </div>
                                         )}
                                     </div>
