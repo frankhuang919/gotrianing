@@ -437,8 +437,8 @@ const AIMode: React.FC = () => {
                     <div className={`text-xs font-mono font-bold ${connected ? 'text-green-500' : 'text-stone-600'}`}>
                         {connected ? "已连接" : "连接中..."}
                     </div>
-                    <div className={`text-lg font-bold ${(lastPlayerWinrate * 100) > 40 ? 'text-cyan-400' : 'text-red-500'}`}>
-                        胜率: {(lastPlayerWinrate * 100).toFixed(1)}%
+                    <div className={`text-lg font-bold ${(lastPlayerWinrate * 100) > 50 ? 'text-cyan-400' : 'text-red-500'}`}>
+                        黑棋胜率: {(lastPlayerWinrate * 100).toFixed(1)}%
                     </div>
                 </div>
 
@@ -520,13 +520,17 @@ const AIMode: React.FC = () => {
                                     const filtered = bestSequence.filter(
                                         s => !stones.some(st => st.x === s.x && st.y === s.y)
                                     );
-                                    // Take first 10 and re-number from 1
-                                    return filtered.slice(0, 10).map((s, idx) => ({
-                                        x: s.x,
-                                        y: s.y,
-                                        c: s.c,
-                                        order: idx + 1  // Re-number from 1
-                                    }));
+                                    // Take first 10 and explicitly re-number from 1
+                                    const result = [];
+                                    for (let i = 0; i < Math.min(filtered.length, 10); i++) {
+                                        result.push({
+                                            x: filtered[i].x,
+                                            y: filtered[i].y,
+                                            c: filtered[i].c,
+                                            order: i + 1  // New sequential order
+                                        });
+                                    }
+                                    return result;
                                 }
                                 if (reviewStep === 'HINT') {
                                     // Just show the first valid move
@@ -582,65 +586,161 @@ const AIMode: React.FC = () => {
                     </div>
                 </div>
 
-                <div className="p-6 flex-1 overflow-y-auto space-y-6">
-                    {/* Live Winrate Graph */}
-                    <div className="bg-stone-900 border border-stone-800 rounded p-3 shadow-inner relative group">
-                        {/* Axis Label */}
-                        <div className="absolute top-0 right-0 p-1 text-[10px] text-stone-600 font-mono">100%</div>
-                        <div className="absolute bottom-0 right-0 p-1 text-[10px] text-stone-600 font-mono">0%</div>
-
-                        <div className="flex justify-between items-end mb-2 relative z-10">
-                            <h4 className="text-xs font-bold text-stone-500 uppercase tracking-wider">形势走势</h4>
-                            <span className={`text-xs font-mono font-bold ${(lastPlayerWinrate * 100) > 40 ? 'text-green-500' : 'text-red-500'}`}>
+                <div className="p-6 flex-1 overflow-y-auto space-y-4">
+                    {/* Win-Rate Chart (野狐样式) */}
+                    <div className="bg-gradient-to-b from-indigo-950/50 to-purple-950/30 border border-purple-900/50 rounded-lg p-3 shadow-lg">
+                        <div className="flex justify-between items-center mb-2">
+                            <h4 className="text-xs font-bold text-purple-300 uppercase tracking-wider">黑棋胜率变化图</h4>
+                            <span className={`text-sm font-mono font-bold px-2 py-0.5 rounded ${lastPlayerWinrate * 100 > 60 ? 'bg-green-900/50 text-green-400' :
+                                lastPlayerWinrate * 100 < 40 ? 'bg-red-900/50 text-red-400' :
+                                    'bg-yellow-900/50 text-yellow-400'
+                                }`}>
                                 {(lastPlayerWinrate * 100).toFixed(1)}%
                             </span>
                         </div>
-                        <div className="h-16 relative w-full overflow-hidden">
-                            {/* Sparkline - Use viewBox for consistent coordinate system */}
-                            <svg viewBox="0 0 200 64" preserveAspectRatio="none" width="100%" height="100%" className="overflow-visible">
-                                {/* 50% Winrate Line (Equality) */}
-                                <line x1="0" y1="32" x2="200" y2="32" stroke="#444" strokeWidth="1" strokeDasharray="4 2" vectorEffect="non-scaling-stroke" />
 
-                                {/* 90% Winrate Line (Winning) */}
-                                <line x1="0" y1="6.4" x2="200" y2="6.4" stroke="#1da1f2" strokeWidth="0.5" strokeOpacity="0.3" vectorEffect="non-scaling-stroke" />
+                        {/* Chart Container */}
+                        <div className="relative h-24 w-full bg-gradient-to-b from-stone-950/50 to-stone-900/50 rounded border border-stone-800">
+                            {/* Y-Axis Labels */}
+                            <div className="absolute left-0 top-0 bottom-0 w-6 flex flex-col justify-between text-[9px] text-stone-500 font-mono py-1">
+                                <span>99</span>
+                                <span>70</span>
+                                <span>50</span>
+                                <span>30</span>
+                                <span>0</span>
+                            </div>
 
-                                {gameHistory.length > 0 && (() => {
-                                    // Add Start Point (Move 0, 50%)
-                                    const allPoints = [{ moveNumber: 0, whiteWinrate: 0.5 }, ...gameHistory];
-                                    const maxMove = Math.max(1, allPoints[allPoints.length - 1].moveNumber);
+                            {/* Chart Area */}
+                            <div className="absolute left-6 right-0 top-0 bottom-0">
+                                <svg viewBox="0 0 200 100" preserveAspectRatio="none" width="100%" height="100%" className="overflow-visible">
+                                    {/* Grid Lines */}
+                                    <line x1="0" y1="30" x2="200" y2="30" stroke="#4a5568" strokeWidth="0.5" strokeOpacity="0.3" />
+                                    <line x1="0" y1="50" x2="200" y2="50" stroke="#718096" strokeWidth="1" strokeDasharray="4 2" />
+                                    <line x1="0" y1="70" x2="200" y2="70" stroke="#4a5568" strokeWidth="0.5" strokeOpacity="0.3" />
 
-                                    // Use viewBox coordinates (0-200 for X, 0-64 for Y)
-                                    // Y-axis: whiteWinrate high = black low = bottom of chart
-                                    // Y=0 is top (black 100%), Y=64 is bottom (black 0%)
-                                    const getX = (moveNum: number) => (moveNum / maxMove) * 200;
-                                    const getY = (whiteWr: number) => 64 * whiteWr; // whiteWr high = Y high = bottom
+                                    {gameHistory.length > 0 && (() => {
+                                        // 黑棋胜率 = 1 - whiteWinrate
+                                        const allPoints = [{ moveNumber: 0, blackWinrate: 0.5 }, ...gameHistory.map(h => ({ moveNumber: h.moveNumber, blackWinrate: 1 - h.whiteWinrate }))];
+                                        const maxMove = Math.max(1, allPoints[allPoints.length - 1].moveNumber);
 
-                                    return (
-                                        <>
-                                            {/* Main Line - only newest segment animates */}
-                                            {allPoints.slice(1).map((p, i) => {
-                                                const prevP = allPoints[i];
-                                                const isNewest = i === allPoints.length - 2; // Last segment
-                                                return (
-                                                    <line
-                                                        key={`seg-${p.moveNumber}`}
-                                                        x1={getX(prevP.moveNumber).toFixed(1)}
-                                                        y1={getY(prevP.whiteWinrate).toFixed(1)}
-                                                        x2={getX(p.moveNumber).toFixed(1)}
-                                                        y2={getY(p.whiteWinrate).toFixed(1)}
-                                                        stroke={lastPlayerWinrate > 0.4 ? "#22d3ee" : "#ef4444"}
-                                                        strokeWidth="2"
-                                                        vectorEffect="non-scaling-stroke"
-                                                        className={isNewest ? "animate-draw-line" : ""}
+                                        const getX = (moveNum: number) => (moveNum / maxMove) * 200;
+                                        const getY = (blackWr: number) => 100 - (blackWr * 100); // Y=0 is top (100%), Y=100 is bottom (0%)
+
+                                        // Find blunders (胜率下降 >= 7%), skip first 2 moves (opening)
+                                        const blunders: { moveNumber: number, drop: number, isBlack: boolean }[] = [];
+                                        for (let i = 1; i < allPoints.length; i++) {
+                                            // Skip first 2 moves - opening is free
+                                            if (allPoints[i].moveNumber <= 2) continue;
+
+                                            const drop = allPoints[i - 1].blackWinrate - allPoints[i].blackWinrate;
+                                            if (drop >= BLUNDER_THRESHOLD) {
+                                                blunders.push({ moveNumber: allPoints[i].moveNumber, drop: drop * 100, isBlack: allPoints[i].moveNumber % 2 === 1 });
+                                            }
+                                            const whiteWrPrev = 1 - allPoints[i - 1].blackWinrate;
+                                            const whiteWrCur = 1 - allPoints[i].blackWinrate;
+                                            const whiteDrop = whiteWrPrev - whiteWrCur;
+                                            if (whiteDrop >= BLUNDER_THRESHOLD) {
+                                                blunders.push({ moveNumber: allPoints[i].moveNumber, drop: whiteDrop * 100, isBlack: false });
+                                            }
+                                        }
+
+                                        return (
+                                            <>
+                                                {/* Main Line - Red color like Yehuo */}
+                                                {allPoints.slice(1).map((p, i) => {
+                                                    const prevP = allPoints[i];
+                                                    return (
+                                                        <line
+                                                            key={`seg-${p.moveNumber}`}
+                                                            x1={getX(prevP.moveNumber).toFixed(1)}
+                                                            y1={getY(prevP.blackWinrate).toFixed(1)}
+                                                            x2={getX(p.moveNumber).toFixed(1)}
+                                                            y2={getY(p.blackWinrate).toFixed(1)}
+                                                            stroke="#ef4444"
+                                                            strokeWidth="2"
+                                                            vectorEffect="non-scaling-stroke"
+                                                        />
+                                                    );
+                                                })}
+
+                                                {/* Blunder Markers */}
+                                                {blunders.filter(b => b.isBlack).slice(0, 5).map((b) => (
+                                                    <circle
+                                                        key={`blunder-${b.moveNumber}`}
+                                                        cx={getX(b.moveNumber).toFixed(1)}
+                                                        cy={getY(allPoints.find(p => p.moveNumber === b.moveNumber)?.blackWinrate || 0.5).toFixed(1)}
+                                                        r="4"
+                                                        fill="#ef4444"
+                                                        stroke="#fca5a5"
+                                                        strokeWidth="1"
                                                     />
-                                                );
-                                            })}
-                                        </>
-                                    );
-                                })()}
-                            </svg>
+                                                ))}
+                                            </>
+                                        );
+                                    })()}
+                                </svg>
+                            </div>
+                        </div>
+
+                        {/* X-Axis Labels */}
+                        <div className="flex justify-between text-[9px] text-stone-500 font-mono mt-1 px-6">
+                            <span>0</span>
+                            {gameHistory.length > 0 && (
+                                <>
+                                    <span>{Math.round(gameHistory[gameHistory.length - 1]?.moveNumber / 4) || ''}</span>
+                                    <span>{Math.round(gameHistory[gameHistory.length - 1]?.moveNumber / 2) || ''}</span>
+                                    <span>{Math.round(gameHistory[gameHistory.length - 1]?.moveNumber * 3 / 4) || ''}</span>
+                                    <span>{gameHistory[gameHistory.length - 1]?.moveNumber || ''}</span>
+                                </>
+                            )}
                         </div>
                     </div>
+
+                    {/* Problem Moves List */}
+                    {gameHistory.length > 5 && (() => {
+                        const allPoints = [{ moveNumber: 0, blackWinrate: 0.5 }, ...gameHistory.map(h => ({ moveNumber: h.moveNumber, blackWinrate: 1 - h.whiteWinrate }))];
+                        const blackBlunders: { moveNumber: number, drop: number }[] = [];
+                        const whiteBlunders: { moveNumber: number, drop: number }[] = [];
+
+                        for (let i = 1; i < allPoints.length; i++) {
+                            // Skip first 2 moves - opening is free
+                            if (allPoints[i].moveNumber <= 2) continue;
+
+                            const blackDrop = allPoints[i - 1].blackWinrate - allPoints[i].blackWinrate;
+                            if (blackDrop >= BLUNDER_THRESHOLD && allPoints[i].moveNumber % 2 === 1) {
+                                blackBlunders.push({ moveNumber: allPoints[i].moveNumber, drop: blackDrop * 100 });
+                            }
+                            const whiteDrop = (1 - allPoints[i - 1].blackWinrate) - (1 - allPoints[i].blackWinrate);
+                            if (whiteDrop >= BLUNDER_THRESHOLD && allPoints[i].moveNumber % 2 === 0) {
+                                whiteBlunders.push({ moveNumber: allPoints[i].moveNumber, drop: Math.abs(whiteDrop) * 100 });
+                            }
+                        }
+
+                        if (blackBlunders.length === 0 && whiteBlunders.length === 0) return null;
+
+                        return (
+                            <div className="bg-gradient-to-b from-purple-950/30 to-indigo-950/30 border border-purple-900/30 rounded-lg p-3">
+                                <div className="flex gap-2 mb-2">
+                                    <span className="text-xs font-bold text-stone-300 bg-stone-800 px-2 py-0.5 rounded">⚫ 黑问题手</span>
+                                    <span className="text-xs font-bold text-stone-300 bg-stone-700 px-2 py-0.5 rounded">⚪ 白问题手</span>
+                                </div>
+                                <div className="space-y-1 max-h-32 overflow-y-auto">
+                                    {blackBlunders.sort((a, b) => b.drop - a.drop).slice(0, 5).map((b, i) => (
+                                        <div key={`black-${b.moveNumber}`} className="flex justify-between text-xs bg-stone-900/50 px-2 py-1 rounded">
+                                            <span className="text-stone-400">{i + 1}. 第{b.moveNumber}手</span>
+                                            <span className="text-red-400 font-mono">胜率降低{b.drop.toFixed(1)}点</span>
+                                        </div>
+                                    ))}
+                                    {whiteBlunders.sort((a, b) => b.drop - a.drop).slice(0, 3).map((b, i) => (
+                                        <div key={`white-${b.moveNumber}`} className="flex justify-between text-xs bg-stone-800/50 px-2 py-1 rounded">
+                                            <span className="text-stone-500">{i + 1}. 第{b.moveNumber}手 (白)</span>
+                                            <span className="text-orange-400 font-mono">胜率降低{b.drop.toFixed(1)}点</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        );
+                    })()}
 
                     <div>
                         <h3 className="text-stone-400 font-bold text-xs uppercase tracking-wider mb-3 border-b border-stone-800 pb-2">使用说明</h3>
@@ -662,8 +762,8 @@ const AIMode: React.FC = () => {
                     <div className="flex items-center justify-between">
                         <span className="text-xs text-stone-500 uppercase tracking-wider">目数估计</span>
                         <span className={`text-lg font-bold font-mono ${lastScoreLead === null ? 'text-stone-500' :
-                                lastScoreLead < 0 ? 'text-cyan-400' :
-                                    lastScoreLead > 0 ? 'text-red-400' : 'text-stone-400'
+                            lastScoreLead < 0 ? 'text-cyan-400' :
+                                lastScoreLead > 0 ? 'text-red-400' : 'text-stone-400'
                             }`}>
                             {lastScoreLead === null ? '--' :
                                 lastScoreLead < 0 ? `黑+${Math.abs(lastScoreLead).toFixed(1)}` :

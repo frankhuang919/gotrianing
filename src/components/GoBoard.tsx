@@ -55,6 +55,9 @@ const GoBoard: React.FC<GoBoardProps> = ({
 
     // Helper to get coords from click
     const handleClick = (e: React.MouseEvent) => {
+        // Always check interactive flag first - blocks during AI thinking
+        if (!interactive) return;
+
         // If props control interaction, use that check
         if (stones && !interactive) return;
 

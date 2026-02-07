@@ -17,10 +17,16 @@ interface ProblemListProps {
 
     currentProblemId: string | null;
     mistakeIds: string[];
-    completedIds: string[]; // NEW: For Progression Locking & Highlight
+    completedIds: string[]; // For Progression Locking & Highlight
+    firstTryCorrectIds: string[]; // For first-try success rate calculation
     problemStats: Record<string, { attempts: number; solved: number }>;
 
+    // Navigation callbacks
     onSelectProblem: (problem: GenericProblem) => void;
+    onPrevProblem?: () => void;
+    onNextProblem?: () => void;
+    onClearStats?: () => void; // Clear statistics
+
     filterMode?: 'ALL' | 'MISTAKES';
 }
 
@@ -39,8 +45,12 @@ export const ProblemList: React.FC<ProblemListProps> = ({
     currentProblemId,
     mistakeIds,
     completedIds,
+    firstTryCorrectIds,
     problemStats,
     onSelectProblem,
+    onPrevProblem,
+    onNextProblem,
+    onClearStats,
     filterMode = 'ALL'
 }) => {
     // State for Accordions
@@ -227,11 +237,85 @@ export const ProblemList: React.FC<ProblemListProps> = ({
 
     // RENDER: FLAT (Legacy/Tesuji)
     if (!hasGroups) {
+        const totalProblems = problems.length;
+        const solvedCount = completedIds.length;
+        const progressPercent = totalProblems > 0 ? Math.round((solvedCount / totalProblems) * 100) : 0;
+        const currentIndex = currentProblemId ? problems.findIndex(p => p.id === currentProblemId) : -1;
+        const hasPrev = currentIndex > 0;
+        const hasNext = currentIndex >= 0 && currentIndex < problems.length - 1;
+
         return (
             <div className="h-full flex flex-col bg-stone-900 border-r border-stone-700 text-sm text-gray-300">
-                <div className="p-3 border-b border-stone-700 bg-stone-800 flex justify-between items-center">
-                    <h2 className="font-bold text-lg text-white">{title}</h2>
-                    {currentProblemId && <div className="text-xs text-amber-500 animate-pulse">Running</div>}
+                <div className="p-3 border-b border-stone-700 bg-stone-800">
+                    <div className="flex justify-between items-center mb-2">
+                        <h2 className="font-bold text-lg text-white">{title}</h2>
+                        {currentProblemId && <div className="text-xs text-amber-500 animate-pulse">做题中</div>}
+                    </div>
+
+                    {/* Progress Stats */}
+                    <div className="mb-2">
+                        <div className="flex justify-between text-xs text-stone-400 mb-1">
+                            <span>进度: {solvedCount}/{totalProblems}</span>
+                            <span className="text-green-400">{progressPercent}%</span>
+                        </div>
+                        <div className="h-1.5 bg-stone-700 rounded-full overflow-hidden">
+                            <div
+                                className="h-full bg-gradient-to-r from-green-600 to-green-400 transition-all duration-500"
+                                style={{ width: `${progressPercent}%` }}
+                            />
+                        </div>
+                        {/* Accuracy Stats (First-Try Success Rate) */}
+                        {(() => {
+                            const attemptedCount = Object.keys(problemStats).length;
+                            const firstTrySuccessCount = firstTryCorrectIds.length;
+                            const accuracy = attemptedCount > 0 ? Math.round((firstTrySuccessCount / attemptedCount) * 100) : 0;
+                            return attemptedCount > 0 ? (
+                                <div className="flex justify-between items-center text-xs text-stone-500 mt-1">
+                                    <span>首次正确率: {firstTrySuccessCount}/{attemptedCount}</span>
+                                    <div className="flex items-center gap-2">
+                                        <span className={accuracy >= 70 ? 'text-green-400' : accuracy >= 40 ? 'text-amber-400' : 'text-red-400'}>
+                                            {accuracy}%
+                                        </span>
+                                        {onClearStats && (
+                                            <button
+                                                onClick={() => { if (confirm('确定清空所有统计数据？')) onClearStats(); }}
+                                                className="text-[10px] text-stone-600 hover:text-red-400 transition"
+                                                title="清空统计"
+                                            >
+                                                🗑️
+                                            </button>
+                                        )}
+                                    </div>
+                                </div>
+                            ) : null;
+                        })()}
+                    </div>
+
+                    {/* Navigation Buttons */}
+                    {currentProblemId && (
+                        <div className="flex gap-2">
+                            <button
+                                onClick={onPrevProblem}
+                                disabled={!hasPrev}
+                                className={`flex-1 py-1.5 text-xs rounded transition-colors ${hasPrev
+                                    ? 'bg-stone-700 hover:bg-stone-600 text-white'
+                                    : 'bg-stone-800 text-stone-600 cursor-not-allowed'
+                                    }`}
+                            >
+                                ← 上一题
+                            </button>
+                            <button
+                                onClick={onNextProblem}
+                                disabled={!hasNext}
+                                className={`flex-1 py-1.5 text-xs rounded transition-colors ${hasNext
+                                    ? 'bg-stone-700 hover:bg-stone-600 text-white'
+                                    : 'bg-stone-800 text-stone-600 cursor-not-allowed'
+                                    }`}
+                            >
+                                下一题 →
+                            </button>
+                        </div>
+                    )}
                 </div>
                 <div className="flex-1 overflow-y-auto p-2 space-y-2">
                     {flatData.map((cat) => (
@@ -258,11 +342,88 @@ export const ProblemList: React.FC<ProblemListProps> = ({
     }
 
     // RENDER: NESTED (Tsumego)
+    const totalProblems = problems.length;
+    const solvedCount = completedIds.length;
+    const progressPercent = totalProblems > 0 ? Math.round((solvedCount / totalProblems) * 100) : 0;
+
+    // Find current problem index for navigation
+    const currentIndex = currentProblemId ? problems.findIndex(p => p.id === currentProblemId) : -1;
+    const hasPrev = currentIndex > 0;
+    const hasNext = currentIndex >= 0 && currentIndex < problems.length - 1;
+
     return (
         <div className="h-full flex flex-col bg-stone-900 border-r border-stone-700 text-sm text-gray-300">
-            <div className="p-3 border-b border-stone-700 bg-stone-800 flex justify-between items-center">
-                <h2 className="font-bold text-lg text-white">{title}</h2>
-                {currentProblemId && <div className="text-xs text-amber-500 animate-pulse">Running</div>}
+            {/* Header with title */}
+            <div className="p-3 border-b border-stone-700 bg-stone-800">
+                <div className="flex justify-between items-center mb-2">
+                    <h2 className="font-bold text-lg text-white">{title}</h2>
+                    {currentProblemId && <div className="text-xs text-amber-500 animate-pulse">做题中</div>}
+                </div>
+
+                {/* Progress Stats */}
+                <div className="mb-2">
+                    <div className="flex justify-between text-xs text-stone-400 mb-1">
+                        <span>进度: {solvedCount}/{totalProblems}</span>
+                        <span className="text-green-400">{progressPercent}%</span>
+                    </div>
+                    <div className="h-1.5 bg-stone-700 rounded-full overflow-hidden">
+                        <div
+                            className="h-full bg-gradient-to-r from-green-600 to-green-400 transition-all duration-500"
+                            style={{ width: `${progressPercent}%` }}
+                        />
+                    </div>
+                    {/* Accuracy Stats (First-Try Success Rate) */}
+                    {(() => {
+                        const attemptedCount = Object.keys(problemStats).length;
+                        const firstTrySuccessCount = firstTryCorrectIds.length;
+                        const accuracy = attemptedCount > 0 ? Math.round((firstTrySuccessCount / attemptedCount) * 100) : 0;
+                        return attemptedCount > 0 ? (
+                            <div className="flex justify-between items-center text-xs text-stone-500 mt-1">
+                                <span>首次正确率: {firstTrySuccessCount}/{attemptedCount}</span>
+                                <div className="flex items-center gap-2">
+                                    <span className={accuracy >= 70 ? 'text-green-400' : accuracy >= 40 ? 'text-amber-400' : 'text-red-400'}>
+                                        {accuracy}%
+                                    </span>
+                                    {onClearStats && (
+                                        <button
+                                            onClick={() => { if (confirm('确定清空所有统计数据？')) onClearStats(); }}
+                                            className="text-[10px] text-stone-600 hover:text-red-400 transition"
+                                            title="清空统计"
+                                        >
+                                            🗑️
+                                        </button>
+                                    )}
+                                </div>
+                            </div>
+                        ) : null;
+                    })()}
+                </div>
+
+                {/* Navigation Buttons */}
+                {currentProblemId && (
+                    <div className="flex gap-2">
+                        <button
+                            onClick={onPrevProblem}
+                            disabled={!hasPrev}
+                            className={`flex-1 py-1.5 text-xs rounded transition-colors ${hasPrev
+                                ? 'bg-stone-700 hover:bg-stone-600 text-white'
+                                : 'bg-stone-800 text-stone-600 cursor-not-allowed'
+                                }`}
+                        >
+                            ← 上一题
+                        </button>
+                        <button
+                            onClick={onNextProblem}
+                            disabled={!hasNext}
+                            className={`flex-1 py-1.5 text-xs rounded transition-colors ${hasNext
+                                ? 'bg-stone-700 hover:bg-stone-600 text-white'
+                                : 'bg-stone-800 text-stone-600 cursor-not-allowed'
+                                }`}
+                        >
+                            下一题 →
+                        </button>
+                    </div>
+                )}
             </div>
 
             <div className="flex-1 overflow-y-auto p-2 space-y-2">

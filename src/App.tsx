@@ -33,6 +33,18 @@ function App() {
     }
   }, [module, status, reset]);
 
+  // Auto-load first problem when entering Tesuji or Tsumego module
+  useEffect(() => {
+    if (module === 'TESUJI' && !tesujiStore.currentProblemId && tesujiStore.flatProblems.length > 0) {
+      const first = tesujiStore.flatProblems[0];
+      tesujiStore.loadProblem(first.sgf, first.id);
+    }
+    if (module === 'LIFE_DEATH' && !tsumegoStore.currentProblemId && tsumegoStore.flatProblems.length > 0) {
+      const first = tsumegoStore.flatProblems[0];
+      tsumegoStore.loadProblem(first.sgf, first.id);
+    }
+  }, [module, tesujiStore.flatProblems.length, tsumegoStore.flatProblems.length]);
+
   const handleGoHome = () => {
     reset();
     setModule('HOME');
@@ -94,6 +106,38 @@ function App() {
     if (type === 'TESUJI') setActiveBoard('TESUJI');
     if (type === 'TSUMEGO') setActiveBoard('TSUMEGO');
   }
+
+  // Navigation for Tesuji
+  const handleTesujiPrev = () => {
+    const idx = tesujiStore.flatProblems.findIndex(p => p.id === tesujiStore.currentProblemId);
+    if (idx > 0) {
+      const prev = tesujiStore.flatProblems[idx - 1];
+      tesujiStore.loadProblem(prev.sgf, prev.id);
+    }
+  };
+  const handleTesujiNext = () => {
+    const idx = tesujiStore.flatProblems.findIndex(p => p.id === tesujiStore.currentProblemId);
+    if (idx >= 0 && idx < tesujiStore.flatProblems.length - 1) {
+      const next = tesujiStore.flatProblems[idx + 1];
+      tesujiStore.loadProblem(next.sgf, next.id);
+    }
+  };
+
+  // Navigation for Tsumego
+  const handleTsumegoPrev = () => {
+    const idx = tsumegoStore.flatProblems.findIndex(p => p.id === tsumegoStore.currentProblemId);
+    if (idx > 0) {
+      const prev = tsumegoStore.flatProblems[idx - 1];
+      tsumegoStore.loadProblem(prev.sgf, prev.id);
+    }
+  };
+  const handleTsumegoNext = () => {
+    const idx = tsumegoStore.flatProblems.findIndex(p => p.id === tsumegoStore.currentProblemId);
+    if (idx >= 0 && idx < tsumegoStore.flatProblems.length - 1) {
+      const next = tsumegoStore.flatProblems[idx + 1];
+      tsumegoStore.loadProblem(next.sgf, next.id);
+    }
+  };
 
   // Standalone Welcome Screen Logic
   if (status === 'WELCOME' && module === 'HOME') {
@@ -171,8 +215,12 @@ function App() {
                   currentProblemId={tesujiStore.currentProblemId}
                   mistakeIds={tesujiStore.mistakeBookIds}
                   completedIds={tesujiStore.completedProblemIds}
+                  firstTryCorrectIds={tesujiStore.firstTryCorrectIds}
                   problemStats={tesujiStore.problemStats}
                   onSelectProblem={onSelect}
+                  onPrevProblem={handleTesujiPrev}
+                  onNextProblem={handleTesujiNext}
+                  onClearStats={tesujiStore.clearStats}
                 />
               )}
               {module === 'LIFE_DEATH' && (
@@ -183,8 +231,12 @@ function App() {
                   currentProblemId={tsumegoStore.currentProblemId}
                   mistakeIds={tsumegoStore.mistakeBookIds}
                   completedIds={tsumegoStore.completedProblemIds}
+                  firstTryCorrectIds={tsumegoStore.firstTryCorrectIds}
                   problemStats={tsumegoStore.problemStats}
                   onSelectProblem={onSelect}
+                  onPrevProblem={handleTsumegoPrev}
+                  onNextProblem={handleTsumegoNext}
+                  onClearStats={tsumegoStore.clearStats}
                 />
               )}
               {module === 'MISTAKE_BOOK' && (
@@ -196,6 +248,7 @@ function App() {
                   currentProblemId={activeBoard === 'TESUJI' ? tesujiStore.currentProblemId : tsumegoStore.currentProblemId}
                   mistakeIds={mistakeData.ids}
                   completedIds={[]}
+                  firstTryCorrectIds={[]}
                   problemStats={mistakeData.stats}
                   onSelectProblem={onSelect}
                 />

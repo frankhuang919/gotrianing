@@ -18,7 +18,8 @@ interface TsumegoState {
 
     // Persistence
     mistakeBookIds: string[]; // List of problem IDs
-    completedProblemIds: string[]; // NEW: Completed IDs
+    completedProblemIds: string[]; // Completed IDs
+    firstTryCorrectIds: string[]; // Problems solved correctly on FIRST attempt (sessionMistakes === 0)
     problemStats: Record<string, { attempts: number; solved: number }>;
 
     // Current Problem Data
@@ -48,6 +49,7 @@ interface TsumegoState {
     checkLock: () => void; // Call periodically to clear lock if expired? Or just derive in UI.
     showSolution: () => void;
     restoreSession: () => void;
+    clearStats: () => void; // Clear all statistics
 }
 
 // Helper: Decode "aa" -> {x:0, y:0}
@@ -86,6 +88,7 @@ export const useTsumegoStore = create<TsumegoState>()(
             isLoadingLibrary: false,
             mistakeBookIds: [],
             completedProblemIds: [],
+            firstTryCorrectIds: [],
             problemStats: {},
 
             currentProblemId: null,
@@ -241,16 +244,22 @@ export const useTsumegoStore = create<TsumegoState>()(
                         } else {
                             // CORRECT
                             // Mark Solved if < 3 mistakes
-                            const { problemStats, currentProblemId, sessionMistakes, completedProblemIds } = get();
+                            const { problemStats, currentProblemId, sessionMistakes, completedProblemIds, firstTryCorrectIds } = get();
                             if (currentProblemId && sessionMistakes < 3) {
                                 const stats = problemStats[currentProblemId] || { attempts: 0, solved: 0 };
                                 const newCompleted = completedProblemIds.includes(currentProblemId)
                                     ? completedProblemIds
                                     : [...completedProblemIds, currentProblemId];
 
+                                // Track first-try correct: only if NO mistakes in this session
+                                const newFirstTryCorrect = (sessionMistakes === 0 && !firstTryCorrectIds.includes(currentProblemId))
+                                    ? [...firstTryCorrectIds, currentProblemId]
+                                    : firstTryCorrectIds;
+
                                 set({
                                     problemStats: { ...problemStats, [currentProblemId]: { ...stats, solved: stats.solved + 1 } },
-                                    completedProblemIds: newCompleted
+                                    completedProblemIds: newCompleted,
+                                    firstTryCorrectIds: newFirstTryCorrect
                                 });
                             }
 
@@ -294,16 +303,22 @@ export const useTsumegoStore = create<TsumegoState>()(
                                             handleWrong();
                                         } else {
                                             // Implicit Correct
-                                            const { problemStats, currentProblemId, sessionMistakes, completedProblemIds } = get();
+                                            const { problemStats, currentProblemId, sessionMistakes, completedProblemIds, firstTryCorrectIds } = get();
                                             if (currentProblemId && sessionMistakes < 3) {
                                                 const stats = problemStats[currentProblemId] || { attempts: 0, solved: 0 };
                                                 const newCompleted = completedProblemIds.includes(currentProblemId)
                                                     ? completedProblemIds
                                                     : [...completedProblemIds, currentProblemId];
 
+                                                // Track first-try correct
+                                                const newFirstTryCorrect = (sessionMistakes === 0 && !firstTryCorrectIds.includes(currentProblemId))
+                                                    ? [...firstTryCorrectIds, currentProblemId]
+                                                    : firstTryCorrectIds;
+
                                                 set({
                                                     problemStats: { ...problemStats, [currentProblemId]: { ...stats, solved: stats.solved + 1 } },
-                                                    completedProblemIds: newCompleted
+                                                    completedProblemIds: newCompleted,
+                                                    firstTryCorrectIds: newFirstTryCorrect
                                                 });
                                             }
 
@@ -463,6 +478,16 @@ export const useTsumegoStore = create<TsumegoState>()(
                 };
 
                 setTimeout(step, 3000);
+            },
+
+            clearStats: () => {
+                set({
+                    problemStats: {},
+                    completedProblemIds: [],
+                    firstTryCorrectIds: [],
+                    mistakeBookIds: [],
+                    currentProblemId: null
+                });
             }
         }),
         {
@@ -471,7 +496,8 @@ export const useTsumegoStore = create<TsumegoState>()(
                 mistakeBookIds: state.mistakeBookIds,
                 problemStats: state.problemStats,
                 currentProblemId: state.currentProblemId,
-                completedProblemIds: state.completedProblemIds, // Persist Completion
+                completedProblemIds: state.completedProblemIds,
+                firstTryCorrectIds: state.firstTryCorrectIds,
             }),
         }
     )
