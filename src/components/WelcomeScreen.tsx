@@ -59,18 +59,18 @@ const categories = [
 
 const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSelectCategory, onStart }) => {
     return (
-        <div className="h-full w-full flex flex-col items-center justify-center bg-stone-900 p-8 overflow-y-auto">
+        <div className="h-full w-full flex flex-col items-center justify-center bg-stone-900 p-4 md:p-8 overflow-y-auto">
             <div className="max-w-4xl w-full">
-                <header className="mb-12 text-center">
-                    <h1 className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-yellow-500 mb-4 tracking-wider">
+                <header className="mb-8 md:mb-12 text-center">
+                    <h1 className="text-3xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-yellow-500 mb-4 tracking-wider">
                         ZenGo 训练场
                     </h1>
-                    <p className="text-stone-400 text-lg">
+                    <p className="text-stone-400 text-sm md:text-lg">
                         职业级围棋特训 · 这里的每一次失误都会被"惩罚"
                     </p>
                 </header>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                     {categories.map((cat) => (
                         <button
                             key={cat.id}

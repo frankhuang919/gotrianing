@@ -18,6 +18,7 @@ function App() {
   const tsumegoStore = useTsumegoStore();
 
   const [module, setModule] = useState<AppModule>('HOME');
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   // Pre-load libraries when App mounts (or when switching modules)
   useEffect(() => {
@@ -178,15 +179,29 @@ function App() {
     <div className="flex flex-col h-screen bg-stone-950 font-sans text-stone-200 selection:bg-amber-500/30">
 
       {/* Header */}
-      <header className="h-14 bg-stone-900 border-b border-stone-800 flex items-center justify-between px-6 shadow-md z-30">
-        <div className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity" onClick={handleGoHome}>
-          <div className="w-8 h-8 rounded bg-gradient-to-br from-amber-600 to-amber-700 flex items-center justify-center shadow-inner">
-            <span className="text-white font-serif font-bold text-lg">Z</span>
+      <header className="h-14 bg-stone-900 border-b border-stone-800 flex items-center justify-between px-4 md:px-6 shadow-md z-30">
+        <div className="flex items-center gap-3">
+          {/* Hamburger Menu - Mobile Only */}
+          {(module === 'TESUJI' || module === 'LIFE_DEATH' || module === 'MISTAKE_BOOK') && (
+            <button
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+              className="md:hidden p-2 text-stone-400 hover:text-white"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+          )}
+          <div className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity" onClick={handleGoHome}>
+            <div className="w-8 h-8 rounded bg-gradient-to-br from-amber-600 to-amber-700 flex items-center justify-center shadow-inner">
+              <span className="text-white font-serif font-bold text-lg">Z</span>
+            </div>
+            <h1 className="text-lg font-bold tracking-wide text-stone-100 hidden sm:block">ZenGo <span className="text-stone-500 font-normal text-sm ml-2">训练场</span></h1>
           </div>
-          <h1 className="text-lg font-bold tracking-wide text-stone-100">ZenGo <span className="text-stone-500 font-normal text-sm ml-2">训练场</span></h1>
         </div>
 
-        <div className="flex items-center gap-2">
+        {/* Navigation - Hidden on mobile, shown in hamburger menu */}
+        <div className="hidden md:flex items-center gap-2">
           <button onClick={() => setModule('TESUJI')} className={`px-3 py-1 rounded text-sm font-bold transition-all ${module === 'TESUJI' ? 'bg-blue-900/50 text-blue-400 border border-blue-800' : 'text-stone-400 hover:text-stone-200'}`}>手筋</button>
           <button onClick={() => setModule('LIFE_DEATH')} className={`px-3 py-1 rounded text-sm font-bold transition-all ${module === 'LIFE_DEATH' ? 'bg-emerald-900/50 text-emerald-400 border border-emerald-800' : 'text-stone-400 hover:text-stone-200'}`}>死活</button>
           <button onClick={() => setModule('MISTAKE_BOOK')} className={`px-3 py-1 rounded text-sm font-bold transition-all ${module === 'MISTAKE_BOOK' ? 'bg-red-900/50 text-red-400 border border-red-800' : 'text-stone-400 hover:text-stone-200'}`}>错题本</button>
@@ -194,7 +209,7 @@ function App() {
         </div>
 
         <div className="bg-stone-800 px-3 py-1 rounded flex items-center gap-2 border border-stone-700 shadow-inner">
-          <span className="text-amber-500 text-xs uppercase font-bold">筹码</span>
+          <span className="text-amber-500 text-xs uppercase font-bold hidden sm:inline">筹码</span>
           <span className="text-stone-100 font-mono font-bold">{useGameStore.getState().chips}</span>
         </div>
       </header>
@@ -204,8 +219,28 @@ function App() {
         {/* ================= TESUJI & TSUMEGO & MISTAKE BOOK ================= */}
         {(module === 'TESUJI' || module === 'LIFE_DEATH' || module === 'MISTAKE_BOOK') && (
           <ErrorBoundary>
-            {/* Left Panel: Problem List */}
-            <aside className="w-64 bg-stone-900 border-r border-stone-700 z-20 shadow-xl overflow-y-auto">
+            {/* Left Panel: Problem List - Mobile: Overlay, Desktop: Sidebar */}
+            {/* Mobile Backdrop */}
+            {sidebarOpen && (
+              <div
+                className="fixed inset-0 bg-black/50 z-30 md:hidden"
+                onClick={() => setSidebarOpen(false)}
+              />
+            )}
+            <aside className={`
+              fixed md:relative inset-y-0 left-0 z-40 md:z-20
+              w-72 md:w-64 bg-stone-900 border-r border-stone-700 shadow-xl overflow-y-auto
+              transform transition-transform duration-300 ease-in-out
+              ${sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
+              mt-14 md:mt-0
+            `}>
+              {/* Mobile Navigation Links */}
+              <div className="md:hidden border-b border-stone-700 p-3 space-y-2">
+                <button onClick={() => { setModule('TESUJI'); setSidebarOpen(false); }} className={`w-full text-left px-3 py-2 rounded text-sm font-bold ${module === 'TESUJI' ? 'bg-blue-900/50 text-blue-400' : 'text-stone-400'}`}>手筋</button>
+                <button onClick={() => { setModule('LIFE_DEATH'); setSidebarOpen(false); }} className={`w-full text-left px-3 py-2 rounded text-sm font-bold ${module === 'LIFE_DEATH' ? 'bg-emerald-900/50 text-emerald-400' : 'text-stone-400'}`}>死活</button>
+                <button onClick={() => { setModule('MISTAKE_BOOK'); setSidebarOpen(false); }} className={`w-full text-left px-3 py-2 rounded text-sm font-bold ${module === 'MISTAKE_BOOK' ? 'bg-red-900/50 text-red-400' : 'text-stone-400'}`}>错题本</button>
+                <button onClick={() => { setModule('AI_SPARRING'); setSidebarOpen(false); }} className={`w-full text-left px-3 py-2 rounded text-sm font-bold text-stone-400`}>AI 对弈</button>
+              </div>
               {/* Contextual Render based on Module */}
               {module === 'TESUJI' && (
                 <ProblemList

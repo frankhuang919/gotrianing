@@ -382,7 +382,7 @@ const AIMode: React.FC = () => {
 
     // --- RENDER ---
     return (
-        <div className="flex h-screen bg-stone-950 text-stone-200 overflow-hidden">
+        <div className="flex flex-col md:flex-row h-screen bg-stone-950 text-stone-200 overflow-hidden">
             {/* Modal */}
             {showResult && (
                 <GameResultModal
@@ -430,8 +430,8 @@ const AIMode: React.FC = () => {
             {/* Main Board Area */}
             <div className="flex-1 flex flex-col items-center justify-center relative bg-gradient-to-b from-stone-900 to-stone-950">
                 {/* Header */}
-                <div className="w-full max-w-5xl flex items-center justify-between p-6 z-10">
-                    <div className="text-xl font-black text-cyan-400">
+                <div className="w-full max-w-5xl flex items-center justify-between p-3 md:p-6 z-10">
+                    <div className="text-base md:text-xl font-black text-cyan-400">
                         AI 对弈练习
                     </div>
                     <div className={`text-xs font-mono font-bold ${connected ? 'text-green-500' : 'text-stone-600'}`}>
@@ -506,7 +506,7 @@ const AIMode: React.FC = () => {
                 {/* Feedback Overlay REMOVED (Moved to HUD) */}
 
                 {/* Board */}
-                <div className="h-[75vh] aspect-square relative shadow-2xl rounded-sm overflow-hidden border-[12px] border-stone-800 bg-[#dc933c]">
+                <div className="h-[50vh] md:h-[75vh] aspect-square relative shadow-2xl rounded-sm overflow-hidden border-[8px] md:border-[12px] border-stone-800 bg-[#dc933c] max-w-[95vw]">
                     <GoBoard
                         size={19}
                         stones={stones}
@@ -549,9 +549,9 @@ const AIMode: React.FC = () => {
                 </div>
             </div>
 
-            {/* Right Panel: AI Info */}
-            <div className="w-80 bg-[#1c1917] border-l border-stone-800 flex flex-col shadow-2xl z-20">
-                <div className="p-8 border-b border-stone-800 bg-gradient-to-b from-stone-800 to-[#1c1917] relative overflow-hidden">
+            {/* Right Panel: AI Info - Bottom on mobile */}
+            <div className="w-full md:w-80 bg-[#1c1917] border-t md:border-t-0 md:border-l border-stone-800 flex flex-col shadow-2xl z-20 max-h-[40vh] md:max-h-none overflow-y-auto">
+                <div className="p-4 md:p-8 border-b border-stone-800 bg-gradient-to-b from-stone-800 to-[#1c1917] relative overflow-hidden">
                     <div className="absolute inset-0 bg-[url('/noise.png')] opacity-5"></div>
                     <div className="w-24 h-24 mx-auto bg-stone-950 rounded-full border-4 border-cyan-900/50 flex items-center justify-center mb-4 relative overflow-hidden shadow-[0_0_20px_rgba(34,211,238,0.3)] group cursor-help">
                         <div className={`w-16 h-16 bg-cyan-600 rounded-full blur-xl absolute opacity-60 transition-all duration-200 ${isThinking ? 'animate-pulse scale-110' : 'group-hover:opacity-80'}`}></div>
