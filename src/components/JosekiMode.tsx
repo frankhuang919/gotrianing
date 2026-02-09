@@ -3,6 +3,7 @@ import GoBoard from './GoBoard';
 import { useJosekiStore } from '../store/josekiStore';
 import type { JosekiType } from '../data/joseki_loader';
 
+
 export const JosekiMode: React.FC = () => {
     const {
         selectedType,
@@ -17,6 +18,8 @@ export const JosekiMode: React.FC = () => {
         isCorrect
     } = useJosekiStore();
 
+    const [provisionalMove, setProvisionalMove] = React.useState<{ x: number, y: number } | null>(null);
+
     useEffect(() => {
         // Default to 4-4 on load if nothing selected
         if (!selectedType) {
@@ -26,8 +29,20 @@ export const JosekiMode: React.FC = () => {
 
     const handleBoardClick = (x: number, y: number) => {
         if (phase === 'PRACTICE_WHITE' || phase === 'PRACTICE_BLACK') {
-            playMove(x, y);
+            // Check occupied
+            if (boardStones.some(s => s.x === x && s.y === y)) return;
+            setProvisionalMove({ x, y });
         }
+    };
+
+    const confirmMove = () => {
+        if (!provisionalMove) return;
+        playMove(provisionalMove.x, provisionalMove.y);
+        setProvisionalMove(null);
+    };
+
+    const cancelMove = () => {
+        setProvisionalMove(null);
     };
 
     // Status Color
@@ -73,6 +88,11 @@ export const JosekiMode: React.FC = () => {
                         onIntersectionClick={handleBoardClick}
                         interactive={phase === 'PRACTICE_WHITE' || phase === 'PRACTICE_BLACK'}
                         showCoords={true}
+                        ghostStones={provisionalMove ? [{
+                            x: provisionalMove.x,
+                            y: provisionalMove.y,
+                            c: phase === 'PRACTICE_WHITE' ? -1 : 1
+                        }] : []}
                     />
 
                     {/* Phase Overlay (Optional) */}
@@ -83,10 +103,30 @@ export const JosekiMode: React.FC = () => {
                             </div>
                         </div>
                     )}
+
+
                 </div>
 
                 {/* Footer Controls */}
                 <div className="h-20 w-full max-w-2xl px-4 flex items-center justify-center gap-4 mt-4">
+                    {/* Confirm Move Controls */}
+                    {provisionalMove && (
+                        <div className="flex gap-4 mr-4">
+                            <button
+                                onClick={confirmMove}
+                                className="px-6 py-2 bg-green-600 hover:bg-green-500 text-white rounded-full font-bold shadow-lg transform hover:scale-105 transition-all text-lg flex items-center gap-2"
+                            >
+                                <span>✅ 确认</span>
+                            </button>
+                            <button
+                                onClick={cancelMove}
+                                className="px-6 py-2 bg-stone-600 hover:bg-stone-500 text-white rounded-full font-bold shadow-lg transform hover:scale-105 transition-all text-lg flex items-center gap-2"
+                            >
+                                <span>❌ 取消</span>
+                            </button>
+                        </div>
+                    )}
+
                     {phase === 'DEMO' && (
                         <button
                             onClick={startPractice}

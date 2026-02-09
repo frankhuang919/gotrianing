@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import GoBoard from './GoBoard';
 import GameResultModal from './GameResultModal';
 
+
 // --- CONFIG ---
 // --- CONFIG ---
 const BLUNDER_THRESHOLD = 0.07; // 7% drop is a blunder (Relaxed from 5% for calibration stability)
@@ -51,6 +52,7 @@ const AIMode: React.FC = () => {
     const [stones, setStones] = useState<{ x: number, y: number, c: 1 | -1 }[]>([]);
     const [lastMove, setLastMove] = useState<{ x: number, y: number } | null>(null);
     const [isThinking, setIsThinking] = useState(false);
+    const [provisionalMove, setProvisionalMove] = useState<{ x: number, y: number } | null>(null);
 
     // AI & Rules
     const [lastPlayerWinrate, setLastPlayerWinrate] = useState(0.5); // Start at 50%
@@ -201,27 +203,42 @@ const AIMode: React.FC = () => {
         // Block clicks during AI thinking, disconnected, or while reviewing hints/solutions
         if (isThinking || !connected || reviewStep !== 'NONE') return;
 
+        // Check if point is occupied
+        if (stones.some(s => s.x === x && s.y === y)) return;
+
+        setProvisionalMove({ x, y });
+    };
+
+    const confirmMove = () => {
+        if (!provisionalMove) return;
+        const { x, y } = provisionalMove;
+
+        // Re-check conditions
+        if (isThinking || !connected || reviewStep !== 'NONE') return;
+
         // 1. User Plays (Optimistic)
         playStone(x, y, 1); // Black
         const gtpCoord = toGTP(x, y);
         sendCommand("play", ["B", gtpCoord]);
 
-        // 2. Trigger Analysis immediately to judge the move
-        // Why? We want to know if THIS move was bad.
-        // We ask AI: "Analyze White's turn now".
-        // White's Winrate = 1 - Black's Winrate.
+        // 2. Trigger Analysis immediately
         setIsThinking(true);
 
-        // Safety: Auto-unlock after 15s if AI doesn't respond
+        // Safety: Auto-unlock after 15s
         if (thinkingTimeout.current) clearTimeout(thinkingTimeout.current);
         thinkingTimeout.current = window.setTimeout(() => {
             setIsThinking(false);
             setFeedback({ msg: "AI TIMEOUT - RETRY", type: 'neutral' });
         }, 15000);
 
-        // Combined Genmove + Analyze (Efficient)
-        // This returns the move AND the winrate evaluation
+        // Combined Genmove + Analyze
         sendCommand("kata-genmove_analyze", ["W", difficulty]);
+
+        setProvisionalMove(null);
+    };
+
+    const cancelMove = () => {
+        setProvisionalMove(null);
     };
 
     const handleBackendResponse = (data: any) => {
@@ -515,37 +532,50 @@ const AIMode: React.FC = () => {
                         // Also re-index orders to start from 1.
                         ghostStones={
                             (() => {
+                                const ghosts = [];
+
+                                // 1. Solution/Hint Ghosts
                                 if (reviewStep === 'SOLUTION') {
-                                    // Filter out stones that overlap with existing board stones
                                     const filtered = bestSequence.filter(
                                         s => !stones.some(st => st.x === s.x && st.y === s.y)
                                     );
-                                    // Take first 10 and explicitly re-number from 1
-                                    const result = [];
                                     for (let i = 0; i < Math.min(filtered.length, 10); i++) {
-                                        result.push({
+                                        ghosts.push({
                                             x: filtered[i].x,
                                             y: filtered[i].y,
                                             c: filtered[i].c,
-                                            order: i + 1  // New sequential order
+                                            order: i + 1
                                         });
                                     }
-                                    return result;
-                                }
-                                if (reviewStep === 'HINT') {
-                                    // Just show the first valid move
+                                } else if (reviewStep === 'HINT') {
                                     const first = bestSequence.find(
                                         s => !stones.some(st => st.x === s.x && st.y === s.y)
                                     );
-                                    return first ? [{ x: first.x, y: first.y, c: first.c, order: 1 }] : [];
+                                    if (first) ghosts.push({ x: first.x, y: first.y, c: first.c, order: 1 });
                                 }
-                                return [];
+
+                                // 2. Provisional Move Ghost (User's pending move)
+                                if (provisionalMove) {
+                                    // Current turn color
+                                    const nextColor = stones.length % 2 === 0 ? 1 : -1;
+                                    ghosts.push({
+                                        x: provisionalMove.x,
+                                        y: provisionalMove.y,
+                                        c: nextColor as 1 | -1,
+                                        // Distinct style? GoBoard handles ghost stones with opacity.
+                                        // Maybe no order number.
+                                    });
+                                }
+
+                                return ghosts;
                             })()
                         }
                         lastMove={lastMove}
                         onIntersectionClick={handleUserClick}
                         interactive={connected && !isThinking}
                     />
+
+
                 </div>
             </div>
 
@@ -561,11 +591,27 @@ const AIMode: React.FC = () => {
 
                     {/* Status Badge */}
                     <div className="flex flex-col items-center justify-center mt-3 gap-2">
+                        {/* Status / Confirm Controls */}
                         {isThinking ? (
                             <span className="px-3 py-1 bg-amber-500/20 text-amber-400 text-xs font-bold rounded-full animate-pulse border border-amber-500/30 flex items-center gap-2">
                                 <span className="w-2 h-2 bg-amber-500 rounded-full animate-ping"></span>
                                 AI 思考中...
                             </span>
+                        ) : provisionalMove ? (
+                            <div className="flex gap-2 animate-fade-in">
+                                <button
+                                    onClick={confirmMove}
+                                    className="px-4 py-1 bg-green-600 hover:bg-green-500 text-white text-xs font-bold rounded-full border border-green-500 shadow transition-all flex items-center gap-1"
+                                >
+                                    <span>✅ 确认</span>
+                                </button>
+                                <button
+                                    onClick={cancelMove}
+                                    className="px-4 py-1 bg-stone-700 hover:bg-stone-600 text-stone-200 text-xs font-bold rounded-full border border-stone-600 shadow transition-all flex items-center gap-1"
+                                >
+                                    <span>❌ 取消</span>
+                                </button>
+                            </div>
                         ) : (
                             <span className="px-3 py-1 bg-stone-800 text-stone-500 text-xs font-bold rounded-full border border-stone-700">
                                 等待落子

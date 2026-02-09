@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useTsumegoStore } from '../store/tsumegoStore';
 
+
 export const TsumegoBoard: React.FC = () => {
     const {
         boardStones,
@@ -17,6 +18,7 @@ export const TsumegoBoard: React.FC = () => {
 
     // Local timer state for smooth countdown
     const [timeLeft, setTimeLeft] = useState(0);
+    const [provisionalMove, setProvisionalMove] = useState<{ x: number, y: number } | null>(null);
 
     useEffect(() => {
         if (lockEndTime > Date.now()) {
@@ -55,8 +57,21 @@ export const TsumegoBoard: React.FC = () => {
         const gridY = Math.round(y / gridSize);
 
         if (gridX >= 0 && gridX < size && gridY >= 0 && gridY < size) {
-            playMove(gridX, gridY);
+            // Check if occupied
+            if (boardStones.some(s => s.x === gridX && s.y === gridY)) return;
+
+            setProvisionalMove({ x: gridX, y: gridY });
         }
+    };
+
+    const confirmMove = () => {
+        if (!provisionalMove) return;
+        playMove(provisionalMove.x, provisionalMove.y);
+        setProvisionalMove(null);
+    };
+
+    const cancelMove = () => {
+        setProvisionalMove(null);
     };
 
     if (!currentProblemId) {
@@ -163,6 +178,17 @@ export const TsumegoBoard: React.FC = () => {
                                 </g>
                             );
                         })}
+
+                        {/* Provisional Stone (Ghost) */}
+                        {provisionalMove && (
+                            <circle
+                                cx={padding + provisionalMove.x * gridSize}
+                                cy={padding + provisionalMove.y * gridSize}
+                                r={gridSize * 0.45}
+                                fill="rgba(0,0,0,0.5)"
+                                style={{ pointerEvents: 'none' }}
+                            />
+                        )}
                     </svg>
 
                     {/* Status Overlay (Simplified icons on board) */}
@@ -181,8 +207,12 @@ export const TsumegoBoard: React.FC = () => {
                             )}
                         </div>
                     )}
+
+
+
                 </div>
             </div>
+
 
             {/* RIGHT Panel: Sidebar info (Proposed Plan B) */}
             <div className="w-96 flex flex-col bg-stone-900 border-l border-stone-700 shadow-2xl z-20 shrink-0">
@@ -225,6 +255,26 @@ export const TsumegoBoard: React.FC = () => {
                             <span>下一题</span>
                             <span>▶</span>
                         </button>
+                    )}
+
+                    {/* Confirm Move Controls */}
+                    {provisionalMove && (
+                        <div className="flex gap-3 mb-2 animate-fade-in">
+                            <button
+                                onClick={confirmMove}
+                                className="flex-1 py-3 bg-green-600 hover:bg-green-500 text-white rounded-lg font-bold shadow-lg transition-all flex items-center justify-center gap-2"
+                            >
+                                <span>✅</span>
+                                <span>确认落子</span>
+                            </button>
+                            <button
+                                onClick={cancelMove}
+                                className="flex-1 py-3 bg-stone-600 hover:bg-stone-500 text-white rounded-lg font-bold shadow-lg transition-all flex items-center justify-center gap-2"
+                            >
+                                <span>❌</span>
+                                <span>取消</span>
+                            </button>
+                        </div>
                     )}
 
                     {/* Retry / Generic Action */}

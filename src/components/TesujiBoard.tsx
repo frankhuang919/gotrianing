@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useTesujiStore } from '../store/tesujiStore';
 
+
 export const TesujiBoard: React.FC = () => {
     const {
         boardStones,
@@ -16,6 +17,7 @@ export const TesujiBoard: React.FC = () => {
 
     // Local timer state for smooth countdown
     const [timeLeft, setTimeLeft] = useState(0);
+    const [provisionalMove, setProvisionalMove] = useState<{ x: number, y: number } | null>(null);
 
     useEffect(() => {
         if (lockEndTime > Date.now()) {
@@ -54,8 +56,21 @@ export const TesujiBoard: React.FC = () => {
         const gridY = Math.round(y / gridSize);
 
         if (gridX >= 0 && gridX < size && gridY >= 0 && gridY < size) {
-            playMove(gridX, gridY);
+            // Check if occupied
+            if (boardStones.some(s => s.x === gridX && s.y === gridY)) return;
+
+            setProvisionalMove({ x: gridX, y: gridY });
         }
+    };
+
+    const confirmMove = () => {
+        if (!provisionalMove) return;
+        playMove(provisionalMove.x, provisionalMove.y);
+        setProvisionalMove(null);
+    };
+
+    const cancelMove = () => {
+        setProvisionalMove(null);
     };
 
     if (!currentProblemId) {
@@ -125,6 +140,17 @@ export const TesujiBoard: React.FC = () => {
                                 )}
                             </g>
                         ))}
+
+                        {/* Provisional Stone (Ghost) */}
+                        {provisionalMove && (
+                            <circle
+                                cx={padding + provisionalMove.x * gridSize}
+                                cy={padding + provisionalMove.y * gridSize}
+                                r={gridSize * 0.45}
+                                fill="rgba(0,0,0,0.5)"
+                                style={{ pointerEvents: 'none' }}
+                            />
+                        )}
                     </svg>
 
                     {/* Status icons overlay */}
@@ -143,6 +169,9 @@ export const TesujiBoard: React.FC = () => {
                             )}
                         </div>
                     )}
+
+
+
                 </div>
             </div>
 
@@ -189,6 +218,26 @@ export const TesujiBoard: React.FC = () => {
                         </button>
                     )}
 
+                    {/* Confirm Move Controls */}
+                    {provisionalMove && (
+                        <div className="flex gap-3 mb-2 animate-fade-in">
+                            <button
+                                onClick={confirmMove}
+                                className="flex-1 py-3 bg-green-600 hover:bg-green-500 text-white rounded-lg font-bold shadow-lg transition-all flex items-center justify-center gap-2"
+                            >
+                                <span>✅</span>
+                                <span>确认落子</span>
+                            </button>
+                            <button
+                                onClick={cancelMove}
+                                className="flex-1 py-3 bg-stone-600 hover:bg-stone-500 text-white rounded-lg font-bold shadow-lg transition-all flex items-center justify-center gap-2"
+                            >
+                                <span>❌</span>
+                                <span>取消</span>
+                            </button>
+                        </div>
+                    )}
+
                     {/* Retry / Generic Action */}
                     <button
                         onClick={retry}
@@ -206,5 +255,6 @@ export const TesujiBoard: React.FC = () => {
                 </div>
             </div>
         </div>
+
     );
 };
