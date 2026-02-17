@@ -26,3 +26,11 @@ dist-ssr
 ai_engine/
 *.bin
 *.exe
+
+# Temp repos (embedded git repos, NOT submodules)
+temp_joseki_repo/
+temp_pachi_real/
+
+# Helper scripts
+parse_sgf_bg.py
+analyze_sgf.py
