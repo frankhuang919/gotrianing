@@ -10,15 +10,29 @@ body,
   overflow: hidden;
 }
 
-/* ═══════════════════════════════════════════════
-   ZenGo V3 — The Board Is The Hero
+/* ═══════════════════════════════════════════════════
+   ZenGo V5 — Material Luxury
    
-   Core idea: The landing page IS a Go board.
-   Wood texture background + CSS grid lines + 
-   3D stones + cinematic lighting.
-   ═══════════════════════════════════════════════ */
+   色彩体系:
+     底色  #1A1714  深棕黑(有温度)
+     主字  #E8E0D4  暖白(羊皮纸)
+     强调  #C9A96E  哑光金(不刺眼)
+     辅底  #2A2520  深棕灰(面板/卡片)
+     弱字  #7A7168  中灰棕
+   ═══════════════════════════════════════════════════ */
 
-/* ---- Film Grain (subtle texture over everything) ---- */
+:root {
+  --bg-deep: #1A1714;
+  --text-warm: #E8E0D4;
+  --gold-matte: #C9A96E;
+  --gold-dim: rgba(201, 169, 110, 0.15);
+  --panel-bg: #2A2520;
+  --panel-border: #3D3731;
+  --text-muted: #7A7168;
+  --text-dim: #4D463E;
+}
+
+/* ── Film grain (ultra-subtle) ── */
 .noise-layer::after {
   content: '';
   position: fixed;
@@ -26,161 +40,102 @@ body,
   z-index: 100;
   pointer-events: none;
   opacity: 0.025;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 200px 200px;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
   mix-blend-mode: overlay;
 }
 
-/* ---- Vignette (cinematic dark edges) ---- */
+/* ── Cinematic vignette ── */
 .vignette::before {
   content: '';
   position: fixed;
   inset: 0;
   z-index: 2;
   pointer-events: none;
-  background: radial-gradient(ellipse 70% 70% at 50% 45%,
+  background: radial-gradient(ellipse 70% 65% at 50% 45%,
       transparent 30%,
-      rgba(0, 0, 0, 0.35) 70%,
+      rgba(0, 0, 0, 0.35) 65%,
       rgba(0, 0, 0, 0.7) 100%);
 }
 
-/* ---- Go Board Grid Lines ---- */
-.board-lines {
-  position: fixed;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  background-image:
-    repeating-linear-gradient(0deg,
-      transparent,
-      transparent calc(50% / 9.5 - 0.5px),
-      rgba(0, 0, 0, 0.18) calc(50% / 9.5 - 0.5px),
-      rgba(0, 0, 0, 0.18) calc(50% / 9.5 + 0.5px),
-      transparent calc(50% / 9.5 + 0.5px)),
-    repeating-linear-gradient(90deg,
-      transparent,
-      transparent calc(50% / 9.5 - 0.5px),
-      rgba(0, 0, 0, 0.18) calc(50% / 9.5 - 0.5px),
-      rgba(0, 0, 0, 0.18) calc(50% / 9.5 + 0.5px),
-      transparent calc(50% / 9.5 + 0.5px));
-  background-size: 5.263% 5.263%;
-  opacity: 0.6;
-}
-
-/* ---- Star Points (Hoshi) ---- */
-.hoshi {
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: rgba(0, 0, 0, 0.3);
-  z-index: 2;
-  pointer-events: none;
-  transform: translate(-50%, -50%);
-}
-
-/* ---- 3D Go Stones ---- */
+/* ── 3D Stones (background decoration) ── */
 .stone {
   border-radius: 50%;
   position: absolute;
   pointer-events: none;
-  z-index: 2;
+  z-index: 1;
   transform: translate(-50%, -50%);
 }
 
 .stone-b {
   background: radial-gradient(ellipse 45% 42% at 38% 32%,
-      #555 0%,
-      #333 20%,
-      #1a1a1a 50%,
-      #080808 80%,
-      #000 100%);
+      #555 0%, #333 20%, #1a1a1a 50%, #080808 80%, #000 100%);
   box-shadow:
-    1px 2px 3px rgba(0, 0, 0, 0.6),
+    1px 2px 5px rgba(0, 0, 0, 0.8),
     inset 0px -1px 2px rgba(0, 0, 0, 0.4),
-    inset 1px 1px 3px rgba(255, 255, 255, 0.07);
+    inset 1px 1px 3px rgba(255, 255, 255, 0.06);
 }
 
 .stone-w {
   background: radial-gradient(ellipse 45% 42% at 38% 32%,
-      #fff 0%,
-      #f5f5f5 20%,
-      #e0e0e0 50%,
-      #c8c8c8 80%,
-      #aaa 100%);
+      #fff 0%, #f5f5f5 20%, #e0e0e0 50%, #c8c8c8 80%, #aaa 100%);
   box-shadow:
-    1px 2px 3px rgba(0, 0, 0, 0.35),
+    1px 2px 5px rgba(0, 0, 0, 0.5),
     inset 0px -1px 2px rgba(0, 0, 0, 0.06),
     inset 1px 1px 3px rgba(255, 255, 255, 0.7);
 }
 
-/* ---- Floating Animation ---- */
-@keyframes breathe {
-
-  0%,
-  100% {
-    transform: translate(-50%, -50%) scale(1);
-  }
-
-  50% {
-    transform: translate(-50%, -50%) scale(1.02);
-  }
-}
-
-/* ---- Hero Title ---- */
-.title-zen {
-  font-size: clamp(3.5rem, 8vw, 7rem);
-  line-height: 1;
+/* ── Hero title ── */
+.title-hero {
+  font-size: clamp(4rem, 10vw, 7.5rem);
+  line-height: 0.9;
   font-weight: 700;
-  background: linear-gradient(170deg,
-      #b8860b 0%,
-      #daa520 15%,
-      #ffd700 30%,
-      #ffecb3 48%,
-      #ffd700 52%,
-      #daa520 70%,
-      #b8860b 85%,
-      #8b6914 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 2px 8px rgba(218, 165, 32, 0.25));
-  text-shadow: none;
+  color: var(--text-warm);
+  text-shadow:
+    0 4px 30px rgba(0, 0, 0, 0.5),
+    0 0 80px rgba(201, 169, 110, 0.06);
+  letter-spacing: 0.02em;
 }
 
-/* ---- Subtitle Spacing ---- */
+/* ── Subtitle with gold ── */
 .subtitle-zen {
-  letter-spacing: 0.35em;
-  font-size: clamp(0.85rem, 1.8vw, 1.2rem);
-  color: rgba(218, 165, 32, 0.55);
+  letter-spacing: 0.5em;
+  font-size: clamp(0.65rem, 1.1vw, 0.85rem);
+  color: var(--gold-matte);
   font-weight: 400;
+  opacity: 0.7;
 }
 
-/* ---- Hero Entry Animations ---- */
-.hero-fade-1 {
+/* ── Entry animations ── */
+.anim-1 {
   opacity: 0;
-  animation: slideReveal 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards;
+  animation: heroIn 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards;
 }
 
-.hero-fade-2 {
+.anim-2 {
   opacity: 0;
-  animation: slideReveal 1s cubic-bezier(0.22, 1, 0.36, 1) 0.7s forwards;
+  animation: heroIn 1.0s cubic-bezier(0.22, 1, 0.36, 1) 0.6s forwards;
 }
 
-.hero-fade-3 {
+.anim-3 {
   opacity: 0;
-  animation: slideReveal 0.8s cubic-bezier(0.22, 1, 0.36, 1) 1.1s forwards;
+  animation: heroIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.9s forwards;
 }
 
-.hero-fade-4 {
+.anim-4 {
   opacity: 0;
-  animation: slideReveal 0.8s cubic-bezier(0.22, 1, 0.36, 1) 1.4s forwards;
+  animation: heroIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) 1.2s forwards;
 }
 
-@keyframes slideReveal {
+.anim-5 {
+  opacity: 0;
+  animation: heroIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) 1.4s forwards;
+}
+
+@keyframes heroIn {
   0% {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(20px);
     filter: blur(4px);
   }
 
@@ -191,142 +146,136 @@ body,
   }
 }
 
-/* ---- Glass Panel (mode selector) ---- */
-.panel-glass {
-  background: rgba(8, 6, 4, 0.75);
-  backdrop-filter: blur(24px) saturate(130%);
-  -webkit-backdrop-filter: blur(24px) saturate(130%);
-  border: 1px solid rgba(218, 165, 32, 0.08);
-  border-radius: 20px;
-  box-shadow:
-    0 24px 80px rgba(0, 0, 0, 0.5),
-    inset 0 1px 0 rgba(255, 255, 255, 0.03);
-}
-
-/* ---- Mode Item ---- */
-.mode-item {
-  display: flex;
+/* ── CTA button — matte gold ── */
+.btn-gold {
+  display: inline-flex;
   align-items: center;
-  gap: 14px;
-  padding: 14px 18px;
-  border-radius: 12px;
-  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  gap: 10px;
+  padding: 14px 40px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: var(--bg-deep);
+  background: linear-gradient(135deg, #B89B5E 0%, #C9A96E 50%, #D4B87A 100%);
+  border: none;
+  border-radius: 8px;
   cursor: pointer;
-  border: 1px solid transparent;
-  position: relative;
-  overflow: hidden;
+  box-shadow:
+    0 4px 24px rgba(201, 169, 110, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.mode-item::before {
+.btn-gold:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 8px 36px rgba(201, 169, 110, 0.35),
+    0 0 60px rgba(201, 169, 110, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.btn-gold:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* ── Mode Cards ── */
+.mode-card {
+  position: relative;
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: 14px;
+  padding: 28px 24px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.mode-card::before {
   content: '';
   position: absolute;
   inset: 0;
-  border-radius: 12px;
-  background: linear-gradient(135deg, rgba(218, 165, 32, 0.06), transparent 60%);
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  border-radius: 14px;
+  border: 1px solid transparent;
+  transition: border-color 0.4s ease;
+  pointer-events: none;
 }
 
-.mode-item:hover {
-  background: rgba(218, 165, 32, 0.04);
-  border-color: rgba(218, 165, 32, 0.1);
-  transform: translateX(4px);
+.mode-card:hover {
+  background: #302B25;
+  border-color: var(--gold-matte);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 20px rgba(201, 169, 110, 0.06);
 }
 
-.mode-item:hover::before {
-  opacity: 1;
+.mode-card:active {
+  transform: translateY(0) scale(0.98);
 }
 
-.mode-item:active {
-  transform: translateX(2px) scale(0.99);
-}
-
-.mode-item.disabled {
+.mode-card.disabled {
   opacity: 0.3;
   cursor: not-allowed;
   pointer-events: none;
 }
 
-/* ---- Stagger for mode items ---- */
-.mode-stagger {
+/* Card kanji watermark */
+.card-kanji {
+  position: absolute;
+  right: -4px;
+  bottom: -12px;
+  font-size: 5.5rem;
+  font-weight: 900;
+  line-height: 1;
+  color: rgba(201, 169, 110, 0.04);
+  pointer-events: none;
+  transition: color 0.4s ease;
+}
+
+.mode-card:hover .card-kanji {
+  color: rgba(201, 169, 110, 0.08);
+}
+
+/* ── Stagger per card ── */
+.card-stagger {
   opacity: 0;
-  animation: modeSlideIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: cardIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
-.mode-stagger:nth-child(1) {
-  animation-delay: 1.6s;
+.card-stagger:nth-child(1) {
+  animation-delay: 1.5s;
 }
 
-.mode-stagger:nth-child(2) {
-  animation-delay: 1.7s;
+.card-stagger:nth-child(2) {
+  animation-delay: 1.65s;
 }
 
-.mode-stagger:nth-child(3) {
+.card-stagger:nth-child(3) {
   animation-delay: 1.8s;
 }
 
-.mode-stagger:nth-child(4) {
-  animation-delay: 1.9s;
+.card-stagger:nth-child(4) {
+  animation-delay: 1.95s;
 }
 
-.mode-stagger:nth-child(5) {
-  animation-delay: 2.0s;
-}
-
-.mode-stagger:nth-child(6) {
-  animation-delay: 2.1s;
-}
-
-.mode-stagger:nth-child(7) {
-  animation-delay: 2.2s;
-}
-
-@keyframes modeSlideIn {
+@keyframes cardIn {
   0% {
     opacity: 0;
-    transform: translateX(-16px);
+    transform: translateY(16px) scale(0.96);
   }
 
   100% {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateY(0) scale(1);
   }
 }
 
-/* ---- Accent Pulse ---- */
-.pulse-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  flex-shrink: 0;
-  position: relative;
+/* ── Divider ── */
+.divider-gold {
+  height: 1px;
+  background: linear-gradient(90deg, var(--gold-matte), transparent 80%);
+  opacity: 0.2;
 }
 
-.pulse-dot::after {
-  content: '';
-  position: absolute;
-  inset: -3px;
-  border-radius: 50%;
-  background: inherit;
-  opacity: 0;
-  animation: dotPulse 2.5s ease-in-out infinite;
-}
-
-@keyframes dotPulse {
-
-  0%,
-  100% {
-    opacity: 0;
-    transform: scale(1);
-  }
-
-  50% {
-    opacity: 0.3;
-    transform: scale(1.8);
-  }
-}
-
-/* ---- Scrollbar ---- */
+/* ── Scrollbar ── */
 .zen-scroll::-webkit-scrollbar {
   width: 3px;
 }
@@ -336,19 +285,19 @@ body,
 }
 
 .zen-scroll::-webkit-scrollbar-thumb {
-  background: rgba(218, 165, 32, 0.12);
+  background: var(--panel-border);
   border-radius: 3px;
 }
 
-/* ---- Gold Divider ---- */
-.divider-g {
-  height: 1px;
-  background: linear-gradient(90deg, rgba(218, 165, 32, 0.3), rgba(218, 165, 32, 0.05));
-}
-
-/* ---- Responsive ---- */
-@media (max-width: 768px) {
-  .board-lines {
-    background-size: 8% 8%;
-  }
+/* ── The upcoming modes chip ── */
+.chip-soon {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.55rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: var(--text-dim);
+  border: 1px solid var(--panel-border);
+  text-transform: uppercase;
 }

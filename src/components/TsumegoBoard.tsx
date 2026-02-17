@@ -87,9 +87,8 @@ export const TsumegoBoard: React.FC = () => {
             {/* LEFT: Main Board Area - Maximized */}
             <div className="flex-1 flex items-center justify-center p-2 md:p-4 relative bg-stone-800/30 min-h-0">
 
-                {/* Board Container - Fit within both width AND height */}
-                <div className={`relative aspect-square bg-[#DEB887] shadow-2xl rounded transition-opacity duration-500
-                    max-h-full max-w-full
+                {/* Board Container — height-driven, width-capped for portrait */}
+                <div className={`relative h-[92%] aspect-square max-w-[calc(100%-1rem)] bg-[#DEB887] shadow-2xl rounded transition-opacity duration-500
                     ${isLocked ? 'grayscale-[50%] cursor-not-allowed' : ''}
                 `}>
                     <svg
