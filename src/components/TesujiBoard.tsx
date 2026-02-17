@@ -82,12 +82,13 @@ export const TesujiBoard: React.FC = () => {
     const COORDS_Y = Array.from({ length: 19 }, (_, i) => 19 - i);
 
     return (
-        <div className="flex flex-row h-full w-full overflow-hidden bg-stone-900">
+        <div className="flex flex-col md:flex-row h-full w-full overflow-hidden bg-stone-900">
             {/* LEFT: Main Board Area - Maximized */}
-            <div className="flex-1 flex items-center justify-center p-4 relative bg-stone-800/30">
+            <div className="flex-1 flex items-center justify-center p-2 md:p-4 relative bg-stone-800/30 min-h-0">
 
-                {/* Board Container - Constrained by Aspect Ratio */}
-                <div className={`relative h-[95%] aspect-square bg-[#DEB887] shadow-2xl rounded transition-opacity duration-500 
+                {/* Board Container - Fit within both width AND height */}
+                <div className={`relative aspect-square bg-[#DEB887] shadow-2xl rounded transition-opacity duration-500
+                    max-h-full max-w-full
                     ${isLocked ? 'grayscale-[50%] cursor-not-allowed' : ''}
                 `}>
                     <svg
@@ -176,7 +177,7 @@ export const TesujiBoard: React.FC = () => {
             </div>
 
             {/* RIGHT Panel: Sidebar info */}
-            <div className="w-96 flex flex-col bg-stone-900 border-l border-stone-700 shadow-2xl z-20 shrink-0">
+            <div className="w-full md:w-80 lg:w-96 flex flex-col bg-stone-900 border-t md:border-t-0 md:border-l border-stone-700 shadow-2xl z-20 shrink-0 max-h-[40vh] md:max-h-none overflow-y-auto md:overflow-y-visible">
                 {/* Header / Status Banner */}
                 <div className={`p-6 text-center shadow-md transition-colors duration-300
                      ${status === 'correct' ? 'bg-green-900/30 border-b border-green-800' : ''}

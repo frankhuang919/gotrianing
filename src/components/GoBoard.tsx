@@ -36,11 +36,13 @@ const GoBoard: React.FC<GoBoardProps> = ({
     // Just stones.
     // I will use stones for now.
 
-    // Responsive board size
+    // Responsive board size — fit within both width and height
     useEffect(() => {
         const handleResize = () => {
             if (boardRef.current) {
-                const width = Math.min(window.innerWidth - 40, 600);
+                const maxW = window.innerWidth - 40;
+                const maxH = window.innerHeight - 80; // leave room for header/controls
+                const width = Math.min(maxW, maxH, 600);
                 setBoardSizePx(width);
             }
         };
