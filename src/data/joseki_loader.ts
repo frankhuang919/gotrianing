@@ -14,10 +14,10 @@ export interface JosekiNode {
 export type JosekiType = '3-3' | '3-4' | '4-4' | '5-4';
 
 const FILE_MAP: Record<JosekiType, string> = {
-    '3-3': '/sgf/joseki/joseki_33.sgf',
-    '3-4': '/sgf/joseki/joseki_34.sgf',
-    '4-4': '/sgf/joseki/joseki_44.sgf',
-    '5-4': '/sgf/joseki/joseki_54.sgf',
+    '3-3': 'sgf/joseki/joseki_33.sgf',
+    '3-4': 'sgf/joseki/joseki_34.sgf',
+    '4-4': 'sgf/joseki/joseki_44.sgf',
+    '5-4': 'sgf/joseki/joseki_54.sgf',
 };
 
 // Helper: Convert SGF Node structure to simpler JosekiNode tree
@@ -30,7 +30,7 @@ export const loadJosekiFile = async (type: JosekiType): Promise<JosekiNode | nul
     if (cache[type]) return cache[type];
 
     try {
-        const response = await fetch(FILE_MAP[type]);
+        const response = await fetch(`${import.meta.env.BASE_URL}${FILE_MAP[type]}`);
         const text = await response.text();
         const rootSgf = parseSGF(text); // Assume this returns the first game root
 

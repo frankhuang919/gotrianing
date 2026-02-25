@@ -21,7 +21,7 @@ export interface TsumegoVolume {
 
 export const loadTsumegoVolumes = async (): Promise<TsumegoVolume[]> => {
     try {
-        const response = await fetch(`/tsumego_data.json?t=${Date.now()}`);
+        const response = await fetch(`${import.meta.env.BASE_URL}tsumego_data.json?t=${Date.now()}`);
         if (!response.ok) {
             throw new Error('Failed to load tsumego data');
         }

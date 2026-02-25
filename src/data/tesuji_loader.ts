@@ -18,7 +18,7 @@ export interface TesujiVolume {
 
 export const loadTesujiVolumes = async (): Promise<TesujiVolume[]> => {
     try {
-        const response = await fetch(`/tesuji_data.json?t=${Date.now()}`);
+        const response = await fetch(`${import.meta.env.BASE_URL}tesuji_data.json?t=${Date.now()}`);
         if (!response.ok) {
             throw new Error('Failed to load tesuji data');
         }
