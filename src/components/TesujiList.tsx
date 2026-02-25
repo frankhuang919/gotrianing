@@ -147,6 +147,7 @@ export const TesujiList: React.FC<TesujiListProps> = ({ onSelectProblem, filterM
 
     // RENDER: MISTAKE LIST
     if (filterMode === 'MISTAKES') {
+        const removeMistake = useTesujiStore.getState().removeMistake;
         return (
             <div className="h-full flex flex-col bg-stone-900 border-r border-stone-700 text-sm text-gray-300">
                 <div className="p-4 border-b border-stone-700 bg-red-950/30">
@@ -155,7 +156,18 @@ export const TesujiList: React.FC<TesujiListProps> = ({ onSelectProblem, filterM
                 </div>
                 <div className="flex-1 overflow-y-auto p-2">
                     <div className="grid grid-cols-1 gap-0.5 animate-fade-in-down">
-                        {mistakeProblems.map(renderProblemButton)}
+                        {mistakeProblems.map(prob => (
+                            <div key={prob.id} className="flex items-center gap-1">
+                                <div className="flex-1 min-w-0">{renderProblemButton(prob)}</div>
+                                <button
+                                    onClick={() => removeMistake(prob.id)}
+                                    className="flex-shrink-0 p-1.5 text-stone-600 hover:text-red-400 transition-colors rounded"
+                                    title="从错题本移除"
+                                >
+                                    🗑
+                                </button>
+                            </div>
+                        ))}
                     </div>
                     {mistakeProblems.length === 0 && (
                         <div className="text-center text-gray-500 mt-10 p-4 border border-dashed border-gray-800 rounded mx-4">

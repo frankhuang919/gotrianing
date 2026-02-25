@@ -51,6 +51,7 @@ interface TesujiState {
     showSolution: () => void;
     restoreSession: () => void;
     clearStats: () => void;
+    removeMistake: (id: string) => void;
 }
 
 // Helper: Decode "aa" -> {x:0, y:0}
@@ -265,7 +266,7 @@ export const useTesujiStore = create<TesujiState>()(
 
                             set({ status: 'correct', feedback: comment || '正解!' });
                             recordProblemResult(currentProblemId!, true, sessionMistakes === 0).catch(console.error);
-                            setTimeout(() => { get().loadNextProblem(); }, 1500);
+                            // user clicks 下一题
                         }
                     } else {
                         // Opponent Turn (if not leaf)
@@ -325,7 +326,7 @@ export const useTesujiStore = create<TesujiState>()(
 
                                             set({ status: 'correct', feedback: oppMsg || '正解!' });
                                             recordProblemResult(currentProblemId!, true, sessionMistakes === 0).catch(console.error);
-                                            setTimeout(() => { get().loadNextProblem(); }, 1500);
+                                            // user clicks 下一题
                                         }
                                     }
                                 }
@@ -493,6 +494,10 @@ export const useTesujiStore = create<TesujiState>()(
 
                 // Start demo after 3 seconds
                 setTimeout(step, 3000);
+            },
+
+            removeMistake: (id: string) => {
+                set(s => ({ mistakeBookIds: s.mistakeBookIds.filter(x => x !== id) }));
             },
 
             clearStats: () => {

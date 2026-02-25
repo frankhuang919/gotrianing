@@ -50,8 +50,9 @@ interface TsumegoState {
     checkLock: () => void; // Call periodically to clear lock if expired? Or just derive in UI.
     showSolution: () => void;
     restoreSession: () => void;
-    clearStats: () => void; // Clear all statistics
-}
+    clearStats: () => void;
+    removeMistake: (id: string) => void;
+} // Clear all statistics
 
 // Helper: Decode "aa" -> {x:0, y:0}
 const decodeCoord = (val: string): { x: number, y: number } | null => {
@@ -329,7 +330,7 @@ export const useTsumegoStore = create<TsumegoState>()(
 
                                             set({ status: 'correct', feedback: oppMsg || '正解!' });
                                             recordProblemResult(currentProblemId!, true, sessionMistakes === 0).catch(console.error);
-                                            setTimeout(() => { get().loadNextProblem(); }, 1500);
+                                            // user clicks 下一题
                                         }
                                     }
                                 }
@@ -487,6 +488,10 @@ export const useTsumegoStore = create<TsumegoState>()(
                 };
 
                 setTimeout(step, 3000);
+            },
+
+            removeMistake: (id: string) => {
+                set(s => ({ mistakeBookIds: s.mistakeBookIds.filter(x => x !== id) }));
             },
 
             clearStats: () => {

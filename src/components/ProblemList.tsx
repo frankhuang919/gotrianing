@@ -25,8 +25,8 @@ interface ProblemListProps {
     onSelectProblem: (problem: GenericProblem) => void;
     onPrevProblem?: () => void;
     onNextProblem?: () => void;
-    onClearStats?: () => void; // Clear statistics
-
+    onClearStats?: () => void;
+    onRemoveMistake?: (id: string) => void;
     filterMode?: 'ALL' | 'MISTAKES';
 }
 
@@ -51,6 +51,7 @@ export const ProblemList: React.FC<ProblemListProps> = ({
     onPrevProblem,
     onNextProblem,
     onClearStats,
+    onRemoveMistake,
     filterMode = 'ALL'
 }) => {
     // State for Accordions
@@ -228,8 +229,26 @@ export const ProblemList: React.FC<ProblemListProps> = ({
                 </div>
                 <div className="flex-1 overflow-y-auto p-2">
                     <div className="grid grid-cols-1 gap-0.5">
-                        {mistakeProblems.map(p => renderProblemButton(p, mistakeProblems))}
+                        {mistakeProblems.map(p => (
+                            <div key={p.id} className="flex items-center gap-1">
+                                <div className="flex-1 min-w-0">{renderProblemButton(p, mistakeProblems)}</div>
+                                {onRemoveMistake && (
+                                    <button
+                                        onClick={() => onRemoveMistake(p.id)}
+                                        className="flex-shrink-0 p-1.5 text-stone-600 hover:text-red-400 transition-colors rounded"
+                                        title="从错题本移除"
+                                    >
+                                        🗑
+                                    </button>
+                                )}
+                            </div>
+                        ))}
                     </div>
+                    {mistakeProblems.length === 0 && (
+                        <div className="text-center text-gray-500 mt-10 p-4 border border-dashed border-gray-800 rounded mx-4">
+                            👏 暂无错题，继续保持！
+                        </div>
+                    )}
                 </div>
             </div>
         );

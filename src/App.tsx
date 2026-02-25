@@ -328,6 +328,10 @@ function MainApp({ onLogout, loggedIn = false }: { onLogout: () => void; loggedI
                   firstTryCorrectIds={[]}
                   problemStats={mistakeData.stats}
                   onSelectProblem={onSelect}
+                  onRemoveMistake={(id) => {
+                    tesujiStore.removeMistake(id);
+                    tsumegoStore.removeMistake(id);
+                  }}
                 />
               )}
             </aside>
