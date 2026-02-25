@@ -87,10 +87,10 @@ export const TesujiBoard: React.FC = () => {
     return (
         <div className="flex flex-col md:flex-row h-full w-full overflow-hidden bg-stone-900">
             {/* LEFT: Main Board Area - Maximized */}
-            <div className="flex-1 flex items-center justify-center p-2 md:p-4 relative bg-stone-800/30 min-h-0">
+            <div className="flex-1 flex items-center justify-center p-0 md:p-4 relative bg-stone-800/30 min-h-0">
 
                 {/* Board Container — height-driven, width-capped for portrait */}
-                <div className={`relative h-[92%] aspect-square max-w-[calc(100%-1rem)] bg-[#DEB887] shadow-2xl rounded transition-opacity duration-500
+                <div className={`relative w-full max-w-[95%] md:max-w-none md:w-auto h-auto md:h-[92%] aspect-square bg-[#DEB887] shadow-2xl rounded transition-opacity duration-500
                     ${isLocked ? 'grayscale-[50%] cursor-not-allowed' : ''}
                 `}>
                     <svg
@@ -179,9 +179,9 @@ export const TesujiBoard: React.FC = () => {
             </div>
 
             {/* RIGHT Panel: Sidebar info */}
-            <div className="w-full md:w-80 lg:w-96 flex flex-col bg-stone-900 border-t md:border-t-0 md:border-l border-stone-700 shadow-2xl z-20 shrink-0 max-h-[40vh] md:max-h-none overflow-y-auto md:overflow-y-visible">
+            <div className="w-full md:w-80 lg:w-96 flex flex-col bg-stone-900 border-t md:border-t-0 md:border-l border-stone-700 shadow-2xl z-20 shrink-0 max-h-[35vh] md:max-h-none overflow-y-auto md:overflow-y-visible">
                 {/* Header / Status Banner */}
-                <div className={`p-6 text-center shadow-md transition-colors duration-300
+                <div className={`p-4 md:p-6 text-center shadow-md transition-colors duration-300
                      ${status === 'correct' ? 'bg-green-900/30 border-b border-green-800' : ''}
                      ${status === 'wrong' ? 'bg-red-900/30 border-b border-red-800' : ''}
                      ${status === 'solution' ? 'bg-blue-900/30 border-b border-blue-800' : ''}
@@ -202,19 +202,19 @@ export const TesujiBoard: React.FC = () => {
                 </div>
 
                 {/* Main Content: Explanation / Feedback */}
-                <div className="flex-1 overflow-y-auto p-6 scrollbar-thin scrollbar-thumb-stone-700">
-                    <div className="text-lg leading-relaxed text-gray-300 whitespace-pre-wrap font-serif">
+                <div className="flex-1 overflow-y-auto p-4 md:p-6 scrollbar-thin scrollbar-thumb-stone-700">
+                    <div className="text-base md:text-lg leading-relaxed text-gray-300 whitespace-pre-wrap font-serif">
                         {feedback}
                     </div>
                 </div>
 
                 {/* Bottom Actions Area */}
-                <div className="p-6 bg-stone-800/50 border-t border-stone-700 flex flex-col gap-4">
+                <div className="p-4 md:p-6 bg-stone-800/50 border-t border-stone-700 flex flex-col gap-3 md:gap-4">
                     {/* Next Button (Primary) */}
                     {status === 'correct' && (
                         <button
                             onClick={loadNextProblem}
-                            className="w-full py-4 bg-green-600 hover:bg-green-500 text-white rounded-lg font-bold shadow-lg flex items-center justify-center gap-2 transform active:scale-95 transition-all text-xl"
+                            className="w-full py-3 md:py-4 bg-green-600 hover:bg-green-500 text-white rounded-lg font-bold shadow-lg flex items-center justify-center gap-2 transform active:scale-95 transition-all text-lg md:text-xl"
                         >
                             <span>下一题</span>
                             <span>▶</span>
