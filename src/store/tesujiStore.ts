@@ -3,6 +3,7 @@ import { persist } from 'zustand/middleware';
 import { parseSGF, type SGFNode } from '../utils/sgfParser';
 import { loadTesujiVolumes, type TesujiVolume, type TesujiProblem } from '../data/tesuji_loader';
 import { resolveBoardState } from '../utils/goLogic';
+import { startSession, recordProblemResult } from '../services/analyticsService';
 
 interface Point {
     x: number;
@@ -180,6 +181,9 @@ export const useTesujiStore = create<TesujiState>()(
                     sessionMistakes: 0, // Reset mistakes for new problem
                     problemStats: newStats
                 });
+
+                // Analytics: start session for this mode
+                startSession('tesuji').catch(console.error);
             },
 
             loadNextProblem: () => {
@@ -260,6 +264,7 @@ export const useTesujiStore = create<TesujiState>()(
                             }
 
                             set({ status: 'correct', feedback: comment || '正解!' });
+                            recordProblemResult(currentProblemId!, true, sessionMistakes === 0).catch(console.error);
                             setTimeout(() => { get().loadNextProblem(); }, 1500);
                         }
                     } else {
@@ -319,6 +324,7 @@ export const useTesujiStore = create<TesujiState>()(
                                             }
 
                                             set({ status: 'correct', feedback: oppMsg || '正解!' });
+                                            recordProblemResult(currentProblemId!, true, sessionMistakes === 0).catch(console.error);
                                             setTimeout(() => { get().loadNextProblem(); }, 1500);
                                         }
                                     }
@@ -362,6 +368,7 @@ export const useTesujiStore = create<TesujiState>()(
                             lockEndTime: Date.now() + penaltyTime,
                             feedback: penaltyMsg
                         });
+                        if (currentProblemId) recordProblemResult(currentProblemId, false, false).catch(console.error);
                     }
 
                 } else {

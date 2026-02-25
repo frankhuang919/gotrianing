@@ -3,6 +3,7 @@ import { persist } from 'zustand/middleware';
 import { parseSGF, type SGFNode } from '../utils/sgfParser';
 import { loadTsumegoVolumes, type TsumegoVolume, type TsumegoProblem } from '../data/tsumego_loader';
 import { resolveBoardState } from '../utils/goLogic';
+import { startSession, recordProblemResult } from '../services/analyticsService';
 
 interface Point {
     x: number;
@@ -183,6 +184,9 @@ export const useTsumegoStore = create<TsumegoState>()(
                     sessionMistakes: 0, // Reset mistakes for new problem
                     problemStats: newStats
                 });
+
+                // Analytics: start session for this mode
+                startSession('tsumego').catch(console.error);
             },
 
             loadNextProblem: () => {
@@ -264,6 +268,7 @@ export const useTsumegoStore = create<TsumegoState>()(
                             }
 
                             set({ status: 'correct', feedback: comment || '正解!' });
+                            recordProblemResult(currentProblemId!, true, sessionMistakes === 0).catch(console.error);
                             setTimeout(() => { get().loadNextProblem(); }, 1500);
                         }
                     } else {
@@ -323,6 +328,7 @@ export const useTsumegoStore = create<TsumegoState>()(
                                             }
 
                                             set({ status: 'correct', feedback: oppMsg || '正解!' });
+                                            recordProblemResult(currentProblemId!, true, sessionMistakes === 0).catch(console.error);
                                             setTimeout(() => { get().loadNextProblem(); }, 1500);
                                         }
                                     }
@@ -365,6 +371,7 @@ export const useTsumegoStore = create<TsumegoState>()(
                             lockEndTime: Date.now() + penaltyTime,
                             feedback: penaltyMsg
                         });
+                        if (currentProblemId) recordProblemResult(currentProblemId, false, false).catch(console.error);
                     }
 
                 } else {

@@ -1,6 +1,8 @@
 import { useState, useEffect, useMemo } from 'react';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import WelcomeScreen from './components/WelcomeScreen';
 import ErrorBoundary from './components/ErrorBoundary';
+// LoginPage 保留文件，未来可从设置页面入口使用
 import { useGameStore } from './store/gameStore';
 import { ProblemList, type GenericProblem } from './components/ProblemList';
 import { TesujiBoard } from './components/TesujiBoard';
@@ -9,25 +11,58 @@ import { useTesujiStore } from './store/tesujiStore';
 import { useTsumegoStore } from './store/tsumegoStore';
 import { JosekiMode } from './components/JosekiMode';
 import AIMode from './components/AIMode';
+import AdminDashboard from './pages/AdminDashboard';
+import UserDetail from './pages/UserDetail';
+import { getCurrentUser, logOut, isAdmin, updateLastLogin } from './services/leancloud';
 
 type AppModule = 'HOME' | 'JOSEKI' | 'TESUJI' | 'LIFE_DEATH' | 'MISTAKE_BOOK' | 'AI_SPARRING';
 
 function App() {
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const user = getCurrentUser();
+    if (user) {
+      setLoggedIn(true);
+      updateLastLogin().catch(console.error);
+    }
+  }, []);
+
+  const handleLogout = () => {
+    logOut();
+    setLoggedIn(false);
+  };
+
+  return (
+    <Routes>
+      {loggedIn && <Route path="/admin" element={<AdminDashboard />} />}
+      {loggedIn && <Route path="/admin/user/:userId" element={<UserDetail />} />}
+      <Route path="*" element={<MainApp onLogout={handleLogout} loggedIn={loggedIn} />} />
+    </Routes>
+  );
+}
+
+// ━━━ Main App (原 App 内容，提取为独立组件) ━━━
+
+function MainApp({ onLogout, loggedIn = false }: { onLogout: () => void; loggedIn?: boolean }) {
   const { status, reset } = useGameStore();
-  const tesujiStore = useTesujiStore(); // Get whole store object
+  const tesujiStore = useTesujiStore();
   const tsumegoStore = useTsumegoStore();
+  const navigate = useNavigate();
 
   const [module, setModule] = useState<AppModule>('HOME');
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  // Pre-load libraries when App mounts (or when switching modules)
+  const currentUser = getCurrentUser();
+  const userIsAdmin = isAdmin(currentUser);
+
+  // Pre-load libraries when App mounts
   useEffect(() => {
-    // Lazy load libraries
     if (tesujiStore.volumes.length === 0) tesujiStore.loadLibrary();
     if (tsumegoStore.volumes.length === 0) tsumegoStore.loadLibrary();
   }, []);
 
-  // Safety: If somehow status is NOT Welcome but we are at HOME, reset to Welcome to avoid blank screen
+  // Safety: If somehow status is NOT Welcome but we are at HOME, reset
   useEffect(() => {
     if (module === 'HOME' && status !== 'WELCOME') {
       reset();
@@ -53,15 +88,14 @@ function App() {
 
   const handleSelectCategory = (cat: string) => {
     if (cat === 'tesuji') setModule('TESUJI');
-    else if (cat === 'joseki') setModule('JOSEKI'); // Archived but kept if user wants
+    else if (cat === 'joseki') setModule('JOSEKI');
     else if (cat === 'mistakes') setModule('MISTAKE_BOOK');
-    else if (cat === 'tsumego') setModule('LIFE_DEATH'); // Need to add this to WelcomeScreen?
+    else if (cat === 'tsumego') setModule('LIFE_DEATH');
     else if (cat === 'ai_sparring') setModule('AI_SPARRING');
   };
 
   // UNIFIED MISTAKE BOOK DATA
   const mistakeData = useMemo(() => {
-    // Combine Problems
     const allMistakeIds = new Set([...tesujiStore.mistakeBookIds, ...tsumegoStore.mistakeBookIds]);
     const p1 = tesujiStore.flatProblems.filter(p => tesujiStore.mistakeBookIds.includes(p.id));
     const p2 = tsumegoStore.flatProblems.filter(p => tsumegoStore.mistakeBookIds.includes(p.id));
@@ -75,32 +109,17 @@ function App() {
 
 
   const handleSelectProblem = (prob: GenericProblem) => {
-    // Check Source Type
-    // The loaders inject 'sourceType': 'TESUJI' or 'TSUMEGO'
     const type = (prob as any).sourceType;
 
     if (type === 'TESUJI') {
       tesujiStore.loadProblem(prob.sgf, prob.id);
-      if (module === 'MISTAKE_BOOK') {
-        // Switch view mode? No, Mistake Book renders different boards?
-        // Actually, Mistake Book should probably show the board relevant to the problem.
-        // But we only have one Main Area!
-        // We need to know WHICH board to render.
-        // Let's add a state `activeMistakeType`?
-        // Or just deduce it from currentProblemId if possible.
-        // Store currentProblemId in local state or check stores?
-      }
     } else if (type === 'TSUMEGO') {
       tsumegoStore.loadProblem(prob.sgf, prob.id);
     }
   };
 
-  // Determine which board to show in Mistake Book
-  // Heuristic: Check which store has `currentProblemId` set (and matches selection)
-  // Or better: Tracking `activeBoard` state.
   const [activeBoard, setActiveBoard] = useState<'TESUJI' | 'TSUMEGO'>('TESUJI');
 
-  // When selecting a problem, update active board
   const onSelect = (prob: GenericProblem) => {
     handleSelectProblem(prob);
     const type = (prob as any).sourceType;
@@ -144,7 +163,7 @@ function App() {
   if (status === 'WELCOME' && module === 'HOME') {
     return (
       <WelcomeScreen
-        onStart={() => { setModule('LIFE_DEATH'); }} // Default to Tsumego for now?
+        onStart={() => { setModule('LIFE_DEATH'); }}
         onSelectCategory={handleSelectCategory}
       />
     );
@@ -208,9 +227,32 @@ function App() {
           <button onClick={() => setModule('AI_SPARRING')} className={`px-3 py-1 rounded text-sm font-bold transition-all text-stone-400 hover:text-stone-200`}>AI 对弈</button>
         </div>
 
-        <div className="bg-stone-800 px-3 py-1 rounded flex items-center gap-2 border border-stone-700 shadow-inner">
-          <span className="text-amber-500 text-xs uppercase font-bold hidden sm:inline">筹码</span>
-          <span className="text-stone-100 font-mono font-bold">{useGameStore.getState().chips}</span>
+        <div className="flex items-center gap-3">
+          <div className="bg-stone-800 px-3 py-1 rounded flex items-center gap-2 border border-stone-700 shadow-inner">
+            <span className="text-amber-500 text-xs uppercase font-bold hidden sm:inline">筹码</span>
+            <span className="text-stone-100 font-mono font-bold">{useGameStore.getState().chips}</span>
+          </div>
+
+          {/* User menu */}
+          {loggedIn && (
+            <div className="flex items-center gap-2">
+              {userIsAdmin && (
+                <button
+                  onClick={() => navigate('/admin')}
+                  className="px-2 py-1 text-xs font-bold text-amber-400 hover:text-amber-300 bg-amber-900/20 border border-amber-800/50 rounded transition-colors"
+                >
+                  管理后台
+                </button>
+              )}
+              <button
+                onClick={onLogout}
+                className="px-2 py-1 text-xs text-stone-500 hover:text-stone-300 transition-colors"
+                title={currentUser?.username || ''}
+              >
+                退出
+              </button>
+            </div>
+          )}
         </div>
       </header>
 
@@ -292,7 +334,6 @@ function App() {
 
             {/* Main Area: Board */}
             <section className="flex-1 flex justify-center items-center bg-[#dc933c] md:bg-[url('/wood-pattern.jpg')] bg-cover bg-center relative min-w-0 shadow-inner">
-              {/* If Mistake Book, check activeBoard. If others, dedicated board. */}
               {module === 'TESUJI' && <TesujiBoard />}
               {module === 'LIFE_DEATH' && <TsumegoBoard />}
 
