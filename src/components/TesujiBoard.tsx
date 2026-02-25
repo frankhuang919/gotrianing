@@ -42,7 +42,10 @@ export const TesujiBoard: React.FC = () => {
     const boardPixelSize = gridSize * (size - 1) + padding * 2;
 
     const handleClick = (e: React.MouseEvent) => {
-        if (isLocked) return; // STRICT LOCK
+        if (isLocked) {
+            setProvisionalMove(null); // Clear any residual ghost stone
+            return;
+        }
         if (status !== 'playing') return;
 
         const rect = e.currentTarget.getBoundingClientRect();

@@ -204,7 +204,7 @@ export const useTesujiStore = create<TesujiState>()(
             },
 
             playMove: (x, y) => {
-                const { currentNode, boardStones, isBlackTurn, status, lockEndTime, sessionMistakes, mistakeBookIds, currentProblemId } = get();
+                const { currentNode, boardStones, isBlackTurn, status, lockEndTime } = get();
 
                 // CHECK LOCK
                 if (Date.now() < lockEndTime) {
@@ -334,7 +334,9 @@ export const useTesujiStore = create<TesujiState>()(
                     }
 
                     function handleWrong() {
-                        const newMistakes = sessionMistakes + 1;
+                        const currentState = get();
+                        const newMistakes = currentState.sessionMistakes + 1;
+                        const { mistakeBookIds: curMistakeIds, currentProblemId: curProbId } = currentState;
                         let penaltyTime = 0;
                         let penaltyMsg = '';
 
@@ -344,10 +346,8 @@ export const useTesujiStore = create<TesujiState>()(
                         } else if (newMistakes === 2) {
                             penaltyTime = 60000; // 60s
                             penaltyMsg = '❌ 答错 2 次 (锁定 60s) - 加入错题本';
-
-                            // Add to Mistake Book
-                            if (currentProblemId && !mistakeBookIds.includes(currentProblemId)) {
-                                set({ mistakeBookIds: [...mistakeBookIds, currentProblemId] });
+                            if (curProbId && !curMistakeIds.includes(curProbId)) {
+                                set({ mistakeBookIds: [...curMistakeIds, curProbId] });
                             }
                         } else {
                             // 3rd time
@@ -368,7 +368,7 @@ export const useTesujiStore = create<TesujiState>()(
                             lockEndTime: Date.now() + penaltyTime,
                             feedback: penaltyMsg
                         });
-                        if (currentProblemId) recordProblemResult(currentProblemId, false, false).catch(console.error);
+                        if (curProbId) recordProblemResult(curProbId, false, false).catch(console.error);
                     }
 
                 } else {
@@ -379,7 +379,9 @@ export const useTesujiStore = create<TesujiState>()(
                     handleWrongOutside();
 
                     function handleWrongOutside() {
-                        const newMistakes = sessionMistakes + 1;
+                        const currentState = get();
+                        const newMistakes = currentState.sessionMistakes + 1;
+                        const { mistakeBookIds: curMistakeIds, currentProblemId: curProbId } = currentState;
                         let penaltyTime = 0;
                         let penaltyMsg = '';
 
@@ -389,8 +391,8 @@ export const useTesujiStore = create<TesujiState>()(
                         } else if (newMistakes === 2) {
                             penaltyTime = 60000;
                             penaltyMsg = '❌ 错误 (锁定 60s) -> 错题本';
-                            if (currentProblemId && !mistakeBookIds.includes(currentProblemId)) {
-                                set({ mistakeBookIds: [...mistakeBookIds, currentProblemId] });
+                            if (curProbId && !curMistakeIds.includes(curProbId)) {
+                                set({ mistakeBookIds: [...curMistakeIds, curProbId] });
                             }
                         } else {
                             // 3rd
