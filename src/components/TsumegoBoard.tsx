@@ -85,10 +85,10 @@ export const TsumegoBoard: React.FC = () => {
     return (
         <div className="flex flex-col md:flex-row h-full w-full overflow-hidden bg-stone-900">
             {/* LEFT: Main Board Area - Maximized */}
-            <div className="flex-1 flex items-center justify-center p-0 md:p-4 relative bg-stone-800/30 min-h-0">
+            <div className="flex-1 flex items-center justify-center p-2 md:p-4 relative bg-stone-800/30 min-h-0">
 
                 {/* Board Container — height-driven, width-capped for portrait */}
-                <div className={`relative w-full max-w-[95%] md:max-w-none md:w-auto h-auto md:h-[92%] aspect-square bg-[#DEB887] shadow-2xl rounded transition-opacity duration-500
+                <div className={`relative w-full max-w-[95%] md:max-w-[min(85vh,85vw)] h-auto max-h-[85vh] aspect-square bg-[#DEB887] shadow-2xl rounded transition-opacity duration-500
                     ${isLocked ? 'grayscale-[50%] cursor-not-allowed' : ''}
                 `}>
                     <svg
@@ -215,7 +215,7 @@ export const TsumegoBoard: React.FC = () => {
 
 
             {/* RIGHT Panel: Sidebar info (Proposed Plan B) */}
-            <div className="w-full md:w-80 lg:w-96 flex flex-col bg-stone-900 border-t md:border-t-0 md:border-l border-stone-700 shadow-2xl z-20 shrink-0 max-h-[35vh] md:max-h-none overflow-y-auto md:overflow-y-visible">
+            <div className="w-full md:w-72 lg:w-80 xl:w-96 flex flex-col bg-stone-900 border-t md:border-t-0 md:border-l border-stone-700 shadow-2xl z-20 shrink-0 max-h-[35vh] md:max-h-none overflow-y-auto md:overflow-y-visible">
                 {/* Header / Status Banner */}
                 <div className={`p-4 md:p-6 text-center shadow-md transition-colors duration-300
                      ${status === 'correct' ? 'bg-green-900/30 border-b border-green-800' : ''}
